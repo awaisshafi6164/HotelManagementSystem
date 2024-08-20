@@ -20,6 +20,7 @@ namespace HotelManagementSystem {
 		{
 			InitializeComponent();
 			//
+			LoadRoomData();
 			//TODO: Add the constructor code here
 			//
 		}
@@ -61,7 +62,8 @@ namespace HotelManagementSystem {
 	private: System::Windows::Forms::DateTimePicker^  dtpTimeOut;
 	private: System::Windows::Forms::DataGridView^  dgvRoomData;
 	private: System::Windows::Forms::Label^  label12;
-	private: System::Windows::Forms::Button^  btnLoadRoomData;
+	private: System::Windows::Forms::Button^  btnRefresh;
+
 	private: System::Windows::Forms::Label^  label13;
 	private: System::Windows::Forms::TextBox^  tbNoOfRooms;
 	private: System::Windows::Forms::TextBox^  textBox1;
@@ -73,22 +75,7 @@ namespace HotelManagementSystem {
 	private: System::Windows::Forms::Button^  btnCancel;
 	private: System::Windows::Forms::Button^  btnSave;
 	private: System::Windows::Forms::Button^  btnPrint;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	private: System::Windows::Forms::Button^  btnCalculateTotal;
 
 	private: System::ComponentModel::IContainer^  components;
 
@@ -126,7 +113,7 @@ namespace HotelManagementSystem {
 			this->dtpTimeOut = (gcnew System::Windows::Forms::DateTimePicker());
 			this->dgvRoomData = (gcnew System::Windows::Forms::DataGridView());
 			this->label12 = (gcnew System::Windows::Forms::Label());
-			this->btnLoadRoomData = (gcnew System::Windows::Forms::Button());
+			this->btnRefresh = (gcnew System::Windows::Forms::Button());
 			this->label13 = (gcnew System::Windows::Forms::Label());
 			this->tbNoOfRooms = (gcnew System::Windows::Forms::TextBox());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
@@ -138,6 +125,7 @@ namespace HotelManagementSystem {
 			this->btnCancel = (gcnew System::Windows::Forms::Button());
 			this->btnSave = (gcnew System::Windows::Forms::Button());
 			this->btnPrint = (gcnew System::Windows::Forms::Button());
+			this->btnCalculateTotal = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvRoomData))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -351,17 +339,17 @@ namespace HotelManagementSystem {
 			this->label12->TabIndex = 1;
 			this->label12->Text = L"Room";
 			// 
-			// btnLoadRoomData
+			// btnRefresh
 			// 
-			this->btnLoadRoomData->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->btnRefresh->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->btnLoadRoomData->Location = System::Drawing::Point(354, 246);
-			this->btnLoadRoomData->Name = L"btnLoadRoomData";
-			this->btnLoadRoomData->Size = System::Drawing::Size(131, 30);
-			this->btnLoadRoomData->TabIndex = 8;
-			this->btnLoadRoomData->Text = L"Load Data";
-			this->btnLoadRoomData->UseVisualStyleBackColor = true;
-			this->btnLoadRoomData->Click += gcnew System::EventHandler(this, &MainForm::btnLoadRoomData_Click);
+			this->btnRefresh->Location = System::Drawing::Point(17, 488);
+			this->btnRefresh->Name = L"btnRefresh";
+			this->btnRefresh->Size = System::Drawing::Size(90, 30);
+			this->btnRefresh->TabIndex = 8;
+			this->btnRefresh->Text = L"Refresh";
+			this->btnRefresh->UseVisualStyleBackColor = true;
+			this->btnRefresh->Click += gcnew System::EventHandler(this, &MainForm::btnRefresh_Click);
 			// 
 			// label13
 			// 
@@ -476,6 +464,17 @@ namespace HotelManagementSystem {
 			this->btnPrint->Text = L"Print";
 			this->btnPrint->UseVisualStyleBackColor = true;
 			// 
+			// btnCalculateTotal
+			// 
+			this->btnCalculateTotal->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->btnCalculateTotal->Location = System::Drawing::Point(113, 488);
+			this->btnCalculateTotal->Name = L"btnCalculateTotal";
+			this->btnCalculateTotal->Size = System::Drawing::Size(151, 30);
+			this->btnCalculateTotal->TabIndex = 9;
+			this->btnCalculateTotal->Text = L"Calculate Total";
+			this->btnCalculateTotal->UseVisualStyleBackColor = true;
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
@@ -484,8 +483,9 @@ namespace HotelManagementSystem {
 			this->ClientSize = System::Drawing::Size(935, 561);
 			this->Controls->Add(this->btnPrint);
 			this->Controls->Add(this->btnSave);
+			this->Controls->Add(this->btnCalculateTotal);
 			this->Controls->Add(this->btnCancel);
-			this->Controls->Add(this->btnLoadRoomData);
+			this->Controls->Add(this->btnRefresh);
 			this->Controls->Add(this->dgvRoomData);
 			this->Controls->Add(this->dtpTimeOut);
 			this->Controls->Add(this->dtpTimeIn);
@@ -544,43 +544,57 @@ private: System::Void tbCell_Leave(System::Object^  sender, System::EventArgs^  
 		tbCell->Text = "03xx-xxxxxxx";
 	}
 }
-private: System::Void btnLoadRoomData_Click(System::Object^ sender, System::EventArgs^ e) {
-	String^ conString = "Data Source=localhost\\sqlexpress;Initial Catalog=myhotel;Integrated Security=True";
-	SqlConnection^ conDataBase = gcnew SqlConnection(conString);
-	SqlCommand^ cmdDataBase = gcnew SqlCommand("SELECT Room, Type, Category, Rent FROM room;", conDataBase);
-
-	try {
-		SqlDataAdapter^ sda = gcnew SqlDataAdapter();
-		sda->SelectCommand = cmdDataBase;
-		DataTable^ dbdataset = gcnew DataTable();
-		sda->Fill(dbdataset);
-		BindingSource^ bSource = gcnew BindingSource();
-
-		// Check if the checkbox column already exists
-		if (!dgvRoomData->Columns->Contains("chkSelect")) {
-			// Create a new DataGridViewCheckBoxColumn
-			DataGridViewCheckBoxColumn^ chkColumn = gcnew DataGridViewCheckBoxColumn();
-			chkColumn->HeaderText = "Select";  // Set the header text for the column
-			chkColumn->Name = "chkSelect";     // Set the name of the column
-			chkColumn->Width = 50;             // Optional: set the width of the checkbox column
-
-											   // Add the checkbox column to the DataGridView
-			dgvRoomData->Columns->Add(chkColumn);
-
-			// Adjust the column order so that the checkbox appears first
-			dgvRoomData->Columns["chkSelect"]->DisplayIndex = 0;
-		}
-
-		bSource->DataSource = dbdataset;
-		dgvRoomData->DataSource = bSource;
-
-		// Optional: Remove the Update command if not needed
-		// sda->Update(dbdataset);
-	}
-	catch (Exception^ ex) {
-		MessageBox::Show(ex->Message);
-	}
+private: System::Void btnRefresh_Click(System::Object^ sender, System::EventArgs^ e) {
+	LoadRoomData();
 }
+
+
+private:
+	void LoadRoomData()
+	{
+		String^ conString = "Data Source=localhost\\sqlexpress;Initial Catalog=myhotel;Integrated Security=True";
+		SqlConnection^ conDataBase = gcnew SqlConnection(conString);
+		SqlCommand^ cmdDataBase = gcnew SqlCommand("SELECT Room, Type, Category, Rent FROM room;", conDataBase);
+
+		try {
+			SqlDataAdapter^ sda = gcnew SqlDataAdapter();
+			sda->SelectCommand = cmdDataBase;
+			DataTable^ dbdataset = gcnew DataTable();
+			sda->Fill(dbdataset);
+			BindingSource^ bSource = gcnew BindingSource();
+
+			// Check if the checkbox column already exists
+			if (!dgvRoomData->Columns->Contains("chkSelect")) {
+				// Create a new DataGridViewCheckBoxColumn
+				DataGridViewCheckBoxColumn^ chkColumn = gcnew DataGridViewCheckBoxColumn();
+				chkColumn->HeaderText = "Select";  // Set the header text for the column
+				chkColumn->Name = "chkSelect";     // Set the name of the column
+				chkColumn->Width = 50;             // Optional: set the width of the checkbox column
+
+												   // Add the checkbox column to the DataGridView
+				dgvRoomData->Columns->Add(chkColumn);
+
+				// Adjust the column order so that the checkbox appears first
+				dgvRoomData->Columns["chkSelect"]->DisplayIndex = 0;
+			}
+			//this is comment
+			bSource->DataSource = dbdataset;
+			dgvRoomData->DataSource = bSource;
+
+			// Optional: Remove the Update command if not needed
+			// sda->Update(dbdataset);
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show(ex->Message);
+		}
+		finally
+		{
+			conDataBase->Close();
+		}
+	}
 
 };
+
 }
+
+
