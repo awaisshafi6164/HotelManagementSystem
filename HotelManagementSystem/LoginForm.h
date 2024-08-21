@@ -99,7 +99,7 @@ namespace HotelManagementSystem {
 			this->tbEmail->Location = System::Drawing::Point(170, 85);
 			this->tbEmail->Name = L"tbEmail";
 			this->tbEmail->Size = System::Drawing::Size(400, 30);
-			this->tbEmail->TabIndex = 2;
+			this->tbEmail->TabIndex = 1;
 			// 
 			// tbPassword
 			// 
@@ -109,7 +109,7 @@ namespace HotelManagementSystem {
 			this->tbPassword->Name = L"tbPassword";
 			this->tbPassword->PasswordChar = '*';
 			this->tbPassword->Size = System::Drawing::Size(400, 30);
-			this->tbPassword->TabIndex = 3;
+			this->tbPassword->TabIndex = 2;
 			// 
 			// label3
 			// 
@@ -130,7 +130,7 @@ namespace HotelManagementSystem {
 			this->btnOK->Location = System::Drawing::Point(170, 199);
 			this->btnOK->Name = L"btnOK";
 			this->btnOK->Size = System::Drawing::Size(125, 40);
-			this->btnOK->TabIndex = 4;
+			this->btnOK->TabIndex = 3;
 			this->btnOK->Text = L"OK";
 			this->btnOK->UseVisualStyleBackColor = true;
 			this->btnOK->Click += gcnew System::EventHandler(this, &LoginForm::btnOK_Click);

@@ -66,16 +66,20 @@ namespace HotelManagementSystem {
 
 	private: System::Windows::Forms::Label^  label13;
 	private: System::Windows::Forms::TextBox^  tbNoOfRooms;
-	private: System::Windows::Forms::TextBox^  textBox1;
+	private: System::Windows::Forms::TextBox^  tbTotalRent;
+
 	private: System::Windows::Forms::Label^  label14;
-	private: System::Windows::Forms::TextBox^  textBox2;
+	private: System::Windows::Forms::TextBox^  tbGst;
+
 	private: System::Windows::Forms::Label^  label15;
-	private: System::Windows::Forms::TextBox^  textBox3;
+	private: System::Windows::Forms::TextBox^  tbGrandTotal;
+
 	private: System::Windows::Forms::Label^  label16;
 	private: System::Windows::Forms::Button^  btnCancel;
 	private: System::Windows::Forms::Button^  btnSave;
 	private: System::Windows::Forms::Button^  btnPrint;
 	private: System::Windows::Forms::Button^  btnCalculateTotal;
+	private: System::Windows::Forms::Label^  label17;
 
 	private: System::ComponentModel::IContainer^  components;
 
@@ -116,16 +120,17 @@ namespace HotelManagementSystem {
 			this->btnRefresh = (gcnew System::Windows::Forms::Button());
 			this->label13 = (gcnew System::Windows::Forms::Label());
 			this->tbNoOfRooms = (gcnew System::Windows::Forms::TextBox());
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
+			this->tbTotalRent = (gcnew System::Windows::Forms::TextBox());
 			this->label14 = (gcnew System::Windows::Forms::Label());
-			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
+			this->tbGst = (gcnew System::Windows::Forms::TextBox());
 			this->label15 = (gcnew System::Windows::Forms::Label());
-			this->textBox3 = (gcnew System::Windows::Forms::TextBox());
+			this->tbGrandTotal = (gcnew System::Windows::Forms::TextBox());
 			this->label16 = (gcnew System::Windows::Forms::Label());
 			this->btnCancel = (gcnew System::Windows::Forms::Button());
 			this->btnSave = (gcnew System::Windows::Forms::Button());
 			this->btnPrint = (gcnew System::Windows::Forms::Button());
 			this->btnCalculateTotal = (gcnew System::Windows::Forms::Button());
+			this->label17 = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvRoomData))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -197,7 +202,7 @@ namespace HotelManagementSystem {
 			this->tbCnic->Location = System::Drawing::Point(113, 133);
 			this->tbCnic->Name = L"tbCnic";
 			this->tbCnic->Size = System::Drawing::Size(319, 30);
-			this->tbCnic->TabIndex = 2;
+			this->tbCnic->TabIndex = 3;
 			this->tbCnic->Text = L"xxxxx-xxxxxxx-x";
 			this->tbCnic->Enter += gcnew System::EventHandler(this, &MainForm::tbCnic_Enter);
 			this->tbCnic->Leave += gcnew System::EventHandler(this, &MainForm::tbCnic_Leave);
@@ -220,7 +225,7 @@ namespace HotelManagementSystem {
 			this->tbCell->Location = System::Drawing::Point(619, 133);
 			this->tbCell->Name = L"tbCell";
 			this->tbCell->Size = System::Drawing::Size(302, 30);
-			this->tbCell->TabIndex = 3;
+			this->tbCell->TabIndex = 4;
 			this->tbCell->Text = L"03xx-xxxxxxx";
 			this->tbCell->Enter += gcnew System::EventHandler(this, &MainForm::tbCell_Enter);
 			this->tbCell->Leave += gcnew System::EventHandler(this, &MainForm::tbCell_Leave);
@@ -276,7 +281,7 @@ namespace HotelManagementSystem {
 			this->dtpPresentDate->Location = System::Drawing::Point(619, 95);
 			this->dtpPresentDate->Name = L"dtpPresentDate";
 			this->dtpPresentDate->Size = System::Drawing::Size(179, 30);
-			this->dtpPresentDate->TabIndex = 6;
+			this->dtpPresentDate->TabIndex = 2;
 			// 
 			// label11
 			// 
@@ -300,7 +305,7 @@ namespace HotelManagementSystem {
 			this->dtpTimeIn->Location = System::Drawing::Point(113, 203);
 			this->dtpTimeIn->Name = L"dtpTimeIn";
 			this->dtpTimeIn->Size = System::Drawing::Size(179, 30);
-			this->dtpTimeIn->TabIndex = 6;
+			this->dtpTimeIn->TabIndex = 5;
 			this->dtpTimeIn->Value = System::DateTime(2024, 8, 19, 21, 40, 0, 0);
 			// 
 			// dtpTimeOut
@@ -346,7 +351,7 @@ namespace HotelManagementSystem {
 			this->btnRefresh->Location = System::Drawing::Point(17, 488);
 			this->btnRefresh->Name = L"btnRefresh";
 			this->btnRefresh->Size = System::Drawing::Size(90, 30);
-			this->btnRefresh->TabIndex = 8;
+			this->btnRefresh->TabIndex = 7;
 			this->btnRefresh->Text = L"Refresh";
 			this->btnRefresh->UseVisualStyleBackColor = true;
 			this->btnRefresh->Click += gcnew System::EventHandler(this, &MainForm::btnRefresh_Click);
@@ -364,21 +369,25 @@ namespace HotelManagementSystem {
 			// 
 			// tbNoOfRooms
 			// 
+			this->tbNoOfRooms->Enabled = false;
 			this->tbNoOfRooms->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->tbNoOfRooms->Location = System::Drawing::Point(663, 288);
 			this->tbNoOfRooms->Name = L"tbNoOfRooms";
 			this->tbNoOfRooms->Size = System::Drawing::Size(258, 38);
 			this->tbNoOfRooms->TabIndex = 1;
+			this->tbNoOfRooms->Text = L"0";
 			// 
-			// textBox1
+			// tbTotalRent
 			// 
-			this->textBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->tbTotalRent->Enabled = false;
+			this->tbTotalRent->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->textBox1->Location = System::Drawing::Point(663, 345);
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(258, 38);
-			this->textBox1->TabIndex = 1;
+			this->tbTotalRent->Location = System::Drawing::Point(663, 345);
+			this->tbTotalRent->Name = L"tbTotalRent";
+			this->tbTotalRent->Size = System::Drawing::Size(258, 38);
+			this->tbTotalRent->TabIndex = 1;
+			this->tbTotalRent->Text = L"0";
 			// 
 			// label14
 			// 
@@ -391,14 +400,16 @@ namespace HotelManagementSystem {
 			this->label14->TabIndex = 3;
 			this->label14->Text = L"Total Rent";
 			// 
-			// textBox2
+			// tbGst
 			// 
-			this->textBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->tbGst->Enabled = false;
+			this->tbGst->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->textBox2->Location = System::Drawing::Point(663, 397);
-			this->textBox2->Name = L"textBox2";
-			this->textBox2->Size = System::Drawing::Size(258, 38);
-			this->textBox2->TabIndex = 1;
+			this->tbGst->Location = System::Drawing::Point(663, 397);
+			this->tbGst->Name = L"tbGst";
+			this->tbGst->Size = System::Drawing::Size(258, 38);
+			this->tbGst->TabIndex = 1;
+			this->tbGst->Text = L"0";
 			// 
 			// label15
 			// 
@@ -411,14 +422,16 @@ namespace HotelManagementSystem {
 			this->label15->TabIndex = 3;
 			this->label15->Text = L"Gst @ 16%";
 			// 
-			// textBox3
+			// tbGrandTotal
 			// 
-			this->textBox3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->tbGrandTotal->Enabled = false;
+			this->tbGrandTotal->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->textBox3->Location = System::Drawing::Point(663, 448);
-			this->textBox3->Name = L"textBox3";
-			this->textBox3->Size = System::Drawing::Size(258, 38);
-			this->textBox3->TabIndex = 1;
+			this->tbGrandTotal->Location = System::Drawing::Point(663, 448);
+			this->tbGrandTotal->Name = L"tbGrandTotal";
+			this->tbGrandTotal->Size = System::Drawing::Size(258, 38);
+			this->tbGrandTotal->TabIndex = 1;
+			this->tbGrandTotal->Text = L"0";
 			// 
 			// label16
 			// 
@@ -441,6 +454,7 @@ namespace HotelManagementSystem {
 			this->btnCancel->TabIndex = 9;
 			this->btnCancel->Text = L"Cancel";
 			this->btnCancel->UseVisualStyleBackColor = true;
+			this->btnCancel->Click += gcnew System::EventHandler(this, &MainForm::btnCancel_Click);
 			// 
 			// btnSave
 			// 
@@ -449,9 +463,10 @@ namespace HotelManagementSystem {
 			this->btnSave->Location = System::Drawing::Point(445, 498);
 			this->btnSave->Name = L"btnSave";
 			this->btnSave->Size = System::Drawing::Size(124, 51);
-			this->btnSave->TabIndex = 9;
+			this->btnSave->TabIndex = 10;
 			this->btnSave->Text = L"Save";
 			this->btnSave->UseVisualStyleBackColor = true;
+			this->btnSave->Click += gcnew System::EventHandler(this, &MainForm::btnSave_Click);
 			// 
 			// btnPrint
 			// 
@@ -460,7 +475,7 @@ namespace HotelManagementSystem {
 			this->btnPrint->Location = System::Drawing::Point(585, 498);
 			this->btnPrint->Name = L"btnPrint";
 			this->btnPrint->Size = System::Drawing::Size(124, 51);
-			this->btnPrint->TabIndex = 9;
+			this->btnPrint->TabIndex = 11;
 			this->btnPrint->Text = L"Print";
 			this->btnPrint->UseVisualStyleBackColor = true;
 			// 
@@ -471,16 +486,28 @@ namespace HotelManagementSystem {
 			this->btnCalculateTotal->Location = System::Drawing::Point(113, 488);
 			this->btnCalculateTotal->Name = L"btnCalculateTotal";
 			this->btnCalculateTotal->Size = System::Drawing::Size(151, 30);
-			this->btnCalculateTotal->TabIndex = 9;
+			this->btnCalculateTotal->TabIndex = 8;
 			this->btnCalculateTotal->Text = L"Calculate Total";
 			this->btnCalculateTotal->UseVisualStyleBackColor = true;
+			this->btnCalculateTotal->Click += gcnew System::EventHandler(this, &MainForm::btnCalculateTotal_Click);
+			// 
+			// label17
+			// 
+			this->label17->AutoSize = true;
+			this->label17->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label17->Location = System::Drawing::Point(510, 138);
+			this->label17->Name = L"label17";
+			this->label17->Size = System::Drawing::Size(50, 25);
+			this->label17->TabIndex = 3;
+			this->label17->Text = L"Cell";
 			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::DarkCyan;
-			this->ClientSize = System::Drawing::Size(935, 561);
+			this->ClientSize = System::Drawing::Size(935, 563);
 			this->Controls->Add(this->btnPrint);
 			this->Controls->Add(this->btnSave);
 			this->Controls->Add(this->btnCalculateTotal);
@@ -499,11 +526,12 @@ namespace HotelManagementSystem {
 			this->Controls->Add(this->label14);
 			this->Controls->Add(this->label6);
 			this->Controls->Add(this->label8);
-			this->Controls->Add(this->textBox3);
+			this->Controls->Add(this->tbGrandTotal);
 			this->Controls->Add(this->label7);
-			this->Controls->Add(this->textBox2);
+			this->Controls->Add(this->tbGst);
 			this->Controls->Add(this->tbCnic);
-			this->Controls->Add(this->textBox1);
+			this->Controls->Add(this->tbTotalRent);
+			this->Controls->Add(this->label17);
 			this->Controls->Add(this->label5);
 			this->Controls->Add(this->tbNoOfRooms);
 			this->Controls->Add(this->tbName);
@@ -548,7 +576,6 @@ private: System::Void btnRefresh_Click(System::Object^ sender, System::EventArgs
 	LoadRoomData();
 }
 
-
 private:
 	void LoadRoomData()
 	{
@@ -592,6 +619,109 @@ private:
 			conDataBase->Close();
 		}
 	}
+
+private: System::Void btnCalculateTotal_Click(System::Object^  sender, System::EventArgs^  e) {
+	//on click btnCalculateTotal function code here
+	
+	int totalRooms = 0;
+	double totalRent = 0;
+	double gst = 0;
+	double grandTotal = 0;
+
+	for (int i = 0; i < dgvRoomData->Rows->Count; i++)
+	{
+		DataGridViewRow^ row = dgvRoomData->Rows[i];
+
+		//check if checkboxes in the row is selected
+		bool isSelected = Convert::ToBoolean(row->Cells["chkSelect"]->Value);
+		
+		if (isSelected)
+		{
+			// Fetch number of rooms and rent from the respective cells
+			int rooms = Convert::ToInt32(row->Cells["Room"]->Value);
+			double rent = Convert::ToDouble(row->Cells["Rent"]->Value);
+
+			//totalRooms += rooms;
+			totalRooms++;
+			//totalRent += (rooms * rent);
+			totalRent += rent;
+		}
+	}
+
+	// Apply GST
+	gst = totalRent * 0.16;
+
+	// Calculate Grand Total
+	grandTotal = totalRent + gst;
+
+	// Display the results in the respective text fields
+	tbNoOfRooms->Text = totalRooms.ToString();
+	//tbTotalRent->Text = totalRent.ToString("F2");  // F2 formats to 2 decimal places
+	tbTotalRent->Text = totalRent.ToString(); 
+	tbGst->Text = gst.ToString();
+	tbGrandTotal->Text = grandTotal.ToString();
+}
+private: System::Void btnCancel_Click(System::Object^  sender, System::EventArgs^  e) {
+	LoadRoomData();
+	tbNoOfRooms->Text = "0";
+	tbTotalRent->Text = "0";
+	tbGst->Text = "0";
+	tbGrandTotal->Text = "0";
+}
+private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e) {
+
+	if (tbName->Text == "") 
+	{
+		MessageBox::Show("Kindly Enter Name");
+		return;
+	}
+
+	if (tbNoOfRooms->Text != "0" || tbTotalRent->Text != "0" || tbGst->Text != "0" || tbGrandTotal->Text != "0")
+	{
+		String^ conString = "Data Source=localhost\\sqlexpress;Initial Catalog=myhotel;Integrated Security=True";
+		// Create the SQL query string
+		String^ query = "INSERT INTO customer (Invoice, Name, Cell, NoOfRooms, Rent, Gst, Total) VALUES (@Invoice, @Name, @Cell, @NoOfRooms, @Rent, @Gst, @Total);";
+
+		// Assuming you have a connection string
+		SqlConnection^ connection = gcnew SqlConnection(conString);
+
+		try {
+			connection->Open();
+
+			// Create a SqlCommand object
+			SqlCommand^ command = gcnew SqlCommand(query, connection);
+
+			// Bind the parameters with data from text boxes
+			command->Parameters->AddWithValue("@Invoice", 3);
+			command->Parameters->AddWithValue("@Name", tbName->Text);
+			if (tbCell->Text == "03xx-xxxxxxx")
+			{
+				command->Parameters->AddWithValue("@Cell", "");
+			}
+			else {
+				command->Parameters->AddWithValue("@Cell", tbCell->Text);
+			}
+			command->Parameters->AddWithValue("@NoOfRooms", Convert::ToInt32(tbNoOfRooms->Text));
+			command->Parameters->AddWithValue("@Rent", Convert::ToDouble(tbTotalRent->Text));
+			command->Parameters->AddWithValue("@Gst", Convert::ToDouble(tbGst->Text));
+			command->Parameters->AddWithValue("@Total", Convert::ToDouble(tbGrandTotal->Text));
+
+			// Execute the query
+			command->ExecuteNonQuery();
+
+			MessageBox::Show("Data saved successfully!", "Save", MessageBoxButtons::OK, MessageBoxIcon::Information);
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show("An error occurred: " + ex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
+		finally{
+			connection->Close();
+		}
+	}
+	else {
+		MessageBox::Show("Please make sure all fields are filled out correctly.", "Validation Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+	}
+}
 
 };
 
