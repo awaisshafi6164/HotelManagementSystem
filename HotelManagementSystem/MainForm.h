@@ -1,5 +1,64 @@
 #pragma once
 
+#define IServiceProvider WindowsIServiceProvider // Rename Windows IServiceProvider
+#include <curl/curl.h>
+#undef IServiceProvider  // Undefine after including
+
+#include <iostream>
+#include <string>
+#include <nlohmann\json.hpp>
+
+
+#include "Invoice.h"
+#include <msclr/marshal_cppstd.h> // For converting std::string to System::String
+
+
+// WriteCallback function to capture the response data
+inline size_t WriteCallback(void* contents, size_t size, size_t nmemb, std::string* response) {
+	size_t totalSize = size * nmemb;
+	response->append((char*)contents, totalSize);
+	return totalSize;
+}
+
+inline std::string SendInvoiceData(const nlohmann::json& invoiceJson) {
+	CURL* curl;
+	CURLcode res;
+	std::string response;
+
+	curl = curl_easy_init();
+	if (curl) {
+		// Convert JSON object to string
+		std::string jsonString = invoiceJson.dump();
+
+		// Set up cURL options
+		curl_easy_setopt(curl, CURLOPT_URL, "http://localhost:8524/api/IMSFiscal/GetInvoiceNumberByModel");
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, jsonString.c_str());
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, jsonString.size());
+
+		// Set up HTTP headers
+		struct curl_slist* headers = NULL;
+		headers = curl_slist_append(headers, "Content-Type: application/json");
+		curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+
+		// Set up the callback function to capture the response
+		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
+		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
+
+		// Perform the request
+		res = curl_easy_perform(curl);
+		if (res != CURLE_OK) {
+			std::cerr << "Request failed: " << curl_easy_strerror(res) << std::endl;
+		}
+
+		// Clean up
+		curl_easy_cleanup(curl);
+		curl_slist_free_all(headers);
+	}
+
+	return response;
+}
+
+
 namespace HotelManagementSystem {
 
 	using namespace System;
@@ -9,6 +68,7 @@ namespace HotelManagementSystem {
 	using namespace System::Data;
 	using namespace System::Drawing;
 	using namespace System::Data::SqlClient;
+
 
 	/// <summary>
 	/// Summary for MainForm
@@ -692,7 +752,7 @@ private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e
 			SqlCommand^ command = gcnew SqlCommand(query, connection);
 
 			// Bind the parameters with data from text boxes
-			command->Parameters->AddWithValue("@Invoice", 3);
+			command->Parameters->AddWithValue("@Invoice", 8);//Unique Key Constraint
 			command->Parameters->AddWithValue("@Name", tbName->Text);
 			if (tbCell->Text == "03xx-xxxxxxx")
 			{
@@ -721,10 +781,87 @@ private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e
 	else {
 		MessageBox::Show("Please make sure all fields are filled out correctly.", "Validation Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 	}
+	//////
+	// API Code below
+	//////
+
+	Invoice objInv;
+	objInv.InvoiceNumber = "";  // or provide a valid default
+	objInv.POSID = 0;  // Change to appropriate value if required
+	objInv.USIN = "USIN0";
+	objInv.DateTime = "2020-01-01 12:00:00";  // Ensure this matches expected format
+	objInv.BuyerPNTN = "1234567-8";
+	objInv.BuyerCNIC = "12345-1234567-8";
+	objInv.BuyerName = "Buyer Name";
+	objInv.BuyerPhoneNumber = "0000-0000000";
+	objInv.TotalSaleValue = 0.0;
+	objInv.TotalQuantity = 0.0;
+	objInv.TotalBillAmount = 0.0;
+	objInv.TotalTaxCharged = 0.0;
+	objInv.Discount = 0.0;
+	objInv.FurtherTax = 0.0;
+	objInv.PaymentMode = 1;
+	objInv.RefUSIN = "";  // Ensure this matches expected format
+	objInv.InvoiceType = 1;
+	objInv.Items = CreateItems(); // Populate Items list with correct data
+
+								  // Convert Invoice to JSON
+	nlohmann::json jsonObj = {
+		{ "InvoiceNumber", objInv.InvoiceNumber },
+	{ "POSID", objInv.POSID },
+	{ "USIN", objInv.USIN },
+	{ "DateTime", objInv.DateTime },
+	{ "BuyerPNTN", objInv.BuyerPNTN },
+	{ "BuyerCNIC", objInv.BuyerCNIC },
+	{ "BuyerName", objInv.BuyerName },
+	{ "BuyerPhoneNumber", objInv.BuyerPhoneNumber },
+	{ "TotalSaleValue", objInv.TotalSaleValue },
+	{ "TotalQuantity", objInv.TotalQuantity },
+	{ "TotalBillAmount", objInv.TotalBillAmount },
+	{ "TotalTaxCharged", objInv.TotalTaxCharged },
+	{ "Discount", objInv.Discount },
+	{ "FurtherTax", objInv.FurtherTax },
+	{ "PaymentMode", objInv.PaymentMode },
+	{ "RefUSIN", objInv.RefUSIN },
+	{ "InvoiceType", objInv.InvoiceType },
+	{ "Items", nlohmann::json::array() }
+	};
+
+
+	// Add Items to JSON
+	for (const auto& item : objInv.Items) {
+		jsonObj["Items"].push_back({
+			{ "ItemCode", item.ItemCode },
+			{ "ItemName", item.ItemName },
+			{ "Quantity", item.Quantity },
+			{ "PCTCode", item.PCTCode },
+			{ "TaxRate", item.TaxRate },
+			{ "SaleValue", item.SaleValue },
+			{ "TotalAmount", item.TotalAmount },
+			{ "TaxCharged", item.TaxCharged },
+			{ "Discount", item.Discount },
+			{ "FurtherTax", item.FurtherTax },
+			{ "InvoiceType", item.InvoiceType },
+			{ "RefUSIN", item.RefUSIN }
+			});
+	}
+
+	// Send data to the API and get the response
+	std::string response = SendInvoiceData(jsonObj);
+
+	// Parse the response to extract the InvoiceNumber
+	nlohmann::json responseJson = nlohmann::json::parse(response);
+	std::string invoiceNumber = responseJson.contains("InvoiceNumber") ? responseJson["InvoiceNumber"] : "Not Available";
+	std::string apiResponseMessage = responseJson.contains("Response") ? responseJson["Response"] : "No Response";
+
+	// Display the InvoiceNumber and response message in a message box
+	String^ invoiceNumberStr = gcnew String(invoiceNumber.c_str());
+	String^ apiResponseMessageStr = gcnew String(apiResponseMessage.c_str());
+	MessageBox::Show("Generated Invoice Number: " + invoiceNumberStr + "\nAPI Response: " + apiResponseMessageStr, "API Response", MessageBoxButtons::OK, MessageBoxIcon::Information);
+
 }
 
 };
-
 }
 
 
