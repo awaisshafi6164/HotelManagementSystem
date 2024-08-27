@@ -12,6 +12,9 @@
 #include "Invoice.h"
 #include <msclr/marshal_cppstd.h> // For converting std::string to System::String
 
+// Token and URL (replace with actual values)
+//std::string token = "24d8fab3-f2e9-398f-ae17-b387125ec4a2"; //sandbox token
+//std::string url = "https://ims.pral.com.pk/ims/sandbox/api/Live/PostData";//sandbox url
 
 // WriteCallback function to capture the response data
 inline size_t WriteCallback(void* contents, size_t size, size_t nmemb, std::string* response) {
@@ -20,6 +23,7 @@ inline size_t WriteCallback(void* contents, size_t size, size_t nmemb, std::stri
 	return totalSize;
 }
 
+/*
 inline std::string SendInvoiceData(const nlohmann::json& invoiceJson) {
 	CURL* curl;
 	CURLcode res;
@@ -57,6 +61,55 @@ inline std::string SendInvoiceData(const nlohmann::json& invoiceJson) {
 
 	return response;
 }
+*/
+
+inline std::string SendInvoiceData(const nlohmann::json& invoiceJson) {
+	CURL* curl;
+	CURLcode res;
+	std::string response;
+
+	curl = curl_easy_init();
+	if (curl) {
+		// Convert JSON object to string
+		std::string jsonString = invoiceJson.dump();
+
+		// Set up cURL options with HTTPS URL
+		std::string url = "https://ims.pral.com.pk/ims/sandbox/api/Live/PostData";
+		std::string token = "24d8fab3-f2e9-398f-ae17-b387125ec4a2"; // Sandbox Token
+
+		curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, jsonString.c_str());
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, jsonString.size());
+
+		// Set up HTTP headers including Authorization Bearer token
+		struct curl_slist* headers = NULL;
+		std::string bearer_token = "Authorization: Bearer " + token;
+		headers = curl_slist_append(headers, bearer_token.c_str());
+		headers = curl_slist_append(headers, "Content-Type: application/json");
+		curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+
+		// Skip SSL certificate verification (similar to ServicePointManager.ServerCertificateValidationCallback)
+		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
+		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0L);
+
+		// Set up the callback function to capture the response
+		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
+		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
+
+		// Perform the request
+		res = curl_easy_perform(curl);
+		if (res != CURLE_OK) {
+			std::cerr << "Request failed: " << curl_easy_strerror(res) << std::endl;
+		}
+
+		// Clean up
+		curl_easy_cleanup(curl);
+		curl_slist_free_all(headers);
+	}
+
+	return response;
+}
+
 
 
 namespace HotelManagementSystem {
@@ -243,6 +296,7 @@ namespace HotelManagementSystem {
 			this->tbName->Name = L"tbName";
 			this->tbName->Size = System::Drawing::Size(319, 30);
 			this->tbName->TabIndex = 1;
+			this->tbName->Text = L"awais";
 			// 
 			// label5
 			// 
@@ -567,7 +621,7 @@ namespace HotelManagementSystem {
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::DarkCyan;
-			this->ClientSize = System::Drawing::Size(935, 563);
+			this->ClientSize = System::Drawing::Size(935, 571);
 			this->Controls->Add(this->btnPrint);
 			this->Controls->Add(this->btnSave);
 			this->Controls->Add(this->btnCalculateTotal);
@@ -787,13 +841,13 @@ private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e
 
 	Invoice objInv;
 	objInv.InvoiceNumber = "";  // or provide a valid default
-	objInv.POSID = 0;  // Change to appropriate value if required
-	objInv.USIN = "USIN0";
-	objInv.DateTime = "2020-01-01 12:00:00";  // Ensure this matches expected format
-	objInv.BuyerPNTN = "1234567-8";
+	objInv.POSID = 814741;  // Change to appropriate value if required
+	objInv.USIN = "001";
+	objInv.DateTime = "2024-08-27 12:00:00.000";  // Ensure this matches expected format
+	objInv.BuyerPNTN = "0715030-0";
 	objInv.BuyerCNIC = "12345-1234567-8";
-	objInv.BuyerName = "Buyer Name";
-	objInv.BuyerPhoneNumber = "0000-0000000";
+	objInv.BuyerName = "Muhammad Awais";
+	objInv.BuyerPhoneNumber = "0340-8898238";
 	objInv.TotalSaleValue = 0.0;
 	objInv.TotalQuantity = 0.0;
 	objInv.TotalBillAmount = 0.0;
