@@ -1,11 +1,12 @@
 #include "LoginForm.h"
 #include "MainForm.h"
+#include <msclr/marshal_cppstd.h> // For converting std::string to System::String
 
 using namespace System;
 using namespace System::Windows::Forms;
 
-[STAThreadAttribute]
-int main(array<String^>^ args)
+//[STAThreadAttribute]
+int main()
 {
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
@@ -15,11 +16,12 @@ int main(array<String^>^ args)
 	User^ user = loginForm.user;
 
 	if (user != nullptr) {
+
 		MessageBox::Show("Successfully Authentication of " + user->name,
 			"LoginForm.cpp", MessageBoxButtons::OK);
 
 		// If authentication is successful, open MainForm
-		HotelManagementSystem::MainForm mainForm;
+		HotelManagementSystem::MainForm mainForm(user->name);
 		mainForm.ShowDialog();
 	} 
 	else {
@@ -27,10 +29,4 @@ int main(array<String^>^ args)
 			"LoginForm.cpp", MessageBoxButtons::OK);
 	}
 	return 0;
-}
-
-
-void HotelManagementSystem::LoginForm::LoginForm_Load(System::Object^ sender, System::EventArgs^ e)
-{
-	// Code to execute when the form loads
 }

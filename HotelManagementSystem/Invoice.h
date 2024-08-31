@@ -44,6 +44,22 @@ struct Invoice {
 inline std::vector<InvoiceItems> CreateItems() {
 	std::vector<InvoiceItems> lst;
 	InvoiceItems objItem;
+	// in future send items to CreateItems constructor and then use it in below
+
+	/*
+	objItem.ItemCode = "";
+	objItem.ItemName = "";
+	objItem.Quantity = 0;
+	objItem.TotalAmount = 0.0;
+	objItem.SaleValue = 0.0;
+	objItem.TaxCharged = 0.0;
+	objItem.TaxRate = 0;
+	objItem.PCTCode = "0";
+	objItem.FurtherTax = 0.0;
+	objItem.InvoiceType = 1;
+	objItem.Discount = 0.0;
+	objItem.RefUSIN = "";
+	*/
 
 	objItem.ItemCode = "0000";
 	objItem.ItemName = "Item Name";

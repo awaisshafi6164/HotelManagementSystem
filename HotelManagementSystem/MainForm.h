@@ -12,9 +12,12 @@
 #include "Invoice.h"
 #include <msclr/marshal_cppstd.h> // For converting std::string to System::String
 
+
+using namespace std;
 // Token and URL (replace with actual values)
 //std::string token = "24d8fab3-f2e9-398f-ae17-b387125ec4a2"; //sandbox token
 //std::string url = "https://ims.pral.com.pk/ims/sandbox/api/Live/PostData";//sandbox url
+
 
 // WriteCallback function to capture the response data
 inline size_t WriteCallback(void* contents, size_t size, size_t nmemb, std::string* response) {
@@ -129,8 +132,10 @@ namespace HotelManagementSystem {
 	public ref class MainForm : public System::Windows::Forms::Form
 	{
 	public:
-		MainForm(void)
+		String^ bookingManagerName;
+		MainForm(String^ userName)
 		{
+			this->bookingManagerName = userName;
 			InitializeComponent();
 			//
 			LoadRoomData();
@@ -225,7 +230,8 @@ namespace HotelManagementSystem {
 	private: System::Windows::Forms::TextBox^  tbBuyerPNTN;
 	private: System::Windows::Forms::Label^  label13;
 	private: System::Windows::Forms::Label^  label10;
-	private: System::Windows::Forms::Label^  label11;
+	private: System::Windows::Forms::Label^  lblManagerName;
+
 	private: System::Windows::Forms::TextBox^  tbRoomNo;
 
 	private: System::Windows::Forms::Label^  label17;
@@ -233,15 +239,22 @@ namespace HotelManagementSystem {
 private: System::Windows::Forms::TextBox^  tbDiscount;
 
 	private: System::Windows::Forms::Label^  label27;
-	private: System::Windows::Forms::CheckBox^  checkBox1;
-	private: System::Windows::Forms::CheckBox^  checkBox2;
-	private: System::Windows::Forms::CheckBox^  checkBox3;
+private: System::Windows::Forms::CheckBox^  cbPaymentModeCash;
+private: System::Windows::Forms::CheckBox^  cbPaymentModeCard;
+private: System::Windows::Forms::CheckBox^  cbPaymentModeCheque;
+
+
+
 	private: System::Windows::Forms::Label^  label28;
-private: System::Windows::Forms::RadioButton^  radioButton1;
-private: System::Windows::Forms::RadioButton^  radioButton2;
-private: System::Windows::Forms::RadioButton^  radioButton3;
+private: System::Windows::Forms::RadioButton^  rbInvoiceTypeNew;
+private: System::Windows::Forms::RadioButton^  rbInvoiceTypeDebit;
+private: System::Windows::Forms::RadioButton^  rbInvoiceTypeCredit;
+
+
+
 private: System::Windows::Forms::Label^  label29;
 private: System::Windows::Forms::Label^  label30;
+private: System::Windows::Forms::Label^  lblNote;
 
 
 
@@ -265,7 +278,7 @@ private: System::Windows::Forms::Label^  label30;
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
-		void InitializeComponent(void)
+		void InitializeComponent()
 		{
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
@@ -313,30 +326,32 @@ private: System::Windows::Forms::Label^  label30;
 			this->tbBuyerPNTN = (gcnew System::Windows::Forms::TextBox());
 			this->label13 = (gcnew System::Windows::Forms::Label());
 			this->label10 = (gcnew System::Windows::Forms::Label());
-			this->label11 = (gcnew System::Windows::Forms::Label());
+			this->lblManagerName = (gcnew System::Windows::Forms::Label());
 			this->tbRoomNo = (gcnew System::Windows::Forms::TextBox());
 			this->label17 = (gcnew System::Windows::Forms::Label());
 			this->label26 = (gcnew System::Windows::Forms::Label());
 			this->tbDiscount = (gcnew System::Windows::Forms::TextBox());
 			this->label27 = (gcnew System::Windows::Forms::Label());
-			this->checkBox1 = (gcnew System::Windows::Forms::CheckBox());
-			this->checkBox2 = (gcnew System::Windows::Forms::CheckBox());
-			this->checkBox3 = (gcnew System::Windows::Forms::CheckBox());
+			this->cbPaymentModeCash = (gcnew System::Windows::Forms::CheckBox());
+			this->cbPaymentModeCard = (gcnew System::Windows::Forms::CheckBox());
+			this->cbPaymentModeCheque = (gcnew System::Windows::Forms::CheckBox());
 			this->label28 = (gcnew System::Windows::Forms::Label());
-			this->radioButton1 = (gcnew System::Windows::Forms::RadioButton());
-			this->radioButton2 = (gcnew System::Windows::Forms::RadioButton());
-			this->radioButton3 = (gcnew System::Windows::Forms::RadioButton());
+			this->rbInvoiceTypeNew = (gcnew System::Windows::Forms::RadioButton());
+			this->rbInvoiceTypeDebit = (gcnew System::Windows::Forms::RadioButton());
+			this->rbInvoiceTypeCredit = (gcnew System::Windows::Forms::RadioButton());
 			this->label29 = (gcnew System::Windows::Forms::Label());
 			this->label30 = (gcnew System::Windows::Forms::Label());
+			this->lblNote = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvRoomData))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// label1
 			// 
-			this->label1->BackColor = System::Drawing::Color::LightBlue;
+			this->label1->BackColor = System::Drawing::Color::RoyalBlue;
 			this->label1->Dock = System::Windows::Forms::DockStyle::Top;
 			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
+			this->label1->ForeColor = System::Drawing::SystemColors::ButtonHighlight;
 			this->label1->Location = System::Drawing::Point(0, 0);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(1338, 45);
@@ -400,11 +415,13 @@ private: System::Windows::Forms::Label^  label30;
 			this->tbCnic->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->tbCnic->Location = System::Drawing::Point(119, 178);
+			this->tbCnic->MaxLength = 15;
 			this->tbCnic->Name = L"tbCnic";
 			this->tbCnic->Size = System::Drawing::Size(313, 30);
 			this->tbCnic->TabIndex = 3;
 			this->tbCnic->Text = L"61101-8903163-3";
 			this->tbCnic->Enter += gcnew System::EventHandler(this, &MainForm::tbCnic_Enter);
+			this->tbCnic->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MainForm::tbCnic_KeyPress);
 			this->tbCnic->Leave += gcnew System::EventHandler(this, &MainForm::tbCnic_Leave);
 			// 
 			// label6
@@ -445,10 +462,10 @@ private: System::Windows::Forms::Label^  label30;
 			// 
 			this->dtpTimeIn->CalendarFont = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->dtpTimeIn->CustomFormat = L"";
+			this->dtpTimeIn->CustomFormat = L"hh:mm tt";
 			this->dtpTimeIn->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->dtpTimeIn->Format = System::Windows::Forms::DateTimePickerFormat::Time;
+			this->dtpTimeIn->Format = System::Windows::Forms::DateTimePickerFormat::Custom;
 			this->dtpTimeIn->Location = System::Drawing::Point(119, 351);
 			this->dtpTimeIn->Name = L"dtpTimeIn";
 			this->dtpTimeIn->Size = System::Drawing::Size(313, 30);
@@ -459,10 +476,10 @@ private: System::Windows::Forms::Label^  label30;
 			// 
 			this->dtpTimeOut->CalendarFont = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->dtpTimeOut->CustomFormat = L"HH:MM";
+			this->dtpTimeOut->CustomFormat = L"hh:mm tt";
 			this->dtpTimeOut->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->dtpTimeOut->Format = System::Windows::Forms::DateTimePickerFormat::Time;
+			this->dtpTimeOut->Format = System::Windows::Forms::DateTimePickerFormat::Custom;
 			this->dtpTimeOut->Location = System::Drawing::Point(611, 351);
 			this->dtpTimeOut->Name = L"dtpTimeOut";
 			this->dtpTimeOut->Size = System::Drawing::Size(285, 30);
@@ -590,7 +607,6 @@ private: System::Windows::Forms::Label^  label30;
 			// btnCancel
 			// 
 			this->btnCancel->BackColor = System::Drawing::Color::DarkTurquoise;
-			this->btnCancel->DialogResult = System::Windows::Forms::DialogResult::Cancel;
 			this->btnCancel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnCancel->Location = System::Drawing::Point(919, 458);
@@ -641,11 +657,12 @@ private: System::Windows::Forms::Label^  label30;
 			// 
 			// label18
 			// 
+			this->label18->AutoSize = true;
 			this->label18->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label18->Location = System::Drawing::Point(21, 97);
 			this->label18->Name = L"label18";
-			this->label18->Size = System::Drawing::Size(118, 32);
+			this->label18->Size = System::Drawing::Size(114, 25);
 			this->label18->TabIndex = 12;
 			this->label18->Text = L"Invoice No";
 			// 
@@ -653,7 +670,7 @@ private: System::Windows::Forms::Label^  label30;
 			// 
 			this->tbInvoiceNo->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->tbInvoiceNo->Location = System::Drawing::Point(145, 97);
+			this->tbInvoiceNo->Location = System::Drawing::Point(150, 97);
 			this->tbInvoiceNo->Name = L"tbInvoiceNo";
 			this->tbInvoiceNo->Size = System::Drawing::Size(88, 27);
 			this->tbInvoiceNo->TabIndex = 13;
@@ -676,12 +693,13 @@ private: System::Windows::Forms::Label^  label30;
 			this->tbContact->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->tbContact->Location = System::Drawing::Point(679, 135);
-			this->tbContact->MaxLength = 50;
+			this->tbContact->MaxLength = 12;
 			this->tbContact->Name = L"tbContact";
 			this->tbContact->Size = System::Drawing::Size(217, 30);
 			this->tbContact->TabIndex = 1;
 			this->tbContact->Text = L"0340-8898238";
 			this->tbContact->Enter += gcnew System::EventHandler(this, &MainForm::tbContact_Enter);
+			this->tbContact->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MainForm::tbContact_KeyPress);
 			this->tbContact->Leave += gcnew System::EventHandler(this, &MainForm::tbContact_Leave);
 			// 
 			// label20
@@ -700,12 +718,13 @@ private: System::Windows::Forms::Label^  label30;
 			this->tbEmergencyContact->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->tbEmergencyContact->Location = System::Drawing::Point(679, 175);
-			this->tbEmergencyContact->MaxLength = 50;
+			this->tbEmergencyContact->MaxLength = 12;
 			this->tbEmergencyContact->Name = L"tbEmergencyContact";
 			this->tbEmergencyContact->Size = System::Drawing::Size(217, 30);
 			this->tbEmergencyContact->TabIndex = 1;
 			this->tbEmergencyContact->Text = L"0339-4098238";
 			this->tbEmergencyContact->Enter += gcnew System::EventHandler(this, &MainForm::tbEmergencyContact_Enter);
+			this->tbEmergencyContact->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MainForm::tbEmergencyContact_KeyPress);
 			this->tbEmergencyContact->Leave += gcnew System::EventHandler(this, &MainForm::tbEmergencyContact_Leave);
 			// 
 			// label21
@@ -721,14 +740,16 @@ private: System::Windows::Forms::Label^  label30;
 			// 
 			// cbNationality
 			// 
+			this->cbNationality->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
 			this->cbNationality->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->cbNationality->FormattingEnabled = true;
+			this->cbNationality->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"Pakistani", L"Foreigners" });
 			this->cbNationality->Location = System::Drawing::Point(611, 219);
+			this->cbNationality->MaxDropDownItems = 2;
 			this->cbNationality->Name = L"cbNationality";
 			this->cbNationality->Size = System::Drawing::Size(285, 33);
 			this->cbNationality->TabIndex = 14;
-			this->cbNationality->Text = L"Pakistani";
 			// 
 			// label22
 			// 
@@ -767,14 +788,15 @@ private: System::Windows::Forms::Label^  label30;
 			// 
 			this->dtpDate->CalendarFont = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->dtpDate->CustomFormat = L"";
+			this->dtpDate->CustomFormat = L"yyyy-MM-dd HH:mm";
 			this->dtpDate->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
+			this->dtpDate->Format = System::Windows::Forms::DateTimePickerFormat::Custom;
 			this->dtpDate->Location = System::Drawing::Point(543, 93);
 			this->dtpDate->Name = L"dtpDate";
 			this->dtpDate->Size = System::Drawing::Size(353, 30);
 			this->dtpDate->TabIndex = 5;
-			this->dtpDate->Value = System::DateTime(2024, 8, 30, 0, 0, 0, 0);
+			this->dtpDate->Value = System::DateTime(2024, 8, 31, 14, 31, 50, 0);
 			// 
 			// dtpDateIn
 			// 
@@ -842,12 +864,12 @@ private: System::Windows::Forms::Label^  label30;
 			this->tbBuyerPNTN->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->tbBuyerPNTN->Location = System::Drawing::Point(182, 222);
+			this->tbBuyerPNTN->MaxLength = 9;
 			this->tbBuyerPNTN->Name = L"tbBuyerPNTN";
 			this->tbBuyerPNTN->Size = System::Drawing::Size(250, 30);
 			this->tbBuyerPNTN->TabIndex = 3;
 			this->tbBuyerPNTN->Text = L"0715030-0";
-			this->tbBuyerPNTN->Enter += gcnew System::EventHandler(this, &MainForm::tbCnic_Enter);
-			this->tbBuyerPNTN->Leave += gcnew System::EventHandler(this, &MainForm::tbCnic_Leave);
+			this->tbBuyerPNTN->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MainForm::tbBuyerPNTN_KeyPress);
 			// 
 			// label13
 			// 
@@ -865,22 +887,22 @@ private: System::Windows::Forms::Label^  label30;
 			this->label10->AutoSize = true;
 			this->label10->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Italic, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label10->Location = System::Drawing::Point(988, 676);
+			this->label10->Location = System::Drawing::Point(905, 676);
 			this->label10->Name = L"label10";
 			this->label10->Size = System::Drawing::Size(144, 20);
 			this->label10->TabIndex = 12;
 			this->label10->Text = L"Booking Manager:";
 			// 
-			// label11
+			// lblManagerName
 			// 
-			this->label11->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Italic, System::Drawing::GraphicsUnit::Point,
+			this->lblManagerName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Italic, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label11->Location = System::Drawing::Point(1138, 676);
-			this->label11->Name = L"label11";
-			this->label11->Size = System::Drawing::Size(184, 20);
-			this->label11->TabIndex = 12;
-			this->label11->Text = L"Awais Shafi";
-			this->label11->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			this->lblManagerName->Location = System::Drawing::Point(1060, 676);
+			this->lblManagerName->Name = L"lblManagerName";
+			this->lblManagerName->Size = System::Drawing::Size(262, 20);
+			this->lblManagerName->TabIndex = 12;
+			this->lblManagerName->Text = L"Muhammad Awais Shafi";
+			this->lblManagerName->TextAlign = System::Drawing::ContentAlignment::MiddleRight;
 			// 
 			// tbRoomNo
 			// 
@@ -891,7 +913,7 @@ private: System::Windows::Forms::Label^  label30;
 			this->tbRoomNo->Name = L"tbRoomNo";
 			this->tbRoomNo->Size = System::Drawing::Size(239, 30);
 			this->tbRoomNo->TabIndex = 1;
-			this->tbRoomNo->Text = L"112, 123";
+			this->tbRoomNo->Text = L"0";
 			// 
 			// label17
 			// 
@@ -924,6 +946,7 @@ private: System::Windows::Forms::Label^  label30;
 			this->tbDiscount->Size = System::Drawing::Size(239, 38);
 			this->tbDiscount->TabIndex = 1;
 			this->tbDiscount->Text = L"0";
+			this->tbDiscount->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &MainForm::tbDiscount_KeyUp);
 			// 
 			// label27
 			// 
@@ -936,43 +959,43 @@ private: System::Windows::Forms::Label^  label30;
 			this->label27->TabIndex = 3;
 			this->label27->Text = L"Payment Mode";
 			// 
-			// checkBox1
+			// cbPaymentModeCash
 			// 
-			this->checkBox1->AutoSize = true;
-			this->checkBox1->Checked = true;
-			this->checkBox1->CheckState = System::Windows::Forms::CheckState::Checked;
-			this->checkBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->checkBox1->Location = System::Drawing::Point(1086, 363);
-			this->checkBox1->Name = L"checkBox1";
-			this->checkBox1->Size = System::Drawing::Size(70, 24);
-			this->checkBox1->TabIndex = 15;
-			this->checkBox1->Text = L"Cash";
-			this->checkBox1->UseVisualStyleBackColor = true;
+			this->cbPaymentModeCash->AutoSize = true;
+			this->cbPaymentModeCash->Checked = true;
+			this->cbPaymentModeCash->CheckState = System::Windows::Forms::CheckState::Checked;
+			this->cbPaymentModeCash->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->cbPaymentModeCash->Location = System::Drawing::Point(1086, 363);
+			this->cbPaymentModeCash->Name = L"cbPaymentModeCash";
+			this->cbPaymentModeCash->Size = System::Drawing::Size(70, 24);
+			this->cbPaymentModeCash->TabIndex = 15;
+			this->cbPaymentModeCash->Text = L"Cash";
+			this->cbPaymentModeCash->UseVisualStyleBackColor = true;
 			// 
-			// checkBox2
+			// cbPaymentModeCard
 			// 
-			this->checkBox2->AutoSize = true;
-			this->checkBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->checkBox2->Location = System::Drawing::Point(1163, 363);
-			this->checkBox2->Name = L"checkBox2";
-			this->checkBox2->Size = System::Drawing::Size(67, 24);
-			this->checkBox2->TabIndex = 15;
-			this->checkBox2->Text = L"Card";
-			this->checkBox2->UseVisualStyleBackColor = true;
+			this->cbPaymentModeCard->AutoSize = true;
+			this->cbPaymentModeCard->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->cbPaymentModeCard->Location = System::Drawing::Point(1163, 363);
+			this->cbPaymentModeCard->Name = L"cbPaymentModeCard";
+			this->cbPaymentModeCard->Size = System::Drawing::Size(67, 24);
+			this->cbPaymentModeCard->TabIndex = 15;
+			this->cbPaymentModeCard->Text = L"Card";
+			this->cbPaymentModeCard->UseVisualStyleBackColor = true;
 			// 
-			// checkBox3
+			// cbPaymentModeCheque
 			// 
-			this->checkBox3->AutoSize = true;
-			this->checkBox3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->checkBox3->Location = System::Drawing::Point(1237, 363);
-			this->checkBox3->Name = L"checkBox3";
-			this->checkBox3->Size = System::Drawing::Size(88, 24);
-			this->checkBox3->TabIndex = 15;
-			this->checkBox3->Text = L"Cheque";
-			this->checkBox3->UseVisualStyleBackColor = true;
+			this->cbPaymentModeCheque->AutoSize = true;
+			this->cbPaymentModeCheque->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->cbPaymentModeCheque->Location = System::Drawing::Point(1237, 363);
+			this->cbPaymentModeCheque->Name = L"cbPaymentModeCheque";
+			this->cbPaymentModeCheque->Size = System::Drawing::Size(88, 24);
+			this->cbPaymentModeCheque->TabIndex = 15;
+			this->cbPaymentModeCheque->Text = L"Cheque";
+			this->cbPaymentModeCheque->UseVisualStyleBackColor = true;
 			// 
 			// label28
 			// 
@@ -985,43 +1008,43 @@ private: System::Windows::Forms::Label^  label30;
 			this->label28->TabIndex = 3;
 			this->label28->Text = L"Invoice Type";
 			// 
-			// radioButton1
+			// rbInvoiceTypeNew
 			// 
-			this->radioButton1->AutoSize = true;
-			this->radioButton1->Checked = true;
-			this->radioButton1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->radioButton1->Location = System::Drawing::Point(1089, 404);
-			this->radioButton1->Name = L"radioButton1";
-			this->radioButton1->Size = System::Drawing::Size(63, 24);
-			this->radioButton1->TabIndex = 16;
-			this->radioButton1->TabStop = true;
-			this->radioButton1->Text = L"New";
-			this->radioButton1->UseVisualStyleBackColor = true;
+			this->rbInvoiceTypeNew->AutoSize = true;
+			this->rbInvoiceTypeNew->Checked = true;
+			this->rbInvoiceTypeNew->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->rbInvoiceTypeNew->Location = System::Drawing::Point(1089, 404);
+			this->rbInvoiceTypeNew->Name = L"rbInvoiceTypeNew";
+			this->rbInvoiceTypeNew->Size = System::Drawing::Size(63, 24);
+			this->rbInvoiceTypeNew->TabIndex = 16;
+			this->rbInvoiceTypeNew->TabStop = true;
+			this->rbInvoiceTypeNew->Text = L"New";
+			this->rbInvoiceTypeNew->UseVisualStyleBackColor = true;
 			// 
-			// radioButton2
+			// rbInvoiceTypeDebit
 			// 
-			this->radioButton2->AutoSize = true;
-			this->radioButton2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->radioButton2->Location = System::Drawing::Point(1162, 404);
-			this->radioButton2->Name = L"radioButton2";
-			this->radioButton2->Size = System::Drawing::Size(70, 24);
-			this->radioButton2->TabIndex = 16;
-			this->radioButton2->Text = L"Debit";
-			this->radioButton2->UseVisualStyleBackColor = true;
+			this->rbInvoiceTypeDebit->AutoSize = true;
+			this->rbInvoiceTypeDebit->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->rbInvoiceTypeDebit->Location = System::Drawing::Point(1162, 404);
+			this->rbInvoiceTypeDebit->Name = L"rbInvoiceTypeDebit";
+			this->rbInvoiceTypeDebit->Size = System::Drawing::Size(70, 24);
+			this->rbInvoiceTypeDebit->TabIndex = 16;
+			this->rbInvoiceTypeDebit->Text = L"Debit";
+			this->rbInvoiceTypeDebit->UseVisualStyleBackColor = true;
 			// 
-			// radioButton3
+			// rbInvoiceTypeCredit
 			// 
-			this->radioButton3->AutoSize = true;
-			this->radioButton3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->radioButton3->Location = System::Drawing::Point(1242, 404);
-			this->radioButton3->Name = L"radioButton3";
-			this->radioButton3->Size = System::Drawing::Size(75, 24);
-			this->radioButton3->TabIndex = 16;
-			this->radioButton3->Text = L"Credit";
-			this->radioButton3->UseVisualStyleBackColor = true;
+			this->rbInvoiceTypeCredit->AutoSize = true;
+			this->rbInvoiceTypeCredit->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->rbInvoiceTypeCredit->Location = System::Drawing::Point(1242, 404);
+			this->rbInvoiceTypeCredit->Name = L"rbInvoiceTypeCredit";
+			this->rbInvoiceTypeCredit->Size = System::Drawing::Size(75, 24);
+			this->rbInvoiceTypeCredit->TabIndex = 16;
+			this->rbInvoiceTypeCredit->Text = L"Credit";
+			this->rbInvoiceTypeCredit->UseVisualStyleBackColor = true;
 			// 
 			// label29
 			// 
@@ -1043,25 +1066,37 @@ private: System::Windows::Forms::Label^  label30;
 			this->label30->TabIndex = 12;
 			this->label30->Text = L"Commettie Chock, Rawalpindi";
 			// 
+			// lblNote
+			// 
+			this->lblNote->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Italic, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lblNote->ForeColor = System::Drawing::Color::DarkSlateGray;
+			this->lblNote->Location = System::Drawing::Point(919, 512);
+			this->lblNote->Name = L"lblNote";
+			this->lblNote->Size = System::Drawing::Size(403, 91);
+			this->lblNote->TabIndex = 12;
+			this->lblNote->Text = L"Note:";
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::LightSteelBlue;
 			this->ClientSize = System::Drawing::Size(1338, 705);
-			this->Controls->Add(this->radioButton3);
-			this->Controls->Add(this->radioButton2);
-			this->Controls->Add(this->radioButton1);
-			this->Controls->Add(this->checkBox3);
-			this->Controls->Add(this->checkBox2);
-			this->Controls->Add(this->checkBox1);
+			this->Controls->Add(this->rbInvoiceTypeCredit);
+			this->Controls->Add(this->rbInvoiceTypeDebit);
+			this->Controls->Add(this->rbInvoiceTypeNew);
+			this->Controls->Add(this->cbPaymentModeCheque);
+			this->Controls->Add(this->cbPaymentModeCard);
+			this->Controls->Add(this->cbPaymentModeCash);
 			this->Controls->Add(this->cbNationality);
 			this->Controls->Add(this->tbInvoiceNo);
 			this->Controls->Add(this->label25);
 			this->Controls->Add(this->label24);
 			this->Controls->Add(this->label23);
-			this->Controls->Add(this->label11);
+			this->Controls->Add(this->lblManagerName);
 			this->Controls->Add(this->label30);
+			this->Controls->Add(this->lblNote);
 			this->Controls->Add(this->label29);
 			this->Controls->Add(this->label10);
 			this->Controls->Add(this->label18);
@@ -1111,6 +1146,8 @@ private: System::Windows::Forms::Label^  label30;
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->label1);
 			this->MaximizeBox = false;
+			this->MaximumSize = System::Drawing::Size(1356, 752);
+			this->MinimumSize = System::Drawing::Size(1356, 752);
 			this->Name = L"MainForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Hotel Blue Sky";
@@ -1138,6 +1175,9 @@ private: System::Void btnRefresh_Click(System::Object^ sender, System::EventArgs
 private:
 	void LoadRoomData()
 	{
+		lblManagerName->Text = bookingManagerName;
+		cbNationality->SelectedItem = "Pakistani";
+
 		String^ conString = "Data Source=localhost\\sqlexpress;Initial Catalog=myhotel;Integrated Security=True";
 		SqlConnection^ conDataBase = gcnew SqlConnection(conString);
 		SqlCommand^ cmdDataBase = gcnew SqlCommand("SELECT Room, Type, Category, Rent FROM room;", conDataBase);
@@ -1221,70 +1261,326 @@ private: System::Void btnCalculateTotal_Click(System::Object^  sender, System::E
 	tbRoomCharges->Text = roomCharges.ToString(); 
 	tbGst->Text = gst.ToString();
 	tbPayable->Text = payable.ToString();
+
+	if (noOfRooms == 0)
+	{
+		tbRoomNo->Text = "0";
+	}
 }
 private: System::Void btnCancel_Click(System::Object^  sender, System::EventArgs^  e) {
 	LoadRoomData();
+	tbRoomNo->Text = "0";
 	tbNoOfRooms->Text = "0";
 	tbRoomCharges->Text = "0";
 	tbGst->Text = "0";
 	tbPayable->Text = "0";
+	tbDiscount->Text = "0";
 }
 private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e) {
 
-
-	if (tbName->Text == "") 
+	// checking of there is any empty fields
+	if (tbInvoiceNo->Text == ""
+		|| dtpDate->Text == ""
+		|| tbName->Text == ""
+		|| tbContact->Text == ""
+		|| tbCnic->Text == ""
+		|| tbCnic->Text == "xxxxx-xxxxxxx-x"
+		|| tbEmergencyContact->Text == ""
+		|| tbBuyerPNTN->Text == ""
+		|| cbNationality->Text == ""
+		|| tbAddress->Text == ""
+		|| dtpDateIn->Text == ""
+		|| dtpDateOut->Text == ""
+		|| dtpTimeIn->Text == ""
+		|| dtpTimeOut->Text == ""
+		|| tbNoOfRooms->Text == ""
+		|| tbRoomNo->Text == ""
+		|| tbRoomCharges->Text == ""
+		|| tbGst->Text == ""
+		|| tbPayable->Text == "")
 	{
-		MessageBox::Show("Kindly Enter Name");
+		MessageBox::Show("Kindly fill all the fields.", "ERROR", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		//return;
+	}
+
+	if (tbRoomCharges->Text == "" || tbRoomCharges->Text == "0") {
+		MessageBox::Show("Select Room and then click on Calculate Total", "ERROR", MessageBoxButtons::OK, MessageBoxIcon::Information);
 		return;
 	}
 
-	if (tbNoOfRooms->Text != "0" || tbRoomCharges->Text != "0" || tbGst->Text != "0" || tbPayable->Text != "0")
+	//////
+	// save UI data into variables for easy access
+	//////
+
+	//Make variables to store fetched data from fields from UI's
+	String^ invoiceNo = tbInvoiceNo->Text->ToString(); // varchar(50) == String
+	String^ name = tbName->Text->ToString(); // varchar(150) == String
+	String^ cnic = tbCnic->Text->ToString(); // varchar(15) == String
+	String^ buyerPNTN = tbBuyerPNTN->Text->ToString(); // varchar(9) == String
+	String^ address = tbAddress->Text->ToString(); // varchar(MAX) == String
+	String^ contact = tbContact->Text->ToString(); // varchar(20) == String
+	String^ emergencyContact = tbEmergencyContact->Text->ToString(); // varchar(20) == String
+	//String^ date = dtpDate->Text->ToString(); //tbEmergencyContact->Text->ToString(); // date
+	DateTime date = dtpDate->Value;
+	String^ praFormatDateTime = date.ToString("yyyy-MM-dd HH:mm:ss.fff");
+	DateTime dateIn = dtpDateIn->Value;
+	String^ praFormatDateIn = dateIn.ToString("yyyy-MM-dd");
+	DateTime dateOut = dtpDateOut->Value;
+	String^ praFormatDateOut = dateOut.ToString("yyyy-MM-dd");
+	DateTime timeIn = dtpTimeIn->Value;
+	String^ praFormatTimeIn = timeIn.ToString("hh:mm tt");
+	DateTime timeOut = dtpTimeOut->Value;
+	String^ praFormatTimeOut = timeOut.ToString("hh:mm tt");
+	String^ nationality = cbNationality->Text->ToString();
+	double noOfRooms = Convert::ToDouble(tbNoOfRooms->Text);
+	double roomCharges = Convert::ToDouble(tbRoomCharges->Text);
+	double gst = Convert::ToDouble(tbGst->Text);
+	double discount = Convert::ToDouble(tbDiscount->Text);
+	double payable = Convert::ToDouble(tbPayable->Text);
+
+	// Initialize the value to 0
+	int paymentMode = 0;
+
+	// Check if cbPaymentModeCash is checked
+	if (cbPaymentModeCash->Checked) {
+		paymentMode = 1;
+	}
+	if (cbPaymentModeCard->Checked) {
+		paymentMode = 2;
+	}
+	if (cbPaymentModeCheque->Checked) {
+		paymentMode = 3;
+	}
+	// If more than one CheckBox is checked, set the value to 5 which is mixed according to PRA Doc
+	if ((cbPaymentModeCash->Checked && cbPaymentModeCard->Checked) ||
+		(cbPaymentModeCash->Checked && cbPaymentModeCheque->Checked) ||
+		(cbPaymentModeCard->Checked && cbPaymentModeCheque->Checked)) {
+		paymentMode = 5;
+	}
+
+	switch (paymentMode) {
+	case 1:
+	case 2:
+	case 3:
+	case 4:
+	case 5:
+	case 6:
+		break;
+	default:
+		MessageBox::Show("Kindly Select Any Payment Mode.");
+		return;
+		break;
+	}
+
+	int invoiceType = 0;
+	if (rbInvoiceTypeNew->Checked)
 	{
-		String^ conString = "Data Source=localhost\\sqlexpress;Initial Catalog=myhotel;Integrated Security=True";
-		// Create the SQL query string
-		String^ query = "INSERT INTO customer (Invoice, Name, Cell, NoOfRooms, Rent, Gst, Total) VALUES (@Invoice, @Name, @Cell, @NoOfRooms, @Rent, @Gst, @Total);";
+		invoiceType = 1;
+	} 
+	else if (rbInvoiceTypeDebit->Checked)
+	{
+		invoiceType = 2;
+	} 
+	else if (rbInvoiceTypeCredit->Checked)
+	{
+		invoiceType = 3;
+	}
 
-		// Assuming you have a connection string
-		SqlConnection^ connection = gcnew SqlConnection(conString);
 
-		try {
-			connection->Open();
+	/*
+	MessageBox::Show("InvoiceNo: "+invoiceNo
+		+ "\nName: "+name
+		+ "\nCNIC: " + cnic
+		+ "\nBuyerPNTN: " + buyerPNTN
+		+ "\nAddress: " + address
+		+ "\nContact: " + contact
+		+ "\nEmergency Contact: " + emergencyContact
+		+ "\nDate: " + praFormatDateTime
+		+ "\nDate-In: " + praFormatDateIn
+		+ "\nDate-Out: " + praFormatDateOut
+		+ "\nTime-In: " + praFormatTimeIn
+		+ "\nTime-Out: " + praFormatTimeOut
+		+ "\nNationality: " + nationality
+		+ "\nPayment Mode: " + paymentMode
+		+ "\nInvoice Type: " + invoiceType
+		+ "\nBooking Manager Name: " + bookingManagerName
+	);
+	*/
 
-			// Create a SqlCommand object
-			SqlCommand^ command = gcnew SqlCommand(query, connection);
+	///////////
+	//send above data to PRA API for PRA invoice number 
+	//////////
+	Invoice custInv;
+	custInv.InvoiceNumber = "";  // or provide a valid default
+	custInv.POSID = 814741;  // Change to appropriate value if required
+	custInv.USIN = msclr::interop::marshal_as<std::string>(invoiceNo->ToString());
+	custInv.DateTime = msclr::interop::marshal_as<std::string>(praFormatDateTime->ToString());
+	custInv.BuyerPNTN = msclr::interop::marshal_as<std::string>(buyerPNTN->ToString());
+	custInv.BuyerCNIC = msclr::interop::marshal_as<std::string>(cnic->ToString());
+	custInv.BuyerName = msclr::interop::marshal_as<std::string>(name->ToString());
+	custInv.BuyerPhoneNumber = msclr::interop::marshal_as<std::string>(contact->ToString());
+	custInv.TotalSaleValue = roomCharges;
+	custInv.TotalQuantity = noOfRooms;
+	custInv.TotalBillAmount = payable;
+	custInv.TotalTaxCharged = gst;
+	custInv.Discount = discount;
+	custInv.FurtherTax = payable;
+	custInv.PaymentMode = paymentMode;
+	custInv.RefUSIN = "";  // Ensure this matches expected format
+	custInv.InvoiceType = invoiceType;
+	custInv.Items = CreateItems(); // send items to CreateItems list constructor
+	// make a loop to send items to createitems one by one till the number of items complete
 
-			// Bind the parameters with data from text boxes
-			command->Parameters->AddWithValue("@Invoice", 8);//Unique Key Constraint
-			command->Parameters->AddWithValue("@Name", tbName->Text);
-			if (tbContact->Text == "03xx-xxxxxxx")
-			{
-				command->Parameters->AddWithValue("@Cell", "");
-			}
-			else {
-				command->Parameters->AddWithValue("@Cell", tbContact->Text);
-			}
-			command->Parameters->AddWithValue("@NoOfRooms", Convert::ToInt32(tbNoOfRooms->Text));
-			command->Parameters->AddWithValue("@Rent", Convert::ToDouble(tbRoomCharges->Text));
-			command->Parameters->AddWithValue("@Gst", Convert::ToDouble(tbGst->Text));
-			command->Parameters->AddWithValue("@Total", Convert::ToDouble(tbPayable->Text));
+	//convert above invoice to JSON Formate 
+	nlohmann::json jsonObj = {
+		{ "InvoiceNumber", custInv.InvoiceNumber },
+		{ "POSID", custInv.POSID },
+		{ "USIN", custInv.USIN },
+		{ "DateTime", custInv.DateTime },
+		{ "BuyerPNTN", custInv.BuyerPNTN },
+		{ "BuyerCNIC", custInv.BuyerCNIC },
+		{ "BuyerName", custInv.BuyerName },
+		{ "BuyerPhoneNumber", custInv.BuyerPhoneNumber },
+		{ "TotalSaleValue", custInv.TotalSaleValue },
+		{ "TotalQuantity", custInv.TotalQuantity },
+		{ "TotalBillAmount", custInv.TotalBillAmount },
+		{ "TotalTaxCharged", custInv.TotalTaxCharged },
+		{ "Discount", custInv.Discount },
+		{ "FurtherTax", custInv.FurtherTax },
+		{ "PaymentMode", custInv.PaymentMode },
+		{ "RefUSIN", custInv.RefUSIN },
+		{ "InvoiceType", custInv.InvoiceType },
+		{ "Items", nlohmann::json::array() }
+	};
 
-			// Execute the query
-			command->ExecuteNonQuery();
+	// Add Items to JSON (createitems)
+	for (const auto& item : custInv.Items) {
+		jsonObj["Items"].push_back({
+			{ "ItemCode", item.ItemCode },
+			{ "ItemName", item.ItemName },
+			{ "Quantity", item.Quantity },
+			{ "PCTCode", item.PCTCode },
+			{ "TaxRate", item.TaxRate },
+			{ "SaleValue", item.SaleValue },
+			{ "TotalAmount", item.TotalAmount },
+			{ "TaxCharged", item.TaxCharged },
+			{ "Discount", item.Discount },
+			{ "FurtherTax", item.FurtherTax },
+			{ "InvoiceType", item.InvoiceType },
+			{ "RefUSIN", item.RefUSIN }
+			});
+	}
 
-			MessageBox::Show("Data saved successfully!", "Save", MessageBoxButtons::OK, MessageBoxIcon::Information);
-		}
-		catch (Exception^ ex) {
-			MessageBox::Show("An error occurred: " + ex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-			return;
-		}
-		finally{
-			connection->Close();
-		}
+	// Send data to the API and get the response
+	std::string response = SendInvoiceData(jsonObj);
+
+	// Parse the response to extract the InvoiceNumber
+	nlohmann::json responseJson = nlohmann::json::parse(response);
+	std::string invoiceNumber = responseJson.contains("InvoiceNumber") ? responseJson["InvoiceNumber"] : "Not Available";
+	std::string apiResponseMessage = responseJson.contains("Response") ? responseJson["Response"] : "No Response";
+	std::string apiCodeMessage = responseJson.contains("Code") ? responseJson["Code"] : "No Response";
+	std::string apiErrorsMessage = responseJson.contains("Errors") ? responseJson["Errors"] : "No Response";
+
+	String^ praInvoiceNo = gcnew String(invoiceNumber.c_str());
+	String^ apiResponseMessageStr = gcnew String(apiResponseMessage.c_str());
+	if (apiCodeMessage != "100")
+	{
+		// Display the InvoiceNumber and response message in a message box
+		String^ apiCodeMessageStr = gcnew String(apiCodeMessage.c_str());
+		String^ apiErrorsMessageStr = gcnew String(apiErrorsMessage.c_str());
+		MessageBox::Show("Generated Invoice Number: " + praInvoiceNo
+			+ "\nCode: " + apiCodeMessageStr
+			+ "\nAPI Response: " + apiResponseMessageStr
+			+ "\nErrors: " + apiErrorsMessageStr
+			, "API Response", MessageBoxButtons::OK, MessageBoxIcon::Information);
+
+		lblNote->Text = apiResponseMessageStr;
 	}
 	else {
-		MessageBox::Show("Please make sure all fields are filled out correctly.", "Validation Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		lblNote->Text = "Note: Generated PRA Invoice Number: " + praInvoiceNo + "\n" + apiResponseMessageStr;
+		MessageBox::Show("PRA Invoice Number: " + praInvoiceNo, "Success", MessageBoxButtons::OK, MessageBoxIcon::Asterisk);
+	}
+
+	///////////
+	//saving data to database customer table
+	//////////
+
+	String^ conString = "Data Source=localhost\\sqlexpress;Initial Catalog=myhotel;Integrated Security=True";
+	// Create the SQL query string
+	String^ query = "INSERT INTO customer (InvoiceNo, PRAInvoiceNo, Date, Name, CNIC, BuyerPNTN, ContactNo, EmergencyContact, Address, Nationality, DateIn, DateOut, TimeIn, TimeOut, RoomNo, NoOfRooms, RoomCharges, GST, Discount, Payable, PaymentMode, InvoiceType, ManagerName) VALUES (@InvoiceNo, @PRAInvoiceNo, @Date, @Name, @CNIC, @BuyerPNTN, @ContactNo, @EmergencyContact, @Address, @Nationality, @DateIn, @DateOut, @TimeIn, @TimeOut, @RoomNo, @NoOfRooms, @RoomCharges, @GST, @Discount, @Payable, @PaymentMode, @InvoiceType, @ManagerName);";
+
+	// Assuming you have a connection string
+	SqlConnection^ connection = gcnew SqlConnection(conString);
+
+	try {
+		connection->Open();
+
+		// Create a SqlCommand object
+		SqlCommand^ command = gcnew SqlCommand(query, connection);
+
+		/*
+		
+		MessageBox::Show("InvoiceNo: "+invoiceNo
+		+ "\nName: "+name
+		+ "\nCNIC: " + cnic
+		+ "\nBuyerPNTN: " + buyerPNTN
+		+ "\nAddress: " + address
+		+ "\nContact: " + contact
+		+ "\nEmergency Contact: " + emergencyContact
+		+ "\nDate: " + praFormatDateTime
+		+ "\nDate-In: " + praFormatDateIn
+		+ "\nDate-Out: " + praFormatDateOut
+		+ "\nTime-In: " + praFormatTimeIn
+		+ "\nTime-Out: " + praFormatTimeOut
+		+ "\nNationality: " + nationality
+		+ "\nPayment Mode: " + paymentMode
+		+ "\nInvoice Type: " + invoiceType
+		);
+		
+		*/
+
+		String^ roomNo = tbRoomNo->Text->ToString();
+
+		// Bind the parameters with data from text boxes
+		command->Parameters->AddWithValue("@InvoiceNo", invoiceNo);//Unique Key Constraint
+		command->Parameters->AddWithValue("@PRAInvoiceNo", praInvoiceNo);
+		command->Parameters->AddWithValue("@Date", praFormatDateTime);
+		command->Parameters->AddWithValue("@Name", name);
+		command->Parameters->AddWithValue("@CNIC", cnic);
+		command->Parameters->AddWithValue("@BuyerPNTN", buyerPNTN);
+		command->Parameters->AddWithValue("@ContactNo", contact);
+		command->Parameters->AddWithValue("@EmergencyContact", emergencyContact);
+		command->Parameters->AddWithValue("@Address", address);
+		command->Parameters->AddWithValue("@Nationality", nationality);
+		command->Parameters->AddWithValue("@DateIn", praFormatDateIn);
+		command->Parameters->AddWithValue("@DateOut", praFormatDateOut);
+		command->Parameters->AddWithValue("@TimeIn", praFormatTimeIn);
+		command->Parameters->AddWithValue("@TimeOut", praFormatTimeOut);
+		command->Parameters->AddWithValue("@RoomNo", roomNo);
+		command->Parameters->AddWithValue("@NoOfRooms", noOfRooms);
+		command->Parameters->AddWithValue("@RoomCharges", roomCharges);
+		command->Parameters->AddWithValue("@GST", gst);
+		command->Parameters->AddWithValue("@Discount", discount);
+		command->Parameters->AddWithValue("@Payable", payable);
+		command->Parameters->AddWithValue("@PaymentMode", paymentMode);
+		command->Parameters->AddWithValue("@InvoiceType", invoiceType);
+		command->Parameters->AddWithValue("@ManagerName", bookingManagerName);
+
+		// Execute the query
+		command->ExecuteNonQuery();
+
+		MessageBox::Show("Data saved successfully!", "Save", MessageBoxButtons::OK, MessageBoxIcon::Information);
+	}
+	catch (Exception^ ex) {
+		MessageBox::Show("An error occurred: " + ex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		return;
 	}
+	finally{
+		connection->Close();
+	}
+
+	/*
+
 	//////
 	// API Code below
 	//////
@@ -1361,15 +1657,17 @@ private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e
 	std::string apiErrorsMessage = responseJson.contains("Errors") ? responseJson["Errors"] : "No Response";
 
 	// Display the InvoiceNumber and response message in a message box
-	String^ invoiceNumberStr = gcnew String(invoiceNumber.c_str());
+	String^ praInvoiceNo = gcnew String(invoiceNumber.c_str());
 	String^ apiResponseMessageStr = gcnew String(apiResponseMessage.c_str());
 	String^ apiCodeMessageStr = gcnew String(apiCodeMessage.c_str());
 	String^ apiErrorsMessageStr = gcnew String(apiErrorsMessage.c_str());
-	MessageBox::Show("Generated Invoice Number: " + invoiceNumberStr 
+	MessageBox::Show("Generated Invoice Number: " + praInvoiceNo 
 		+ "\nCode: " + apiCodeMessageStr
 		+ "\nAPI Response: " + apiResponseMessageStr
 		+ "\nErrors: " + apiErrorsMessageStr
 		, "API Response" , MessageBoxButtons::OK, MessageBoxIcon::Information);
+
+	*/
 
 }
 private: System::Void tbContact_Enter(System::Object^  sender, System::EventArgs^  e) {
@@ -1391,6 +1689,155 @@ private: System::Void tbEmergencyContact_Leave(System::Object^  sender, System::
 	if (tbEmergencyContact->Text == "") {
 		tbEmergencyContact->Text = "03xx-xxxxxxx";
 	}
+}
+private: System::Void tbCnic_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
+	// Check if the pressed key is a digit or backspace
+	if (Char::IsDigit(e->KeyChar) || e->KeyChar == (char)Keys::Back) {
+		TextBox^ tb = dynamic_cast<TextBox^>(sender);
+
+		// Prevent entry if the maximum length is reached
+		if (tb->Text->Length >= 15 && e->KeyChar != (char)Keys::Back) {
+			e->Handled = true;
+			return;
+		}
+
+		// Handle deletion to correctly format the CNIC when the backspace key is pressed
+		if (e->KeyChar == (char)Keys::Back) {
+			// Handle the case where the backspace deletes a hyphen
+			if (tb->Text->Length > 0 && (tb->Text->Length == 6 || tb->Text->Length == 14)) {
+				tb->Text = tb->Text->Substring(0, tb->Text->Length - 1);
+				tb->SelectionStart = tb->Text->Length; // Set the cursor to the correct position
+			}
+			return;
+		}
+
+		// Insert hyphens automatically at the correct positions
+		if (tb->Text->Length == 5 || tb->Text->Length == 13) {
+			tb->Text += "-";
+			tb->SelectionStart = tb->Text->Length; // Set the cursor to the correct position
+		}
+	}
+	else {
+		// Prevent entry of any non-digit characters (except backspace)
+		e->Handled = true;
+	}
+}
+private: System::Void tbBuyerPNTN_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
+	// Check if the pressed key is a digit or backspace
+	if (Char::IsDigit(e->KeyChar) || e->KeyChar == (char)Keys::Back) {
+		TextBox^ tb = dynamic_cast<TextBox^>(sender);
+
+		// Prevent entry if the maximum length is reached
+		if (tb->Text->Length >= 9 && e->KeyChar != (char)Keys::Back) {
+			e->Handled = true;
+			return;
+		}
+
+		// Handle deletion to correctly format the CNIC when the backspace key is pressed
+		if (e->KeyChar == (char)Keys::Back) {
+			// Handle the case where the backspace deletes a hyphen
+			if (tb->Text->Length > 0 && (tb->Text->Length == 8)) {
+				tb->Text = tb->Text->Substring(0, tb->Text->Length - 1);
+				tb->SelectionStart = tb->Text->Length; // Set the cursor to the correct position
+			}
+			return;
+		}
+
+		// Insert hyphens automatically at the correct positions
+		if (tb->Text->Length == 7) {
+			tb->Text += "-";
+			tb->SelectionStart = tb->Text->Length; // Set the cursor to the correct position
+		}
+	}
+	else {
+		// Prevent entry of any non-digit characters (except backspace)
+		e->Handled = true;
+	}
+}
+private: System::Void tbContact_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
+	// Check if the pressed key is a digit or backspace
+	if (Char::IsDigit(e->KeyChar) || e->KeyChar == (char)Keys::Back) {
+		TextBox^ tb = dynamic_cast<TextBox^>(sender);
+
+		// Prevent entry if the maximum length is reached
+		if (tb->Text->Length >= 12 && e->KeyChar != (char)Keys::Back) {
+			e->Handled = true;
+			return;
+		}
+
+		// Handle deletion to correctly format the CNIC when the backspace key is pressed
+		if (e->KeyChar == (char)Keys::Back) {
+			// Handle the case where the backspace deletes a hyphen
+			if (tb->Text->Length > 0 && (tb->Text->Length == 5)) {
+				tb->Text = tb->Text->Substring(0, tb->Text->Length - 1);
+				tb->SelectionStart = tb->Text->Length; // Set the cursor to the correct position
+			}
+			return;
+		}
+
+		// Insert hyphens automatically at the correct positions
+		if (tb->Text->Length == 4) {
+			tb->Text += "-";
+			tb->SelectionStart = tb->Text->Length; // Set the cursor to the correct position
+		}
+	}
+	else {
+		// Prevent entry of any non-digit characters (except backspace)
+		e->Handled = true;
+	}
+}
+private: System::Void tbEmergencyContact_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
+	// Check if the pressed key is a digit or backspace
+	if (Char::IsDigit(e->KeyChar) || e->KeyChar == (char)Keys::Back) {
+		TextBox^ tb = dynamic_cast<TextBox^>(sender);
+
+		// Prevent entry if the maximum length is reached
+		if (tb->Text->Length >= 12 && e->KeyChar != (char)Keys::Back) {
+			e->Handled = true;
+			return;
+		}
+
+		// Handle deletion to correctly format the CNIC when the backspace key is pressed
+		if (e->KeyChar == (char)Keys::Back) {
+			// Handle the case where the backspace deletes a hyphen
+			if (tb->Text->Length > 0 && (tb->Text->Length == 5)) {
+				tb->Text = tb->Text->Substring(0, tb->Text->Length - 1);
+				tb->SelectionStart = tb->Text->Length; // Set the cursor to the correct position
+			}
+			return;
+		}
+
+		// Insert hyphens automatically at the correct positions
+		if (tb->Text->Length == 4) {
+			tb->Text += "-";
+			tb->SelectionStart = tb->Text->Length; // Set the cursor to the correct position
+		}
+	}
+	else {
+		// Prevent entry of any non-digit characters (except backspace)
+		e->Handled = true;
+	}
+}
+private: System::Void tbDiscount_KeyUp(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e) {
+	double roomCharges = Convert::ToDouble(tbRoomCharges->Text);
+	double gst;
+	double payable = Convert::ToDouble(tbPayable->Text);
+
+	if (tbDiscount->Text == "0" || tbDiscount->Text == "")
+	{
+		gst = roomCharges * 0.16;
+		payable = roomCharges + gst;
+		tbPayable->Text = payable.ToString();
+		return;
+	}
+	double discount = Convert::ToDouble(tbDiscount->Text);
+
+	gst = roomCharges * 0.16;
+	payable = roomCharges + gst;
+	payable = payable - discount;
+
+	tbPayable->Text = payable.ToString();
+
 }
 };
 }

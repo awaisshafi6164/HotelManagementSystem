@@ -164,15 +164,12 @@ namespace HotelManagementSystem {
 			this->Controls->Add(this->label1);
 			this->Name = L"LoginForm";
 			this->Text = L"Login Form";
-			this->Load += gcnew System::EventHandler(this, &LoginForm::LoginForm_Load);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
 	
-		// Event handler declaration
-		void LoginForm_Load(System::Object^ sender, System::EventArgs^ e);
 		private: System::Void label2_Click(System::Object^  sender, System::EventArgs^  e) {
 		}
 		private: System::Void btnCancel_Click(System::Object^  sender, System::EventArgs^  e) {
