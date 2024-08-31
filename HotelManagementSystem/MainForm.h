@@ -255,6 +255,9 @@ private: System::Windows::Forms::RadioButton^  rbInvoiceTypeCredit;
 private: System::Windows::Forms::Label^  label29;
 private: System::Windows::Forms::Label^  label30;
 private: System::Windows::Forms::Label^  lblNote;
+private: System::Drawing::Printing::PrintDocument^  printDocInvoice;
+private: System::Windows::Forms::PrintPreviewDialog^  printPreviewInvoice;
+private: System::Windows::Forms::Label^  label11;
 
 
 
@@ -280,6 +283,7 @@ private: System::Windows::Forms::Label^  lblNote;
 		/// </summary>
 		void InitializeComponent()
 		{
+			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->label3 = (gcnew System::Windows::Forms::Label());
@@ -342,6 +346,9 @@ private: System::Windows::Forms::Label^  lblNote;
 			this->label29 = (gcnew System::Windows::Forms::Label());
 			this->label30 = (gcnew System::Windows::Forms::Label());
 			this->lblNote = (gcnew System::Windows::Forms::Label());
+			this->printDocInvoice = (gcnew System::Drawing::Printing::PrintDocument());
+			this->printPreviewInvoice = (gcnew System::Windows::Forms::PrintPreviewDialog());
+			this->label11 = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvRoomData))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -641,6 +648,7 @@ private: System::Windows::Forms::Label^  lblNote;
 			this->btnPrint->TabIndex = 11;
 			this->btnPrint->Text = L"Print";
 			this->btnPrint->UseVisualStyleBackColor = false;
+			this->btnPrint->Click += gcnew System::EventHandler(this, &MainForm::btnPrint_Click);
 			// 
 			// btnCalculateTotal
 			// 
@@ -1071,11 +1079,36 @@ private: System::Windows::Forms::Label^  lblNote;
 			this->lblNote->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Italic, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->lblNote->ForeColor = System::Drawing::Color::DarkSlateGray;
-			this->lblNote->Location = System::Drawing::Point(919, 512);
+			this->lblNote->Location = System::Drawing::Point(987, 512);
 			this->lblNote->Name = L"lblNote";
-			this->lblNote->Size = System::Drawing::Size(403, 91);
+			this->lblNote->Size = System::Drawing::Size(335, 91);
 			this->lblNote->TabIndex = 12;
-			this->lblNote->Text = L"Note:";
+			// 
+			// printDocInvoice
+			// 
+			this->printDocInvoice->PrintPage += gcnew System::Drawing::Printing::PrintPageEventHandler(this, &MainForm::printDocInvoice_PrintPage);
+			// 
+			// printPreviewInvoice
+			// 
+			this->printPreviewInvoice->AutoScrollMargin = System::Drawing::Size(0, 0);
+			this->printPreviewInvoice->AutoScrollMinSize = System::Drawing::Size(0, 0);
+			this->printPreviewInvoice->ClientSize = System::Drawing::Size(400, 300);
+			this->printPreviewInvoice->Enabled = true;
+			this->printPreviewInvoice->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"printPreviewInvoice.Icon")));
+			this->printPreviewInvoice->Name = L"printPreviewInvoice";
+			this->printPreviewInvoice->Visible = false;
+			// 
+			// label11
+			// 
+			this->label11->AutoSize = true;
+			this->label11->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Italic, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label11->ForeColor = System::Drawing::Color::DarkSlateGray;
+			this->label11->Location = System::Drawing::Point(919, 512);
+			this->label11->Name = L"label11";
+			this->label11->Size = System::Drawing::Size(49, 20);
+			this->label11->TabIndex = 12;
+			this->label11->Text = L"Note:";
 			// 
 			// MainForm
 			// 
@@ -1096,6 +1129,7 @@ private: System::Windows::Forms::Label^  lblNote;
 			this->Controls->Add(this->label23);
 			this->Controls->Add(this->lblManagerName);
 			this->Controls->Add(this->label30);
+			this->Controls->Add(this->label11);
 			this->Controls->Add(this->lblNote);
 			this->Controls->Add(this->label29);
 			this->Controls->Add(this->label10);
@@ -1286,7 +1320,6 @@ private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e
 		|| tbCnic->Text == ""
 		|| tbCnic->Text == "xxxxx-xxxxxxx-x"
 		|| tbEmergencyContact->Text == ""
-		|| tbBuyerPNTN->Text == ""
 		|| cbNationality->Text == ""
 		|| tbAddress->Text == ""
 		|| dtpDateIn->Text == ""
@@ -1483,8 +1516,12 @@ private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e
 
 	String^ praInvoiceNo = gcnew String(invoiceNumber.c_str());
 	String^ apiResponseMessageStr = gcnew String(apiResponseMessage.c_str());
-	if (apiCodeMessage != "100")
+	if (apiCodeMessage == "100")
 	{
+		lblNote->Text = praInvoiceNo;
+		MessageBox::Show("PRA Invoice Number: " + praInvoiceNo, "Success", MessageBoxButtons::OK, MessageBoxIcon::Asterisk);
+	}
+	else {
 		// Display the InvoiceNumber and response message in a message box
 		String^ apiCodeMessageStr = gcnew String(apiCodeMessage.c_str());
 		String^ apiErrorsMessageStr = gcnew String(apiErrorsMessage.c_str());
@@ -1495,10 +1532,7 @@ private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e
 			, "API Response", MessageBoxButtons::OK, MessageBoxIcon::Information);
 
 		lblNote->Text = apiResponseMessageStr;
-	}
-	else {
-		lblNote->Text = "Note: Generated PRA Invoice Number: " + praInvoiceNo + "\n" + apiResponseMessageStr;
-		MessageBox::Show("PRA Invoice Number: " + praInvoiceNo, "Success", MessageBoxButtons::OK, MessageBoxIcon::Asterisk);
+		return;
 	}
 
 	///////////
@@ -1838,6 +1872,223 @@ private: System::Void tbDiscount_KeyUp(System::Object^  sender, System::Windows:
 
 	tbPayable->Text = payable.ToString();
 
+}
+private: System::Void printDocInvoice_PrintPage(System::Object^ sender, System::Drawing::Printing::PrintPageEventArgs^ e) {
+	///////////
+	//variables
+	///////////
+
+	//Make variables to store fetched data from fields from UI's
+	String^ invoiceNo = tbInvoiceNo->Text->ToString(); // varchar(50) == String
+	String^ name = tbName->Text->ToString(); // varchar(150) == String
+	String^ cnic = tbCnic->Text->ToString(); // varchar(15) == String
+	String^ buyerPNTN = tbBuyerPNTN->Text->ToString(); // varchar(9) == String
+	String^ address = tbAddress->Text->ToString(); // varchar(MAX) == String
+	String^ contact = tbContact->Text->ToString(); // varchar(20) == String
+	String^ emergencyContact = tbEmergencyContact->Text->ToString(); // varchar(20) == String
+																	 //String^ date = dtpDate->Text->ToString(); //tbEmergencyContact->Text->ToString(); // date
+	DateTime date = dtpDate->Value;
+	String^ praFormatDateTime = date.ToString("yyyy-MM-dd HH:mm:ss.fff");
+	DateTime dateIn = dtpDateIn->Value;
+	String^ praFormatDateIn = dateIn.ToString("yyyy-MM-dd");
+	DateTime dateOut = dtpDateOut->Value;
+	String^ praFormatDateOut = dateOut.ToString("yyyy-MM-dd");
+	DateTime timeIn = dtpTimeIn->Value;
+	String^ praFormatTimeIn = timeIn.ToString("hh:mm tt");
+	DateTime timeOut = dtpTimeOut->Value;
+	String^ praFormatTimeOut = timeOut.ToString("hh:mm tt");
+	String^ nationality = cbNationality->Text->ToString();
+	String^ roomNo = tbRoomNo->Text->ToString();
+	double noOfRooms = Convert::ToDouble(tbNoOfRooms->Text);
+	double roomCharges = Convert::ToDouble(tbRoomCharges->Text);
+	double gst = Convert::ToDouble(tbGst->Text);
+	double discount = Convert::ToDouble(tbDiscount->Text);
+	double payable = Convert::ToDouble(tbPayable->Text);
+
+	// Define layout bounds
+	float x = 20.0;
+	float y = 20.0;
+	// Calculate the page width
+	float pageWidth = e->PageBounds.Width;
+
+	// Header
+	float textWidth = e->Graphics->MeasureString("Hotel Blue Sky", gcnew System::Drawing::Font("Arial", 14, FontStyle::Bold)).Width;
+	float xCentered = (pageWidth - textWidth) / 2; // Centering calculation
+	e->Graphics->DrawString("Hotel Blue Sky", gcnew System::Drawing::Font("Arial", 14, FontStyle::Bold), Brushes::Black, xCentered, y);
+	y += 20; // Space between sections
+
+	textWidth = e->Graphics->MeasureString("Commettie Chock, Rawalpindi", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular)).Width;
+	xCentered = (pageWidth - textWidth) / 2; // Centering calculation
+	e->Graphics->DrawString("Commettie Chock, Rawalpindi", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular), Brushes::Black, xCentered, y);
+	y += 15; 
+
+	textWidth = e->Graphics->MeasureString("051-12345678", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular)).Width;
+	xCentered = (pageWidth - textWidth) / 2; // Centering calculation
+	e->Graphics->DrawString("051-12345678", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular), Brushes::Black, xCentered, y);
+	y += 15;
+
+	textWidth = e->Graphics->MeasureString("=======================================", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular)).Width;
+	xCentered = (pageWidth - textWidth) / 2; // Centering calculation
+	e->Graphics->DrawString("=======================================", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular), Brushes::Black, xCentered, y);
+	y += 10;
+
+	/////
+	// Subheader - Invoice Information
+	/////
+	x = 10;
+
+	e->Graphics->DrawString("Invoice No: ", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, x, y);
+	e->Graphics->DrawString(invoiceNo, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, x+80, y);
+	y += 20;
+
+	e->Graphics->DrawString("Date: ", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, x, y);
+	e->Graphics->DrawString(praFormatDateTime, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, x+35, y);
+	y += 15;
+
+	textWidth = e->Graphics->MeasureString("=======================================", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular)).Width;
+	xCentered = (pageWidth - textWidth) / 2; // Centering calculation
+	e->Graphics->DrawString("=======================================", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular), Brushes::Black, xCentered, y);
+	y += 10;
+
+	//////////////
+	// Customer Information
+	///////////////
+
+	textWidth = e->Graphics->MeasureString("Customer Details", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold)).Width;
+	xCentered = (pageWidth - textWidth) / 2; // Centering calculation
+	e->Graphics->DrawString("Customer Details", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, xCentered, y);
+	y += 15;
+
+	textWidth = e->Graphics->MeasureString("=======================================", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular)).Width;
+	xCentered = (pageWidth - textWidth) / 2; // Centering calculation
+	e->Graphics->DrawString("=======================================", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular), Brushes::Black, xCentered, y);
+	y += 15;
+
+	e->Graphics->DrawString("Name: ", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, x, y);
+	e->Graphics->DrawString(name, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, x + 45, y);
+	y += 20;
+
+	e->Graphics->DrawString("CNIC: ", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, x, y);
+	e->Graphics->DrawString(cnic, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, x + 45, y);
+	y += 20;
+
+	e->Graphics->DrawString("Contact: ", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, x, y);
+	e->Graphics->DrawString(contact, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, x + 55, y);
+	y += 20;
+	
+	e->Graphics->DrawString("Emergency No: ", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, x, y);
+	e->Graphics->DrawString(emergencyContact, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, x + 100, y);
+	y += 20;
+	
+	e->Graphics->DrawString("Nationality: ", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, x, y);
+	e->Graphics->DrawString(nationality, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, x + 80, y);
+	y += 15;
+	
+	textWidth = e->Graphics->MeasureString("=======================================", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular)).Width;
+	xCentered = (pageWidth - textWidth) / 2; // Centering calculation
+	e->Graphics->DrawString("=======================================", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular), Brushes::Black, xCentered, y);
+	y += 10;
+	//////////////
+	// Stay Information
+	//////////////
+
+	textWidth = e->Graphics->MeasureString("Staying Information", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold)).Width;
+	xCentered = (pageWidth - textWidth) / 2; // Centering calculation
+	e->Graphics->DrawString("Staying Information", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, xCentered, y);
+	y += 15;
+
+	textWidth = e->Graphics->MeasureString("=======================================", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular)).Width;
+	xCentered = (pageWidth - textWidth) / 2; // Centering calculation
+	e->Graphics->DrawString("=======================================", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular), Brushes::Black, xCentered, y);
+	y += 15;
+
+	e->Graphics->DrawString("Check-In: ", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, x, y);
+	textWidth = e->Graphics->MeasureString(praFormatDateIn + "  " + praFormatTimeIn, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular)).Width;
+	float xEnd = (pageWidth - textWidth - 10); // Ending calculation
+	e->Graphics->DrawString(praFormatDateIn + "  " + praFormatTimeIn, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, xEnd, y);
+	y += 20;
+
+	e->Graphics->DrawString("Check-Out: ", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, x, y);
+	textWidth = e->Graphics->MeasureString(praFormatDateOut + "  " + praFormatTimeOut, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular)).Width;
+	xEnd = (pageWidth - textWidth - 10); // Ending calculation
+	e->Graphics->DrawString(praFormatDateOut + "  " + praFormatTimeOut, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, xEnd, y);
+	y += 20;
+
+	e->Graphics->DrawString("No Of Rooms: ", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, x, y);
+	textWidth = e->Graphics->MeasureString(""+noOfRooms, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular)).Width;
+	xEnd = (pageWidth - textWidth - 20); // Ending calculation
+	e->Graphics->DrawString(""+noOfRooms, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, xEnd, y);
+	y += 20;
+
+	e->Graphics->DrawString("Rooms: ", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, x, y);
+	textWidth = e->Graphics->MeasureString(roomNo, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular)).Width;
+	xEnd = (pageWidth - textWidth - 20); // Ending calculation
+	e->Graphics->DrawString(roomNo, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, xEnd, y);
+	y += 15;
+
+	textWidth = e->Graphics->MeasureString("=======================================", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular)).Width;
+	xCentered = (pageWidth - textWidth) / 2; // Centering calculation
+	e->Graphics->DrawString("=======================================", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular), Brushes::Black, xCentered, y);
+	y += 10;
+
+	/////////////
+	// Billing Information
+	/////////////
+
+	textWidth = e->Graphics->MeasureString("Billing Information", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold)).Width;
+	xCentered = (pageWidth - textWidth) / 2; // Centering calculation
+	e->Graphics->DrawString("Billing Information", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, xCentered, y);
+	y += 15;
+
+	textWidth = e->Graphics->MeasureString("=======================================", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular)).Width;
+	xCentered = (pageWidth - textWidth) / 2; // Centering calculation
+	e->Graphics->DrawString("=======================================", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular), Brushes::Black, xCentered, y);
+	y += 15;
+
+	e->Graphics->DrawString("Room Charges: ", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, x, y);
+	textWidth = e->Graphics->MeasureString(roomCharges.ToString("C2"), gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular)).Width;
+	xEnd = (pageWidth - textWidth - 20); // Ending calculation
+	e->Graphics->DrawString(roomCharges.ToString("C2"), gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, xEnd, y);
+	y += 20;
+
+	e->Graphics->DrawString("GST-16%: ", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, x, y);
+	textWidth = e->Graphics->MeasureString(gst.ToString("C2"), gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular)).Width;
+	xEnd = (pageWidth - textWidth - 20); // Ending calculation
+	e->Graphics->DrawString(gst.ToString("C2"), gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, xEnd, y);
+	y += 20;
+	
+	e->Graphics->DrawString("Discount: ", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, x, y);
+	textWidth = e->Graphics->MeasureString(discount.ToString("C2"), gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular)).Width;
+	xEnd = (pageWidth - textWidth - 20); // Ending calculation
+	e->Graphics->DrawString(discount.ToString("C2"), gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, xEnd, y);
+	y += 20;
+
+	e->Graphics->DrawString("Total Payable: ", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, x, y);
+	textWidth = e->Graphics->MeasureString(payable.ToString("C2"), gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular)).Width;
+	xEnd = (pageWidth - textWidth - 20); // Ending calculation
+	e->Graphics->DrawString(payable.ToString("C2"), gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, xEnd, y);
+	y += 20;
+	
+	textWidth = e->Graphics->MeasureString("=======================================", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular)).Width;
+	xCentered = (pageWidth - textWidth) / 2; // Centering calculation
+	e->Graphics->DrawString("=======================================", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular), Brushes::Black, xCentered, y);
+	y += 15;
+
+	////////////
+	// Footer
+	////////////
+
+	float pageHeight = e->PageBounds.Height;
+	textWidth = e->Graphics->MeasureString("Thank you for staying with us!", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular)).Width;
+	xCentered = (pageWidth - textWidth) / 2; // Centering calculation
+	e->Graphics->DrawString("Thank you for staying with us!", gcnew System::Drawing::Font("Arial", 8, FontStyle::Italic), Brushes::Black, xCentered, pageHeight - 20);
+
+}
+
+private: System::Void btnPrint_Click(System::Object^  sender, System::EventArgs^  e) {
+	printPreviewInvoice->Document = printDocInvoice;
+	printDocInvoice->DefaultPageSettings->PaperSize = gcnew System::Drawing::Printing::PaperSize("Custom", 285, 700);
+	printPreviewInvoice->ShowDialog();
 }
 };
 }
