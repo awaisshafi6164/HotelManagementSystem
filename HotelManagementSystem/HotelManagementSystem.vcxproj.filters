@@ -24,6 +24,12 @@
     <ClCompile Include="AdminForm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="UserDataForm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RoomDataForm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LoginForm.h">
@@ -41,6 +47,12 @@
     <ClInclude Include="AdminForm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="UserDataForm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RoomDataForm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="LoginForm.resx">
@@ -50,6 +62,9 @@
       <Filter>Resource Files</Filter>
     </EmbeddedResource>
     <EmbeddedResource Include="AdminForm.resx">
+      <Filter>Resource Files</Filter>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserDataForm.resx">
       <Filter>Resource Files</Filter>
     </EmbeddedResource>
   </ItemGroup>

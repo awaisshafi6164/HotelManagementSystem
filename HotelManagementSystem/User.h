@@ -8,4 +8,5 @@ public:
 	String^ name;
 	String^ email;
 	String^ password;
+	int admin;
 };

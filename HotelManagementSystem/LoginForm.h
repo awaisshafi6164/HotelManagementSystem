@@ -44,6 +44,8 @@ namespace HotelManagementSystem {
 	private: System::Windows::Forms::Label^  label3;
 	private: System::Windows::Forms::Button^  btnOK;
 	private: System::Windows::Forms::Button^  btnCancel;
+	private: System::Windows::Forms::Button^  btnAdminLogin;
+
 
 	protected:
 
@@ -67,6 +69,7 @@ namespace HotelManagementSystem {
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->btnOK = (gcnew System::Windows::Forms::Button());
 			this->btnCancel = (gcnew System::Windows::Forms::Button());
+			this->btnAdminLogin = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// label1
@@ -90,7 +93,6 @@ namespace HotelManagementSystem {
 			this->label2->Size = System::Drawing::Size(79, 29);
 			this->label2->TabIndex = 1;
 			this->label2->Text = L"Email";
-			this->label2->Click += gcnew System::EventHandler(this, &LoginForm::label2_Click);
 			// 
 			// tbEmail
 			// 
@@ -100,7 +102,7 @@ namespace HotelManagementSystem {
 			this->tbEmail->Name = L"tbEmail";
 			this->tbEmail->Size = System::Drawing::Size(400, 30);
 			this->tbEmail->TabIndex = 1;
-			this->tbEmail->Text = L"awais@gmail.com";
+			this->tbEmail->Text = L"brostech.pk@gmail.com";
 			// 
 			// tbPassword
 			// 
@@ -111,7 +113,7 @@ namespace HotelManagementSystem {
 			this->tbPassword->PasswordChar = '*';
 			this->tbPassword->Size = System::Drawing::Size(400, 30);
 			this->tbPassword->TabIndex = 2;
-			this->tbPassword->Text = L"awais123";
+			this->tbPassword->Text = L"hello123";
 			// 
 			// label3
 			// 
@@ -123,13 +125,12 @@ namespace HotelManagementSystem {
 			this->label3->Size = System::Drawing::Size(128, 29);
 			this->label3->TabIndex = 1;
 			this->label3->Text = L"Password";
-			this->label3->Click += gcnew System::EventHandler(this, &LoginForm::label2_Click);
 			// 
 			// btnOK
 			// 
 			this->btnOK->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->btnOK->Location = System::Drawing::Point(170, 199);
+			this->btnOK->Location = System::Drawing::Point(225, 185);
 			this->btnOK->Name = L"btnOK";
 			this->btnOK->Size = System::Drawing::Size(125, 40);
 			this->btnOK->TabIndex = 3;
@@ -141,7 +142,7 @@ namespace HotelManagementSystem {
 			// 
 			this->btnCancel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->btnCancel->Location = System::Drawing::Point(334, 199);
+			this->btnCancel->Location = System::Drawing::Point(356, 185);
 			this->btnCancel->Name = L"btnCancel";
 			this->btnCancel->Size = System::Drawing::Size(125, 40);
 			this->btnCancel->TabIndex = 4;
@@ -149,12 +150,25 @@ namespace HotelManagementSystem {
 			this->btnCancel->UseVisualStyleBackColor = true;
 			this->btnCancel->Click += gcnew System::EventHandler(this, &LoginForm::btnCancel_Click);
 			// 
+			// btnAdminLogin
+			// 
+			this->btnAdminLogin->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->btnAdminLogin->Location = System::Drawing::Point(225, 243);
+			this->btnAdminLogin->Name = L"btnAdminLogin";
+			this->btnAdminLogin->Size = System::Drawing::Size(256, 38);
+			this->btnAdminLogin->TabIndex = 5;
+			this->btnAdminLogin->Text = L"Admin Login";
+			this->btnAdminLogin->UseVisualStyleBackColor = true;
+			this->btnAdminLogin->Click += gcnew System::EventHandler(this, &LoginForm::btnAdminLogin_Click);
+			// 
 			// LoginForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::DarkCyan;
-			this->ClientSize = System::Drawing::Size(582, 299);
+			this->ClientSize = System::Drawing::Size(582, 296);
+			this->Controls->Add(this->btnAdminLogin);
 			this->Controls->Add(this->btnCancel);
 			this->Controls->Add(this->btnOK);
 			this->Controls->Add(this->tbPassword);
@@ -162,6 +176,9 @@ namespace HotelManagementSystem {
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->label1);
+			this->MaximizeBox = false;
+			this->MaximumSize = System::Drawing::Size(600, 343);
+			this->MinimumSize = System::Drawing::Size(600, 343);
 			this->Name = L"LoginForm";
 			this->Text = L"Login Form";
 			this->ResumeLayout(false);
@@ -170,54 +187,104 @@ namespace HotelManagementSystem {
 		}
 #pragma endregion
 	
-		private: System::Void label2_Click(System::Object^  sender, System::EventArgs^  e) {
+	private: System::Void btnCancel_Click(System::Object^  sender, System::EventArgs^  e) {
+		this->Close();
+	}
+	public: User ^ user = nullptr;
+	private: System::Void btnOK_Click(System::Object^  sender, System::EventArgs^  e) {
+		String^ email = this->tbEmail->Text;
+		String^ password = this->tbPassword->Text;
+
+		if (email->Length == 0 || password->Length == 0) {
+			MessageBox::Show("Please enter email and password both", 
+				"Input required", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
 		}
-		private: System::Void btnCancel_Click(System::Object^  sender, System::EventArgs^  e) {
-			this->Close();
-		}
 
-		public: User ^ user = nullptr;
-		private: System::Void btnOK_Click(System::Object^  sender, System::EventArgs^  e) {
-			String^ email = this->tbEmail->Text;
-			String^ password = this->tbPassword->Text;
+		try {
+			String^ connString = "Data Source=localhost\\sqlexpress;Initial Catalog=myhotel;Integrated Security=True";
+			SqlConnection sqlConn(connString);
+			sqlConn.Open();
 
-			if (email->Length == 0 || password->Length == 0) {
-				MessageBox::Show("Please enter email and password both", 
-					"Input required", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-				return;
-			}
+			String^ sqlQuery = "SELECT * FROM users WHERE email=@email AND password=@password;";
+			SqlCommand command(sqlQuery, % sqlConn);
+			command.Parameters->AddWithValue("@email", email);
+			command.Parameters->AddWithValue("@password", password);
 
-			try {
-				String^ connString = "Data Source=localhost\\sqlexpress;Initial Catalog=myhotel;Integrated Security=True";
-				SqlConnection sqlConn(connString);
-				sqlConn.Open();
-
-				String^ sqlQuery = "SELECT * FROM users WHERE email=@email AND password=@password;";
-				SqlCommand command(sqlQuery, % sqlConn);
-				command.Parameters->AddWithValue("@email", email);
-				command.Parameters->AddWithValue("@password", password);
-
-				SqlDataReader^ reader = command.ExecuteReader();
+			SqlDataReader^ reader = command.ExecuteReader();
 				
-				if (reader->Read()) {
-					user = gcnew User;
-					user->id = reader->GetInt32(0);
-					user->name = reader->GetString(1);
-					user->email = reader->GetString(2);
-					user->password = reader->GetString(3);
+			if (reader->Read()) {
+				user = gcnew User;
+				user->id = reader->GetInt32(0);
+				user->name = reader->GetString(1);
+				user->email = reader->GetString(2);
+				user->password = reader->GetString(3);
 
-					this->Close();
-				}
-				else {
-					MessageBox::Show("Email or password is incorrect",
-						"Invalid Credentials", MessageBoxButtons::OK);
-				}
+				this->Close();
 			}
-			catch (Exception^ e)
-			{
-				MessageBox::Show("Failed to connect to database: " + e->Message, 
-					"Database Connection Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			else {
+				MessageBox::Show("Email or password is incorrect",
+					"Invalid Credentials", MessageBoxButtons::OK);
 			}
 		}
-	};
+		catch (Exception^ e)
+		{
+			MessageBox::Show("Failed to connect to database: " + e->Message, 
+				"Database Connection Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		}
+	}
+	
+	public: User ^ adminUser = nullptr;
+	private: System::Void btnAdminLogin_Click(System::Object^  sender, System::EventArgs^  e) {
+		String^ email = this->tbEmail->Text;
+		String^ password = this->tbPassword->Text;
+
+		if (email->Length == 0 || password->Length == 0) {
+			MessageBox::Show("Please enter email and password both",
+				"Input required", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+
+		try {
+			String^ connString = "Data Source=localhost\\sqlexpress;Initial Catalog=myhotel;Integrated Security=True";
+			SqlConnection sqlConn(connString);
+			sqlConn.Open();
+
+			String^ sqlQuery = "SELECT * FROM users WHERE email=@email AND password=@password;";
+			SqlCommand command(sqlQuery, % sqlConn);
+			command.Parameters->AddWithValue("@email", email);
+			command.Parameters->AddWithValue("@password", password);
+
+			SqlDataReader^ reader = command.ExecuteReader();
+
+
+			if (reader->Read()) {
+				adminUser = gcnew User;
+				adminUser->id = reader->GetInt32(0);
+				adminUser->name = reader->GetString(1);
+				adminUser->email = reader->GetString(2);
+				adminUser->password = reader->GetString(3);
+				adminUser->admin = reader->GetInt32(4);
+
+				if (adminUser->admin == 0)
+				{
+					MessageBox::Show("Only Admin can access admin portal. \nLogin using admin account",
+						"Admin Login Required", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+					return;
+				}
+
+				this->Close();
+			}
+			else {
+				MessageBox::Show("Email or password is incorrect",
+					"Invalid Credentials", MessageBoxButtons::OK);
+			}
+		}
+		catch (Exception^ e)
+		{
+			MessageBox::Show("Failed to connect to database: " + e->Message,
+				"Database Connection Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+		}
+	}
+};
 }

@@ -2155,7 +2155,6 @@ private: System::Void printDocInvoice_PrintPage(System::Object^ sender, System::
 	e->Graphics->DrawString("Thank you for staying with us!", gcnew System::Drawing::Font("Arial", 8, FontStyle::Italic), Brushes::Black, xCentered, pageHeight - 20);
 
 }
-
 private: System::Void btnPrint_Click(System::Object^  sender, System::EventArgs^  e) {
 	printPreviewInvoice->Document = printDocInvoice;
 	printDocInvoice->DefaultPageSettings->PaperSize = gcnew System::Drawing::Printing::PaperSize("Custom", 285, 700);

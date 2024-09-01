@@ -152,6 +152,8 @@
     <ClCompile Include="AdminForm.cpp" />
     <ClCompile Include="LoginForm.cpp" />
     <ClCompile Include="MainForm.cpp" />
+    <ClCompile Include="RoomDataForm.cpp" />
+    <ClCompile Include="UserDataForm.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AdminForm.h">
@@ -164,7 +166,13 @@
     <ClInclude Include="MainForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="RoomDataForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="User.h" />
+    <ClInclude Include="UserDataForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AdminForm.resx">
@@ -175,6 +183,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RoomDataForm.resx">
+      <DependentUpon>RoomDataForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserDataForm.resx">
+      <DependentUpon>UserDataForm.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
