@@ -12,7 +12,7 @@
 #include "Invoice.h"
 #include <msclr/marshal_cppstd.h> // For converting std::string to System::String
 
-
+#include <fstream>
 using namespace std;
 // Token and URL (replace with actual values)
 //std::string token = "24d8fab3-f2e9-398f-ae17-b387125ec4a2"; //sandbox token
@@ -25,7 +25,6 @@ inline size_t WriteCallback(void* contents, size_t size, size_t nmemb, std::stri
 	response->append((char*)contents, totalSize);
 	return totalSize;
 }
-
 /*
 inline std::string SendInvoiceData(const nlohmann::json& invoiceJson) {
 	CURL* curl;
@@ -113,8 +112,55 @@ inline std::string SendInvoiceData(const nlohmann::json& invoiceJson) {
 	return response;
 }
 
+inline std::string FetchQRCode(const std::string& qrData) {
+	CURL* curl;
+	CURLcode res;
+	std::string response;
 
+	curl = curl_easy_init();
+	if (curl) {
+		// Prepare the URL with QR code data
+		std::string url = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=";
+		// Escape the data to be URL-safe
+		char* escapedData = curl_easy_escape(curl, qrData.c_str(), qrData.length());
+		url += escapedData;
+		curl_free(escapedData); // Free the escaped string
 
+		curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+
+		// Set up the callback function to capture the response
+		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
+		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
+
+		// Skip SSL certificate verification
+		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
+		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0L);
+
+		// Perform the request
+		res = curl_easy_perform(curl);
+		if (res != CURLE_OK) {
+			std::cerr << "Request failed: " << curl_easy_strerror(res) << std::endl;
+		}
+
+		// Clean up
+		curl_easy_cleanup(curl);
+	}
+
+	return response;
+}
+
+inline void SaveQRCodeImage(const std::string& qrData, const std::string& filePath) {
+	std::string qrCodeData = FetchQRCode(qrData);
+
+	if (!qrCodeData.empty()) {
+		std::ofstream outFile(filePath, std::ios::binary);
+		outFile.write(qrCodeData.c_str(), qrCodeData.size());
+		outFile.close();
+	}
+	else {
+		std::cerr << "Failed to retrieve QR code data." << std::endl;
+	}
+}
 namespace HotelManagementSystem {
 
 	using namespace System;
@@ -125,7 +171,7 @@ namespace HotelManagementSystem {
 	using namespace System::Drawing;
 	using namespace System::Data::SqlClient;
 
-
+	using namespace System::IO;
 	/// <summary>
 	/// Summary for MainForm
 	/// </summary>
@@ -154,6 +200,7 @@ namespace HotelManagementSystem {
 				delete components;
 			}
 		}
+
 	private: System::Windows::Forms::Label^  label1;
 	private: System::Windows::Forms::Label^  label2;
 	private: System::Windows::Forms::Label^  label3;
@@ -2076,9 +2123,33 @@ private: System::Void printDocInvoice_PrintPage(System::Object^ sender, System::
 
 	////////////
 	// Footer
-	////////////
-
 	float pageHeight = e->PageBounds.Height;
+
+
+	// Example QR code data
+	String^ praInvoiceNo = "81474124090113415541*Test*";
+	std::string qrData = "https://e.pra.punjab.gov.pk/IMSFiscalReport/SearchPOSInvoice_Report.aspx?PRAInvNo=" + msclr::interop::marshal_as<std::string>(praInvoiceNo->ToString());
+	std::string filePath = "qr_code.png";
+	// Save QR code image
+	SaveQRCodeImage(qrData, filePath);
+	// Load and display QR code image (for C++/CLI, convert the file to Bitmap)
+	Bitmap^ qrImage = gcnew Bitmap(gcnew String(filePath.c_str()));
+	// Example QR code image
+	qrImage = gcnew Bitmap(gcnew String("qr_code.png"));
+	// Desired size for the QR code image
+	int qrWidth = 120; // Width in pixels
+	int qrHeight = 120; // Height in pixels
+	// Calculate position to center the QR code
+	int qrX = (pageWidth - qrWidth) / 2;
+	int qrY = e->PageBounds.Height - qrHeight - 70; // Adjust 60 to set space between QR and "Thank you"
+	// Draw the QR code image
+	e->Graphics->DrawImage(qrImage, qrX, qrY, qrWidth, qrHeight);
+
+	textWidth = e->Graphics->MeasureString(praInvoiceNo, gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular)).Width;
+	xCentered = (pageWidth - textWidth) / 2; // Centering calculation
+	e->Graphics->DrawString(praInvoiceNo, gcnew System::Drawing::Font("Arial", 8, FontStyle::Italic), Brushes::Black, xCentered, pageHeight - 50);
+
+	
 	textWidth = e->Graphics->MeasureString("Thank you for staying with us!", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular)).Width;
 	xCentered = (pageWidth - textWidth) / 2; // Centering calculation
 	e->Graphics->DrawString("Thank you for staying with us!", gcnew System::Drawing::Font("Arial", 8, FontStyle::Italic), Brushes::Black, xCentered, pageHeight - 20);
