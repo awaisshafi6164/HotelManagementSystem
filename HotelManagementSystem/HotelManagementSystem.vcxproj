@@ -150,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AdminForm.cpp" />
+    <ClCompile Include="CustomerDataForm.cpp" />
     <ClCompile Include="LoginForm.cpp" />
     <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="RoomDataForm.cpp" />
@@ -158,6 +159,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AdminForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="CustomerDataForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Invoice.h" />
@@ -181,6 +185,9 @@
   <ItemGroup>
     <EmbeddedResource Include="AdminForm.resx">
       <DependentUpon>AdminForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomerDataForm.resx">
+      <DependentUpon>CustomerDataForm.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.h</DependentUpon>

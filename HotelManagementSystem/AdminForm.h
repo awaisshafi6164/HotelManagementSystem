@@ -11,6 +11,7 @@
 #include <msclr/marshal_cppstd.h> // For converting std::string to System::String
 #include "UserDataForm.h"
 #include "RoomDataForm.h"
+#include "CustomerDataForm.h"
 #include "SettingForm.h"
 using namespace std;
 namespace HotelManagementSystem {
@@ -127,7 +128,6 @@ namespace HotelManagementSystem {
 			// 
 			this->btnCustomerData->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(128)), static_cast<System::Int32>(static_cast<System::Byte>(255)),
 				static_cast<System::Int32>(static_cast<System::Byte>(128)));
-			this->btnCustomerData->Enabled = false;
 			this->btnCustomerData->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnCustomerData->Location = System::Drawing::Point(338, 63);
@@ -136,6 +136,7 @@ namespace HotelManagementSystem {
 			this->btnCustomerData->TabIndex = 1;
 			this->btnCustomerData->Text = L"Customer Data";
 			this->btnCustomerData->UseVisualStyleBackColor = false;
+			this->btnCustomerData->Click += gcnew System::EventHandler(this, &AdminForm::btnCustomerData_Click);
 			// 
 			// button1
 			// 
@@ -180,6 +181,10 @@ private: System::Void btnRoomData_Click(System::Object^  sender, System::EventAr
 private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
 	HotelManagementSystem::SettingForm settingForm;
 	settingForm.ShowDialog();
+}
+private: System::Void btnCustomerData_Click(System::Object^  sender, System::EventArgs^  e) {
+	HotelManagementSystem::CustomerDataForm customerDataForm;
+	customerDataForm.ShowDialog();
 }
 };
 }

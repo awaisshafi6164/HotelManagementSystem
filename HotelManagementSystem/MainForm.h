@@ -12,6 +12,7 @@
 #include <msclr/marshal_cppstd.h> // For converting std::string to System::String
 
 #include <fstream>
+#include "CustomerDataForm.h"
 using namespace std;
 using namespace System::Data::SqlClient;
 
@@ -25,7 +26,6 @@ using namespace System::IO;
 // Token and URL (replace with actual values)
 //std::string token = "24d8fab3-f2e9-398f-ae17-b387125ec4a2"; //sandbox token
 //std::string url = "https://ims.pral.com.pk/ims/sandbox/api/Live/PostData";//sandbox url
-
 
 // WriteCallback function to capture the response data
 inline size_t WriteCallback(void* contents, size_t size, size_t nmemb, std::string* response) {
@@ -343,6 +343,7 @@ private: System::Drawing::Printing::PrintDocument^  printDocInvoice;
 private: System::Windows::Forms::PrintPreviewDialog^  printPreviewInvoice;
 private: System::Windows::Forms::Label^  label11;
 private: System::Windows::Forms::ComboBox^  cbFilterFloor;
+private: System::Windows::Forms::Button^  btnViewOldData;
 
 
 
@@ -436,6 +437,7 @@ private: System::Windows::Forms::ComboBox^  cbFilterFloor;
 			this->printPreviewInvoice = (gcnew System::Windows::Forms::PrintPreviewDialog());
 			this->label11 = (gcnew System::Windows::Forms::Label());
 			this->cbFilterFloor = (gcnew System::Windows::Forms::ComboBox());
+			this->btnViewOldData = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvRoomData))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -1212,6 +1214,20 @@ private: System::Windows::Forms::ComboBox^  cbFilterFloor;
 			this->cbFilterFloor->TabIndex = 14;
 			this->cbFilterFloor->SelectedIndexChanged += gcnew System::EventHandler(this, &MainForm::cbFilterFloor_SelectedIndexChanged);
 			// 
+			// btnViewOldData
+			// 
+			this->btnViewOldData->BackColor = System::Drawing::Color::DarkSlateGray;
+			this->btnViewOldData->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->btnViewOldData->ForeColor = System::Drawing::Color::Snow;
+			this->btnViewOldData->Location = System::Drawing::Point(729, 48);
+			this->btnViewOldData->Name = L"btnViewOldData";
+			this->btnViewOldData->Size = System::Drawing::Size(167, 30);
+			this->btnViewOldData->TabIndex = 7;
+			this->btnViewOldData->Text = L"View Old Data";
+			this->btnViewOldData->UseVisualStyleBackColor = false;
+			this->btnViewOldData->Click += gcnew System::EventHandler(this, &MainForm::btnViewOldData_Click);
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
@@ -1241,6 +1257,7 @@ private: System::Windows::Forms::ComboBox^  cbFilterFloor;
 			this->Controls->Add(this->btnSave);
 			this->Controls->Add(this->btnCalculateTotal);
 			this->Controls->Add(this->btnCancel);
+			this->Controls->Add(this->btnViewOldData);
 			this->Controls->Add(this->btnRefresh);
 			this->Controls->Add(this->dtpDateOut);
 			this->Controls->Add(this->dgvRoomData);
@@ -2236,7 +2253,10 @@ private: System::Void cbFilterFloor_SelectedIndexChanged(System::Object^  sender
 	String^ filterFloor = cbFilterFloor->SelectedItem->ToString();
 	LoadRoomData(filterFloor);
 }
+private: System::Void btnViewOldData_Click(System::Object^  sender, System::EventArgs^  e) {
+	HotelManagementSystem::CustomerDataForm customerDataForm;
+	customerDataForm.ShowDialog();
+}
 };
 }
-
 
