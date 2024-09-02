@@ -1654,12 +1654,40 @@ private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e
 	);
 	*/
 
+
+	////
+	// Fetch data from the database
+	String^ conString = "Data Source=localhost\\sqlexpress;Initial Catalog=myhotel;Integrated Security=True";
+	SqlConnection^ conDataBase = gcnew SqlConnection(conString);
+	SqlCommand^ cmdDataBase = gcnew SqlCommand("SELECT praAccessID FROM setting WHERE ID = 1;", conDataBase);
+
+	int praPOSID;
+	try {
+		conDataBase->Open();
+		SqlDataReader^ reader = cmdDataBase->ExecuteReader();
+		if (reader->Read()) {
+			praPOSID = Convert::ToInt32(reader["praAccessID"]);
+		}
+		reader->Close();
+	}
+	catch (Exception^ ex) {
+		std::cerr << "Database error: " << msclr::interop::marshal_as<std::string>(ex->Message) << std::endl;
+	}
+	finally{
+		conDataBase->Close();
+	}
+
+		// Use the retrieved POS ID
+	int posID = praPOSID;
+
 	///////////
-	//send above data to PRA API for PRA invoice number 
+	// Send the above data to the PRA API for the PRA invoice number 
 	//////////
 	Invoice custInv;
 	custInv.InvoiceNumber = "";  // or provide a valid default
-	custInv.POSID = 814741;  // Change to appropriate value if required
+	custInv.POSID = posID;  // Use the retrieved POS ID
+
+	//custInv.POSID = 814741;  // Change to appropriate value if required
 	custInv.USIN = msclr::interop::marshal_as<std::string>(invoiceNo->ToString());
 	custInv.DateTime = msclr::interop::marshal_as<std::string>(praFormatDateTime->ToString());
 	custInv.BuyerPNTN = msclr::interop::marshal_as<std::string>(buyerPNTN->ToString());
@@ -1754,12 +1782,12 @@ private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e
 	//saving data to database customer table
 	//////////
 
-	String^ conString = "Data Source=localhost\\sqlexpress;Initial Catalog=myhotel;Integrated Security=True";
+	String^ connString = "Data Source=localhost\\sqlexpress;Initial Catalog=myhotel;Integrated Security=True";
 	// Create the SQL query string
 	String^ query = "INSERT INTO customer (InvoiceNo, PRAInvoiceNo, Date, Name, CNIC, BuyerPNTN, ContactNo, EmergencyContact, Address, Nationality, DateIn, DateOut, TimeIn, TimeOut, RoomNo, NoOfRooms, RoomCharges, GST, Discount, Payable, PaymentMode, InvoiceType, ManagerName) VALUES (@InvoiceNo, @PRAInvoiceNo, @Date, @Name, @CNIC, @BuyerPNTN, @ContactNo, @EmergencyContact, @Address, @Nationality, @DateIn, @DateOut, @TimeIn, @TimeOut, @RoomNo, @NoOfRooms, @RoomCharges, @GST, @Discount, @Payable, @PaymentMode, @InvoiceType, @ManagerName);";
 
 	// Assuming you have a connection string
-	SqlConnection^ connection = gcnew SqlConnection(conString);
+	SqlConnection^ connection = gcnew SqlConnection(connString);
 
 	try {
 		connection->Open();
