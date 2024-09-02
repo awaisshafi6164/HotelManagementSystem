@@ -225,6 +225,7 @@ namespace HotelManagementSystem {
 			InitializeComponent();
 			//
 			LoadRoomData("All Floor");
+			LoadDataOnce();
 			//TODO: Add the constructor code here
 			//
 		}
@@ -373,6 +374,9 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 		/// </summary>
 		void InitializeComponent()
 		{
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle2 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle3 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
@@ -465,7 +469,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label2->Location = System::Drawing::Point(20, 54);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(272, 36);
-			this->label2->TabIndex = 1;
+			this->label2->TabIndex = 0;
 			this->label2->Text = L"Customer Information";
 			// 
 			// label3
@@ -484,7 +488,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label4->Location = System::Drawing::Point(24, 140);
 			this->label4->Name = L"label4";
 			this->label4->Size = System::Drawing::Size(68, 25);
-			this->label4->TabIndex = 3;
+			this->label4->TabIndex = 0;
 			this->label4->Text = L"Name";
 			// 
 			// tbName
@@ -495,7 +499,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->tbName->MaxLength = 50;
 			this->tbName->Name = L"tbName";
 			this->tbName->Size = System::Drawing::Size(313, 30);
-			this->tbName->TabIndex = 1;
+			this->tbName->TabIndex = 3;
 			this->tbName->Text = L"Muhammad Awais Shafi";
 			// 
 			// label5
@@ -506,7 +510,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label5->Location = System::Drawing::Point(20, 183);
 			this->label5->Name = L"label5";
 			this->label5->Size = System::Drawing::Size(65, 25);
-			this->label5->TabIndex = 3;
+			this->label5->TabIndex = 0;
 			this->label5->Text = L"CNIC";
 			// 
 			// tbCnic
@@ -517,7 +521,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->tbCnic->MaxLength = 15;
 			this->tbCnic->Name = L"tbCnic";
 			this->tbCnic->Size = System::Drawing::Size(313, 30);
-			this->tbCnic->TabIndex = 3;
+			this->tbCnic->TabIndex = 5;
 			this->tbCnic->Text = L"61101-8903163-3";
 			this->tbCnic->Enter += gcnew System::EventHandler(this, &MainForm::tbCnic_Enter);
 			this->tbCnic->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MainForm::tbCnic_KeyPress);
@@ -528,10 +532,10 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label6->AutoSize = true;
 			this->label6->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label6->Location = System::Drawing::Point(628, 611);
+			this->label6->Location = System::Drawing::Point(761, 607);
 			this->label6->Name = L"label6";
 			this->label6->Size = System::Drawing::Size(123, 25);
-			this->label6->TabIndex = 3;
+			this->label6->TabIndex = 0;
 			this->label6->Text = L"No# Rooms";
 			this->label6->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
@@ -543,7 +547,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label7->Location = System::Drawing::Point(21, 356);
 			this->label7->Name = L"label7";
 			this->label7->Size = System::Drawing::Size(86, 25);
-			this->label7->TabIndex = 3;
+			this->label7->TabIndex = 0;
 			this->label7->Text = L"Time-In";
 			// 
 			// label8
@@ -554,7 +558,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label8->Location = System::Drawing::Point(455, 356);
 			this->label8->Name = L"label8";
 			this->label8->Size = System::Drawing::Size(103, 25);
-			this->label8->TabIndex = 3;
+			this->label8->TabIndex = 0;
 			this->label8->Text = L"Time-Out";
 			// 
 			// dtpTimeIn
@@ -568,7 +572,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->dtpTimeIn->Location = System::Drawing::Point(119, 351);
 			this->dtpTimeIn->Name = L"dtpTimeIn";
 			this->dtpTimeIn->Size = System::Drawing::Size(313, 30);
-			this->dtpTimeIn->TabIndex = 5;
+			this->dtpTimeIn->TabIndex = 12;
 			this->dtpTimeIn->Value = System::DateTime(2024, 8, 19, 21, 40, 0, 0);
 			// 
 			// dtpTimeOut
@@ -582,7 +586,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->dtpTimeOut->Location = System::Drawing::Point(611, 351);
 			this->dtpTimeOut->Name = L"dtpTimeOut";
 			this->dtpTimeOut->Size = System::Drawing::Size(285, 30);
-			this->dtpTimeOut->TabIndex = 6;
+			this->dtpTimeOut->TabIndex = 13;
 			this->dtpTimeOut->Value = System::DateTime(2024, 8, 19, 21, 40, 0, 0);
 			// 
 			// dgvRoomData
@@ -591,14 +595,40 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->dgvRoomData->AllowUserToDeleteRows = false;
 			this->dgvRoomData->AllowUserToResizeColumns = false;
 			this->dgvRoomData->AllowUserToResizeRows = false;
-			this->dgvRoomData->BackgroundColor = System::Drawing::SystemColors::GradientActiveCaption;
+			dataGridViewCellStyle1->BackColor = System::Drawing::Color::Silver;
+			this->dgvRoomData->AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+			this->dgvRoomData->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
+			this->dgvRoomData->BackgroundColor = System::Drawing::Color::LightSteelBlue;
+			this->dgvRoomData->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->dgvRoomData->ColumnHeadersBorderStyle = System::Windows::Forms::DataGridViewHeaderBorderStyle::Single;
+			dataGridViewCellStyle2->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle2->BackColor = System::Drawing::Color::DodgerBlue;
+			dataGridViewCellStyle2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			dataGridViewCellStyle2->ForeColor = System::Drawing::SystemColors::WindowText;
+			dataGridViewCellStyle2->Padding = System::Windows::Forms::Padding(5);
+			dataGridViewCellStyle2->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle2->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle2->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->dgvRoomData->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
 			this->dgvRoomData->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			dataGridViewCellStyle3->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle3->BackColor = System::Drawing::SystemColors::Menu;
+			dataGridViewCellStyle3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			dataGridViewCellStyle3->ForeColor = System::Drawing::SystemColors::ControlText;
+			dataGridViewCellStyle3->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle3->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle3->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->dgvRoomData->DefaultCellStyle = dataGridViewCellStyle3;
+			this->dgvRoomData->EnableHeadersVisualStyles = false;
 			this->dgvRoomData->GridColor = System::Drawing::SystemColors::ActiveCaptionText;
 			this->dgvRoomData->Location = System::Drawing::Point(25, 422);
 			this->dgvRoomData->Name = L"dgvRoomData";
 			this->dgvRoomData->RowHeadersVisible = false;
 			this->dgvRoomData->RowTemplate->Height = 24;
-			this->dgvRoomData->Size = System::Drawing::Size(597, 256);
+			this->dgvRoomData->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
+			this->dgvRoomData->Size = System::Drawing::Size(716, 256);
 			this->dgvRoomData->TabIndex = 7;
 			// 
 			// label12
@@ -609,7 +639,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label12->Location = System::Drawing::Point(24, 394);
 			this->label12->Name = L"label12";
 			this->label12->Size = System::Drawing::Size(145, 25);
-			this->label12->TabIndex = 1;
+			this->label12->TabIndex = 0;
 			this->label12->Text = L"Select Rooms";
 			this->label12->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
 			// 
@@ -618,7 +648,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->btnRefresh->BackColor = System::Drawing::Color::DarkTurquoise;
 			this->btnRefresh->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->btnRefresh->Location = System::Drawing::Point(628, 422);
+			this->btnRefresh->Location = System::Drawing::Point(747, 422);
 			this->btnRefresh->Name = L"btnRefresh";
 			this->btnRefresh->Size = System::Drawing::Size(149, 30);
 			this->btnRefresh->TabIndex = 7;
@@ -631,9 +661,9 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->tbNoOfRooms->Enabled = false;
 			this->tbNoOfRooms->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->tbNoOfRooms->Location = System::Drawing::Point(628, 639);
+			this->tbNoOfRooms->Location = System::Drawing::Point(747, 635);
 			this->tbNoOfRooms->Name = L"tbNoOfRooms";
-			this->tbNoOfRooms->Size = System::Drawing::Size(123, 38);
+			this->tbNoOfRooms->Size = System::Drawing::Size(149, 38);
 			this->tbNoOfRooms->TabIndex = 1;
 			this->tbNoOfRooms->Text = L"0";
 			this->tbNoOfRooms->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
@@ -657,7 +687,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label14->Location = System::Drawing::Point(914, 154);
 			this->label14->Name = L"label14";
 			this->label14->Size = System::Drawing::Size(155, 25);
-			this->label14->TabIndex = 3;
+			this->label14->TabIndex = 0;
 			this->label14->Text = L"Room Charges";
 			// 
 			// tbGst
@@ -679,7 +709,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label15->Location = System::Drawing::Point(914, 212);
 			this->label15->Name = L"label15";
 			this->label15->Size = System::Drawing::Size(108, 25);
-			this->label15->TabIndex = 3;
+			this->label15->TabIndex = 0;
 			this->label15->Text = L"GST-16%";
 			// 
 			// tbPayable
@@ -701,7 +731,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label16->Location = System::Drawing::Point(918, 316);
 			this->label16->Name = L"label16";
 			this->label16->Size = System::Drawing::Size(90, 25);
-			this->label16->TabIndex = 3;
+			this->label16->TabIndex = 0;
 			this->label16->Text = L"Payable";
 			// 
 			// btnCancel
@@ -712,7 +742,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->btnCancel->Location = System::Drawing::Point(919, 458);
 			this->btnCancel->Name = L"btnCancel";
 			this->btnCancel->Size = System::Drawing::Size(124, 51);
-			this->btnCancel->TabIndex = 9;
+			this->btnCancel->TabIndex = 16;
 			this->btnCancel->Text = L"Cancel";
 			this->btnCancel->UseVisualStyleBackColor = false;
 			this->btnCancel->Click += gcnew System::EventHandler(this, &MainForm::btnCancel_Click);
@@ -725,7 +755,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->btnSave->Location = System::Drawing::Point(1060, 458);
 			this->btnSave->Name = L"btnSave";
 			this->btnSave->Size = System::Drawing::Size(124, 51);
-			this->btnSave->TabIndex = 10;
+			this->btnSave->TabIndex = 17;
 			this->btnSave->Text = L"Save";
 			this->btnSave->UseVisualStyleBackColor = false;
 			this->btnSave->Click += gcnew System::EventHandler(this, &MainForm::btnSave_Click);
@@ -738,7 +768,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->btnPrint->Location = System::Drawing::Point(1201, 458);
 			this->btnPrint->Name = L"btnPrint";
 			this->btnPrint->Size = System::Drawing::Size(124, 51);
-			this->btnPrint->TabIndex = 11;
+			this->btnPrint->TabIndex = 18;
 			this->btnPrint->Text = L"Print";
 			this->btnPrint->UseVisualStyleBackColor = false;
 			this->btnPrint->Click += gcnew System::EventHandler(this, &MainForm::btnPrint_Click);
@@ -748,10 +778,10 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->btnCalculateTotal->BackColor = System::Drawing::Color::DarkTurquoise;
 			this->btnCalculateTotal->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->btnCalculateTotal->Location = System::Drawing::Point(628, 458);
+			this->btnCalculateTotal->Location = System::Drawing::Point(747, 458);
 			this->btnCalculateTotal->Name = L"btnCalculateTotal";
 			this->btnCalculateTotal->Size = System::Drawing::Size(149, 58);
-			this->btnCalculateTotal->TabIndex = 8;
+			this->btnCalculateTotal->TabIndex = 15;
 			this->btnCalculateTotal->Text = L"Calculate Total";
 			this->btnCalculateTotal->UseVisualStyleBackColor = false;
 			this->btnCalculateTotal->Click += gcnew System::EventHandler(this, &MainForm::btnCalculateTotal_Click);
@@ -764,7 +794,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label18->Location = System::Drawing::Point(21, 97);
 			this->label18->Name = L"label18";
 			this->label18->Size = System::Drawing::Size(114, 25);
-			this->label18->TabIndex = 12;
+			this->label18->TabIndex = 0;
 			this->label18->Text = L"Invoice No";
 			// 
 			// tbInvoiceNo
@@ -774,7 +804,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->tbInvoiceNo->Location = System::Drawing::Point(150, 97);
 			this->tbInvoiceNo->Name = L"tbInvoiceNo";
 			this->tbInvoiceNo->Size = System::Drawing::Size(88, 27);
-			this->tbInvoiceNo->TabIndex = 13;
+			this->tbInvoiceNo->TabIndex = 1;
 			this->tbInvoiceNo->Text = L"001";
 			this->tbInvoiceNo->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			// 
@@ -786,7 +816,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label19->Location = System::Drawing::Point(455, 140);
 			this->label19->Name = L"label19";
 			this->label19->Size = System::Drawing::Size(120, 25);
-			this->label19->TabIndex = 3;
+			this->label19->TabIndex = 0;
 			this->label19->Text = L"Contact No";
 			// 
 			// tbContact
@@ -797,7 +827,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->tbContact->MaxLength = 12;
 			this->tbContact->Name = L"tbContact";
 			this->tbContact->Size = System::Drawing::Size(217, 30);
-			this->tbContact->TabIndex = 1;
+			this->tbContact->TabIndex = 4;
 			this->tbContact->Text = L"0340-8898238";
 			this->tbContact->Enter += gcnew System::EventHandler(this, &MainForm::tbContact_Enter);
 			this->tbContact->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MainForm::tbContact_KeyPress);
@@ -811,7 +841,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label20->Location = System::Drawing::Point(455, 181);
 			this->label20->Name = L"label20";
 			this->label20->Size = System::Drawing::Size(201, 25);
-			this->label20->TabIndex = 3;
+			this->label20->TabIndex = 0;
 			this->label20->Text = L"Emergency Contact";
 			// 
 			// tbEmergencyContact
@@ -822,7 +852,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->tbEmergencyContact->MaxLength = 12;
 			this->tbEmergencyContact->Name = L"tbEmergencyContact";
 			this->tbEmergencyContact->Size = System::Drawing::Size(217, 30);
-			this->tbEmergencyContact->TabIndex = 1;
+			this->tbEmergencyContact->TabIndex = 6;
 			this->tbEmergencyContact->Text = L"0339-4098238";
 			this->tbEmergencyContact->Enter += gcnew System::EventHandler(this, &MainForm::tbEmergencyContact_Enter);
 			this->tbEmergencyContact->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MainForm::tbEmergencyContact_KeyPress);
@@ -836,7 +866,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label21->Location = System::Drawing::Point(462, 227);
 			this->label21->Name = L"label21";
 			this->label21->Size = System::Drawing::Size(113, 25);
-			this->label21->TabIndex = 3;
+			this->label21->TabIndex = 0;
 			this->label21->Text = L"Nationality";
 			// 
 			// cbNationality
@@ -850,7 +880,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->cbNationality->MaxDropDownItems = 2;
 			this->cbNationality->Name = L"cbNationality";
 			this->cbNationality->Size = System::Drawing::Size(285, 33);
-			this->cbNationality->TabIndex = 14;
+			this->cbNationality->TabIndex = 8;
 			// 
 			// label22
 			// 
@@ -860,7 +890,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label22->Location = System::Drawing::Point(21, 272);
 			this->label22->Name = L"label22";
 			this->label22->Size = System::Drawing::Size(92, 25);
-			this->label22->TabIndex = 3;
+			this->label22->TabIndex = 0;
 			this->label22->Text = L"Address";
 			// 
 			// tbAddress
@@ -871,7 +901,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->tbAddress->MaxLength = 50;
 			this->tbAddress->Name = L"tbAddress";
 			this->tbAddress->Size = System::Drawing::Size(777, 27);
-			this->tbAddress->TabIndex = 1;
+			this->tbAddress->TabIndex = 9;
 			this->tbAddress->Text = L"House 117, Dhoke Khaba, Rawalpindi, Pakistan";
 			// 
 			// label23
@@ -882,7 +912,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label23->Location = System::Drawing::Point(455, 98);
 			this->label23->Name = L"label23";
 			this->label23->Size = System::Drawing::Size(57, 25);
-			this->label23->TabIndex = 12;
+			this->label23->TabIndex = 0;
 			this->label23->Text = L"Date";
 			// 
 			// dtpDate
@@ -896,7 +926,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->dtpDate->Location = System::Drawing::Point(543, 93);
 			this->dtpDate->Name = L"dtpDate";
 			this->dtpDate->Size = System::Drawing::Size(353, 30);
-			this->dtpDate->TabIndex = 5;
+			this->dtpDate->TabIndex = 2;
 			this->dtpDate->Value = System::DateTime(2024, 8, 31, 14, 31, 50, 0);
 			// 
 			// dtpDateIn
@@ -910,7 +940,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->dtpDateIn->Location = System::Drawing::Point(119, 310);
 			this->dtpDateIn->Name = L"dtpDateIn";
 			this->dtpDateIn->Size = System::Drawing::Size(313, 30);
-			this->dtpDateIn->TabIndex = 5;
+			this->dtpDateIn->TabIndex = 10;
 			this->dtpDateIn->Value = System::DateTime(2024, 8, 29, 0, 0, 0, 0);
 			// 
 			// label24
@@ -921,7 +951,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label24->Location = System::Drawing::Point(21, 315);
 			this->label24->Name = L"label24";
 			this->label24->Size = System::Drawing::Size(83, 25);
-			this->label24->TabIndex = 12;
+			this->label24->TabIndex = 0;
 			this->label24->Text = L"Date-In";
 			// 
 			// dtpDateOut
@@ -935,7 +965,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->dtpDateOut->Location = System::Drawing::Point(611, 310);
 			this->dtpDateOut->Name = L"dtpDateOut";
 			this->dtpDateOut->Size = System::Drawing::Size(285, 30);
-			this->dtpDateOut->TabIndex = 5;
+			this->dtpDateOut->TabIndex = 11;
 			this->dtpDateOut->Value = System::DateTime(2024, 8, 30, 0, 0, 0, 0);
 			// 
 			// label25
@@ -946,7 +976,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label25->Location = System::Drawing::Point(455, 315);
 			this->label25->Name = L"label25";
 			this->label25->Size = System::Drawing::Size(100, 25);
-			this->label25->TabIndex = 12;
+			this->label25->TabIndex = 0;
 			this->label25->Text = L"Date-Out";
 			// 
 			// label9
@@ -957,7 +987,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label9->Location = System::Drawing::Point(24, 227);
 			this->label9->Name = L"label9";
 			this->label9->Size = System::Drawing::Size(132, 25);
-			this->label9->TabIndex = 3;
+			this->label9->TabIndex = 0;
 			this->label9->Text = L"Buyer PNTN";
 			// 
 			// tbBuyerPNTN
@@ -968,7 +998,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->tbBuyerPNTN->MaxLength = 9;
 			this->tbBuyerPNTN->Name = L"tbBuyerPNTN";
 			this->tbBuyerPNTN->Size = System::Drawing::Size(250, 30);
-			this->tbBuyerPNTN->TabIndex = 3;
+			this->tbBuyerPNTN->TabIndex = 7;
 			this->tbBuyerPNTN->Text = L"0715030-0";
 			this->tbBuyerPNTN->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MainForm::tbBuyerPNTN_KeyPress);
 			// 
@@ -980,7 +1010,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label13->Location = System::Drawing::Point(914, 58);
 			this->label13->Name = L"label13";
 			this->label13->Size = System::Drawing::Size(94, 25);
-			this->label13->TabIndex = 1;
+			this->label13->TabIndex = 0;
 			this->label13->Text = L"Charges";
 			// 
 			// label10
@@ -988,20 +1018,20 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label10->AutoSize = true;
 			this->label10->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Italic, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label10->Location = System::Drawing::Point(905, 676);
+			this->label10->Location = System::Drawing::Point(925, 676);
 			this->label10->Name = L"label10";
 			this->label10->Size = System::Drawing::Size(144, 20);
-			this->label10->TabIndex = 12;
+			this->label10->TabIndex = 0;
 			this->label10->Text = L"Booking Manager:";
 			// 
 			// lblManagerName
 			// 
 			this->lblManagerName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Italic, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lblManagerName->Location = System::Drawing::Point(1060, 676);
+			this->lblManagerName->Location = System::Drawing::Point(1075, 676);
 			this->lblManagerName->Name = L"lblManagerName";
-			this->lblManagerName->Size = System::Drawing::Size(262, 20);
-			this->lblManagerName->TabIndex = 12;
+			this->lblManagerName->Size = System::Drawing::Size(247, 20);
+			this->lblManagerName->TabIndex = 0;
 			this->lblManagerName->Text = L"Muhammad Awais Shafi";
 			this->lblManagerName->TextAlign = System::Drawing::ContentAlignment::MiddleRight;
 			// 
@@ -1024,7 +1054,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label17->Location = System::Drawing::Point(914, 99);
 			this->label17->Name = L"label17";
 			this->label17->Size = System::Drawing::Size(111, 25);
-			this->label17->TabIndex = 3;
+			this->label17->TabIndex = 0;
 			this->label17->Text = L"Rooms No";
 			// 
 			// label26
@@ -1035,7 +1065,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label26->Location = System::Drawing::Point(914, 262);
 			this->label26->Name = L"label26";
 			this->label26->Size = System::Drawing::Size(96, 25);
-			this->label26->TabIndex = 3;
+			this->label26->TabIndex = 0;
 			this->label26->Text = L"Discount";
 			// 
 			// tbDiscount
@@ -1057,7 +1087,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label27->Location = System::Drawing::Point(914, 362);
 			this->label27->Name = L"label27";
 			this->label27->Size = System::Drawing::Size(156, 25);
-			this->label27->TabIndex = 3;
+			this->label27->TabIndex = 0;
 			this->label27->Text = L"Payment Mode";
 			// 
 			// cbPaymentModeCash
@@ -1106,7 +1136,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label28->Location = System::Drawing::Point(913, 403);
 			this->label28->Name = L"label28";
 			this->label28->Size = System::Drawing::Size(136, 25);
-			this->label28->TabIndex = 3;
+			this->label28->TabIndex = 0;
 			this->label28->Text = L"Invoice Type";
 			// 
 			// rbInvoiceTypeNew
@@ -1154,7 +1184,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label29->Location = System::Drawing::Point(996, 615);
 			this->label29->Name = L"label29";
 			this->label29->Size = System::Drawing::Size(322, 20);
-			this->label29->TabIndex = 12;
+			this->label29->TabIndex = 0;
 			this->label29->Text = L"Hotel Blue Sky Management System";
 			// 
 			// label30
@@ -1210,7 +1240,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 				static_cast<System::Byte>(0)));
 			this->cbFilterFloor->FormattingEnabled = true;
 			this->cbFilterFloor->Items->AddRange(gcnew cli::array< System::Object^  >(4) { L"Floor 1", L"Floor 2", L"Floor 3", L"All Floor" });
-			this->cbFilterFloor->Location = System::Drawing::Point(488, 392);
+			this->cbFilterFloor->Location = System::Drawing::Point(607, 392);
 			this->cbFilterFloor->MaxDropDownItems = 2;
 			this->cbFilterFloor->Name = L"cbFilterFloor";
 			this->cbFilterFloor->Size = System::Drawing::Size(134, 24);
@@ -1226,7 +1256,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->btnViewOldData->Location = System::Drawing::Point(729, 48);
 			this->btnViewOldData->Name = L"btnViewOldData";
 			this->btnViewOldData->Size = System::Drawing::Size(167, 30);
-			this->btnViewOldData->TabIndex = 7;
+			this->btnViewOldData->TabIndex = 19;
 			this->btnViewOldData->Text = L"View Old Data";
 			this->btnViewOldData->UseVisualStyleBackColor = false;
 			this->btnViewOldData->Click += gcnew System::EventHandler(this, &MainForm::btnViewOldData_Click);
@@ -1368,7 +1398,7 @@ private:
 				DataGridViewCheckBoxColumn^ chkColumn = gcnew DataGridViewCheckBoxColumn();
 				chkColumn->HeaderText = "Select";  // Set the header text for the column
 				chkColumn->Name = "chkSelect";     // Set the name of the column
-				chkColumn->Width = 50;             // Optional: set the width of the checkbox column
+				//chkColumn->Width = 50;             // Optional: set the width of the checkbox column
 
 												   // Add the checkbox column to the DataGridView
 				dgvRoomData->Columns->Add(chkColumn);
@@ -1391,6 +1421,51 @@ private:
 			conDataBase->Close();
 		}
 	}
+	void LoadDataOnce()
+	{
+		String^ conString = "Data Source=localhost\\sqlexpress;Initial Catalog=myhotel;Integrated Security=True";
+		SqlConnection^ conDataBase = gcnew SqlConnection(conString);
+		SqlCommand^ cmdDataBase = gcnew SqlCommand("SELECT TOP 1 InvoiceNo FROM customer ORDER BY InvoiceNo DESC;", conDataBase);
+
+		try
+		{
+			conDataBase->Open();
+			SqlDataReader^ reader = cmdDataBase->ExecuteReader();
+			String^ latestInvoiceNo = "0";
+
+			if (reader->Read())
+			{
+				latestInvoiceNo = reader["InvoiceNo"]->ToString();
+			}
+
+			reader->Close();
+			conDataBase->Close();
+
+			// Increment the invoice number
+			int invoiceNo;
+			if (Int32::TryParse(latestInvoiceNo, invoiceNo))
+			{
+				invoiceNo++;
+				tbInvoiceNo->Text = invoiceNo.ToString();
+			}
+			else
+			{
+				tbInvoiceNo->Text = "001"; // Start from 1 if conversion fails
+			}
+		}
+		catch (Exception^ ex)
+		{
+			MessageBox::Show(ex->Message);
+		}
+		finally
+		{
+			if (conDataBase->State == ConnectionState::Open)
+			{
+				conDataBase->Close();
+			}
+		}
+	}
+
 
 private: System::Void btnCalculateTotal_Click(System::Object^  sender, System::EventArgs^  e) {
 	//on click btnCalculateTotal function code here
