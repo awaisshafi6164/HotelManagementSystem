@@ -11,6 +11,7 @@
 #include <msclr/marshal_cppstd.h> // For converting std::string to System::String
 #include "UserDataForm.h"
 #include "RoomDataForm.h"
+#include "SettingForm.h"
 using namespace std;
 namespace HotelManagementSystem {
 
@@ -52,6 +53,7 @@ namespace HotelManagementSystem {
 	private: System::Windows::Forms::Button^  btnUserData;
 	private: System::Windows::Forms::Button^  btnRoomData;
 	private: System::Windows::Forms::Button^  btnCustomerData;
+	private: System::Windows::Forms::Button^  button1;
 
 	protected:
 
@@ -76,6 +78,7 @@ namespace HotelManagementSystem {
 			this->btnUserData = (gcnew System::Windows::Forms::Button());
 			this->btnRoomData = (gcnew System::Windows::Forms::Button());
 			this->btnCustomerData = (gcnew System::Windows::Forms::Button());
+			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// label1
@@ -134,11 +137,24 @@ namespace HotelManagementSystem {
 			this->btnCustomerData->Text = L"Customer Data";
 			this->btnCustomerData->UseVisualStyleBackColor = false;
 			// 
+			// button1
+			// 
+			this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->button1->Location = System::Drawing::Point(403, 221);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(100, 37);
+			this->button1->TabIndex = 2;
+			this->button1->Text = L"Setting";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &AdminForm::button1_Click);
+			// 
 			// AdminForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(515, 270);
+			this->Controls->Add(this->button1);
 			this->Controls->Add(this->btnRoomData);
 			this->Controls->Add(this->btnCustomerData);
 			this->Controls->Add(this->btnUserData);
@@ -159,6 +175,11 @@ namespace HotelManagementSystem {
 private: System::Void btnRoomData_Click(System::Object^  sender, System::EventArgs^  e) {
 	HotelManagementSystem::RoomDataForm roomDataForm;
 	roomDataForm.ShowDialog();
+}
+
+private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
+	HotelManagementSystem::SettingForm settingForm;
+	settingForm.ShowDialog();
 }
 };
 }

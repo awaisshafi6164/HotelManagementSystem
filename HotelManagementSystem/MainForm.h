@@ -8,12 +8,20 @@
 #include <string>
 #include <nlohmann\json.hpp>
 
-
 #include "Invoice.h"
 #include <msclr/marshal_cppstd.h> // For converting std::string to System::String
 
 #include <fstream>
 using namespace std;
+using namespace System::Data::SqlClient;
+
+using namespace System;
+using namespace System::ComponentModel;
+using namespace System::Collections;
+using namespace System::Windows::Forms;
+using namespace System::Data;
+using namespace System::Drawing;
+using namespace System::IO;
 // Token and URL (replace with actual values)
 //std::string token = "24d8fab3-f2e9-398f-ae17-b387125ec4a2"; //sandbox token
 //std::string url = "https://ims.pral.com.pk/ims/sandbox/api/Live/PostData";//sandbox url
@@ -66,6 +74,36 @@ inline std::string SendInvoiceData(const nlohmann::json& invoiceJson) {
 */
 
 inline std::string SendInvoiceData(const nlohmann::json& invoiceJson) {
+	// Fetch data from the database
+	String^ conString = "Data Source=localhost\\sqlexpress;Initial Catalog=myhotel;Integrated Security=True";
+	SqlConnection^ conDataBase = gcnew SqlConnection(conString);
+	SqlCommand^ cmdDataBase = gcnew SqlCommand("SELECT praAccessIDToken, praIDEnvironment FROM setting WHERE ID = 1;", conDataBase);
+
+	std::string token;
+	std::string env;
+
+	try {
+		conDataBase->Open();
+		SqlDataReader^ reader = cmdDataBase->ExecuteReader();
+		if (reader->Read()) {
+			token = msclr::interop::marshal_as<std::string>(reader["praAccessIDToken"]->ToString());
+			env = msclr::interop::marshal_as<std::string>(reader["praIDEnvironment"]->ToString());
+		}
+		reader->Close();
+	}
+	catch (Exception^ ex) {
+		std::cerr << "Database error: " << msclr::interop::marshal_as<std::string>(ex->Message) << std::endl;
+	}
+	finally{
+		conDataBase->Close();
+	}
+
+		// Replace "sandbox" with the environment from the database in the URL
+	std::string url = "https://ims.pral.com.pk/ims/" + env + "/api/Live/PostData";
+
+
+	//////////////////
+	//////////////////
 	CURL* curl;
 	CURLcode res;
 	std::string response;
@@ -76,8 +114,8 @@ inline std::string SendInvoiceData(const nlohmann::json& invoiceJson) {
 		std::string jsonString = invoiceJson.dump();
 
 		// Set up cURL options with HTTPS URL
-		std::string url = "https://ims.pral.com.pk/ims/sandbox/api/Live/PostData";
-		std::string token = "24d8fab3-f2e9-398f-ae17-b387125ec4a2"; // Sandbox Token
+		//std::string url = "https://ims.pral.com.pk/ims/sandbox/api/Live/PostData";
+		//std::string token = "24d8fab3-f2e9-398f-ae17-b387125ec4a2"; // Sandbox Token
 
 		curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
 		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, jsonString.c_str());
@@ -170,7 +208,6 @@ namespace HotelManagementSystem {
 	using namespace System::Data;
 	using namespace System::Drawing;
 	using namespace System::Data::SqlClient;
-
 	using namespace System::IO;
 	/// <summary>
 	/// Summary for MainForm
@@ -184,7 +221,7 @@ namespace HotelManagementSystem {
 			this->bookingManagerName = userName;
 			InitializeComponent();
 			//
-			LoadRoomData();
+			LoadRoomData("All Floor");
 			//TODO: Add the constructor code here
 			//
 		}
@@ -305,6 +342,8 @@ private: System::Windows::Forms::Label^  lblNote;
 private: System::Drawing::Printing::PrintDocument^  printDocInvoice;
 private: System::Windows::Forms::PrintPreviewDialog^  printPreviewInvoice;
 private: System::Windows::Forms::Label^  label11;
+private: System::Windows::Forms::ComboBox^  cbFilterFloor;
+
 
 
 
@@ -396,6 +435,7 @@ private: System::Windows::Forms::Label^  label11;
 			this->printDocInvoice = (gcnew System::Drawing::Printing::PrintDocument());
 			this->printPreviewInvoice = (gcnew System::Windows::Forms::PrintPreviewDialog());
 			this->label11 = (gcnew System::Windows::Forms::Label());
+			this->cbFilterFloor = (gcnew System::Windows::Forms::ComboBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvRoomData))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -558,11 +598,12 @@ private: System::Windows::Forms::Label^  label11;
 			// 
 			// label12
 			// 
+			this->label12->AutoSize = true;
 			this->label12->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label12->Location = System::Drawing::Point(25, 394);
+			this->label12->Location = System::Drawing::Point(24, 394);
 			this->label12->Name = L"label12";
-			this->label12->Size = System::Drawing::Size(597, 25);
+			this->label12->Size = System::Drawing::Size(145, 25);
 			this->label12->TabIndex = 1;
 			this->label12->Text = L"Select Rooms";
 			this->label12->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
@@ -1157,6 +1198,20 @@ private: System::Windows::Forms::Label^  label11;
 			this->label11->TabIndex = 12;
 			this->label11->Text = L"Note:";
 			// 
+			// cbFilterFloor
+			// 
+			this->cbFilterFloor->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->cbFilterFloor->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->cbFilterFloor->FormattingEnabled = true;
+			this->cbFilterFloor->Items->AddRange(gcnew cli::array< System::Object^  >(4) { L"Floor 1", L"Floor 2", L"Floor 3", L"All Floor" });
+			this->cbFilterFloor->Location = System::Drawing::Point(488, 392);
+			this->cbFilterFloor->MaxDropDownItems = 2;
+			this->cbFilterFloor->Name = L"cbFilterFloor";
+			this->cbFilterFloor->Size = System::Drawing::Size(134, 24);
+			this->cbFilterFloor->TabIndex = 14;
+			this->cbFilterFloor->SelectedIndexChanged += gcnew System::EventHandler(this, &MainForm::cbFilterFloor_SelectedIndexChanged);
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
@@ -1169,6 +1224,7 @@ private: System::Windows::Forms::Label^  label11;
 			this->Controls->Add(this->cbPaymentModeCheque);
 			this->Controls->Add(this->cbPaymentModeCard);
 			this->Controls->Add(this->cbPaymentModeCash);
+			this->Controls->Add(this->cbFilterFloor);
 			this->Controls->Add(this->cbNationality);
 			this->Controls->Add(this->tbInvoiceNo);
 			this->Controls->Add(this->label25);
@@ -1250,18 +1306,34 @@ private: System::Void tbCnic_Leave(System::Object^  sender, System::EventArgs^  
 	}
 }
 private: System::Void btnRefresh_Click(System::Object^ sender, System::EventArgs^ e) {
-	LoadRoomData();
+	String^ filterFloor = cbFilterFloor->SelectedItem->ToString();
+	LoadRoomData(filterFloor);
 }
 
 private:
-	void LoadRoomData()
+	void LoadRoomData(String^ filterFloor)
 	{
 		lblManagerName->Text = bookingManagerName;
 		cbNationality->SelectedItem = "Pakistani";
+		cbFilterFloor->SelectedItem = filterFloor;
 
 		String^ conString = "Data Source=localhost\\sqlexpress;Initial Catalog=myhotel;Integrated Security=True";
 		SqlConnection^ conDataBase = gcnew SqlConnection(conString);
-		SqlCommand^ cmdDataBase = gcnew SqlCommand("SELECT Room, Type, Category, Rent FROM room;", conDataBase);
+
+		String^ query;
+		if (filterFloor == "Floor 1") {
+			query = "SELECT Room, Type, Category, Rent FROM room WHERE Room >= 100 AND Room < 200;";
+		}
+		else if (filterFloor == "Floor 2") {
+			query = "SELECT Room, Type, Category, Rent FROM room WHERE Room >= 200 AND Room < 300;";
+		}
+		else if (filterFloor == "Floor 3") {
+			query = "SELECT Room, Type, Category, Rent FROM room WHERE Room >= 300 AND Room < 400;";
+		}
+		else { // All Floor
+			query = "SELECT Room, Type, Category, Rent FROM room;";
+		}
+		SqlCommand^ cmdDataBase = gcnew SqlCommand(query, conDataBase);
 
 		try {
 			SqlDataAdapter^ sda = gcnew SqlDataAdapter();
@@ -1349,7 +1421,7 @@ private: System::Void btnCalculateTotal_Click(System::Object^  sender, System::E
 	}
 }
 private: System::Void btnCancel_Click(System::Object^  sender, System::EventArgs^  e) {
-	LoadRoomData();
+	LoadRoomData("All Floor");
 	tbRoomNo->Text = "0";
 	tbNoOfRooms->Text = "0";
 	tbRoomCharges->Text = "0";
@@ -2159,6 +2231,10 @@ private: System::Void btnPrint_Click(System::Object^  sender, System::EventArgs^
 	printPreviewInvoice->Document = printDocInvoice;
 	printDocInvoice->DefaultPageSettings->PaperSize = gcnew System::Drawing::Printing::PaperSize("Custom", 285, 700);
 	printPreviewInvoice->ShowDialog();
+}
+private: System::Void cbFilterFloor_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
+	String^ filterFloor = cbFilterFloor->SelectedItem->ToString();
+	LoadRoomData(filterFloor);
 }
 };
 }
