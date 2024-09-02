@@ -214,6 +214,9 @@ namespace HotelManagementSystem {
 	/// </summary>
 	public ref class MainForm : public System::Windows::Forms::Form
 	{
+	private:
+		String ^ praInvoiceNumberGlobalDeclare = "";
+
 	public:
 		String^ bookingManagerName;
 		MainForm(String^ userName)
@@ -1651,6 +1654,7 @@ private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e
 	std::string apiErrorsMessage = responseJson.contains("Errors") ? responseJson["Errors"] : "No Response";
 
 	String^ praInvoiceNo = gcnew String(invoiceNumber.c_str());
+	praInvoiceNumberGlobalDeclare = praInvoiceNo;
 	String^ apiResponseMessageStr = gcnew String(apiResponseMessage.c_str());
 	if (apiCodeMessage == "100")
 	{
@@ -2214,9 +2218,12 @@ private: System::Void printDocInvoice_PrintPage(System::Object^ sender, System::
 	// Footer
 	float pageHeight = e->PageBounds.Height;
 
-
+	//String^ praInvoiceNumberGlobalDeclare
 	// Example QR code data
-	String^ praInvoiceNo = "81474124090113415541*Test*";
+	//String^ praInvoiceNo = "81474124090113415541*Test*";
+	String^ praInvoiceNo = praInvoiceNumberGlobalDeclare;
+	//MessageBox::Show(praInvoiceNumberGlobalDeclare);
+	//MessageBox::Show(praInvoiceNo);
 	std::string qrData = "https://e.pra.punjab.gov.pk/IMSFiscalReport/SearchPOSInvoice_Report.aspx?PRAInvNo=" + msclr::interop::marshal_as<std::string>(praInvoiceNo->ToString());
 	std::string filePath = "qr_code.png";
 	// Save QR code image
