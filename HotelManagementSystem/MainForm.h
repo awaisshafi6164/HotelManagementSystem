@@ -23,9 +23,6 @@ using namespace System::Windows::Forms;
 using namespace System::Data;
 using namespace System::Drawing;
 using namespace System::IO;
-// Token and URL (replace with actual values)
-//std::string token = "24d8fab3-f2e9-398f-ae17-b387125ec4a2"; //sandbox token
-//std::string url = "https://ims.pral.com.pk/ims/sandbox/api/Live/PostData";//sandbox url
 
 // WriteCallback function to capture the response data
 inline size_t WriteCallback(void* contents, size_t size, size_t nmemb, std::string* response) {
@@ -33,8 +30,8 @@ inline size_t WriteCallback(void* contents, size_t size, size_t nmemb, std::stri
 	response->append((char*)contents, totalSize);
 	return totalSize;
 }
-/*
-inline std::string SendInvoiceData(const nlohmann::json& invoiceJson) {
+
+inline std::string SendInvoiceDataLive(const nlohmann::json& invoiceJson) {
 	CURL* curl;
 	CURLcode res;
 	std::string response;
@@ -71,7 +68,7 @@ inline std::string SendInvoiceData(const nlohmann::json& invoiceJson) {
 
 	return response;
 }
-*/
+
 
 inline std::string SendInvoiceData(const nlohmann::json& invoiceJson) {
 	// Fetch data from the database
@@ -145,6 +142,8 @@ inline std::string SendInvoiceData(const nlohmann::json& invoiceJson) {
 
 	return response;
 }
+
+
 
 inline std::string FetchQRCode(const std::string& qrData) {
 	CURL* curl;
@@ -1689,17 +1688,44 @@ private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e
 
 
 	////
+	/*
+		// Fetch data from the database
+	String^ conString = "Data Source=localhost\\sqlexpress;Initial Catalog=myhotel;Integrated Security=True";
+	SqlConnection^ conDataBase = gcnew SqlConnection(conString);
+	SqlCommand^ cmdDataBase = gcnew SqlCommand("SELECT praAccessIDToken, praIDEnvironment FROM setting WHERE ID = 1;", conDataBase);
+
+	std::string token;
+	std::string env;
+
+	try {
+		conDataBase->Open();
+		SqlDataReader^ reader = cmdDataBase->ExecuteReader();
+		if (reader->Read()) {
+			token = msclr::interop::marshal_as<std::string>(reader["praAccessIDToken"]->ToString());
+			env = msclr::interop::marshal_as<std::string>(reader["praIDEnvironment"]->ToString());
+		}
+		reader->Close();
+	}
+	catch (Exception^ ex) {
+		std::cerr << "Database error: " << msclr::interop::marshal_as<std::string>(ex->Message) << std::endl;
+	}
+	finally{
+		conDataBase->Close();
+	}
+	*/
 	// Fetch data from the database
 	String^ conString = "Data Source=localhost\\sqlexpress;Initial Catalog=myhotel;Integrated Security=True";
 	SqlConnection^ conDataBase = gcnew SqlConnection(conString);
-	SqlCommand^ cmdDataBase = gcnew SqlCommand("SELECT praAccessID FROM setting WHERE ID = 1;", conDataBase);
+	SqlCommand^ cmdDataBase = gcnew SqlCommand("SELECT praAccessID, praIDEnvironment FROM setting WHERE ID = 1;", conDataBase);
 
 	int praPOSID;
+	std::string env;
 	try {
 		conDataBase->Open();
 		SqlDataReader^ reader = cmdDataBase->ExecuteReader();
 		if (reader->Read()) {
 			praPOSID = Convert::ToInt32(reader["praAccessID"]);
+			env = msclr::interop::marshal_as<std::string>(reader["praIDEnvironment"]->ToString());
 		}
 		reader->Close();
 	}
@@ -1761,16 +1787,24 @@ private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e
 			});
 	}
 	
-
+	std::string response;
+	if (env == "production")
+	{
+		response = SendInvoiceDataLive(jsonObj);
+	}
+	else if (env == "sandbox")
+	{
+		response = SendInvoiceData(jsonObj);
+	}
 	// Send data to the API and get the response
-	std::string response = SendInvoiceData(jsonObj);
+	//std::string response = SendInvoiceData(jsonObj);
 
 	// Parse the response to extract the InvoiceNumber
 	nlohmann::json responseJson = nlohmann::json::parse(response);
 	std::string invoiceNumber = responseJson.contains("InvoiceNumber") ? responseJson["InvoiceNumber"] : "Not Available";
 	std::string apiResponseMessage = responseJson.contains("Response") ? responseJson["Response"] : "No Response";
 	std::string apiCodeMessage = responseJson.contains("Code") ? responseJson["Code"] : "No Response";
-	std::string apiErrorsMessage = responseJson.contains("Errors") ? responseJson["Errors"] : "No Response";
+	//std::string apiErrorsMessage = responseJson.contains("Errors") ? responseJson["Errors"] : "No Response";
 
 	String^ praInvoiceNo = gcnew String(invoiceNumber.c_str());
 	praInvoiceNumberGlobalDeclare = praInvoiceNo;
@@ -1783,11 +1817,11 @@ private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e
 	else {
 		// Display the InvoiceNumber and response message in a message box
 		String^ apiCodeMessageStr = gcnew String(apiCodeMessage.c_str());
-		String^ apiErrorsMessageStr = gcnew String(apiErrorsMessage.c_str());
+		//String^ apiErrorsMessageStr = gcnew String(apiErrorsMessage.c_str());
 		MessageBox::Show("Generated Invoice Number: " + praInvoiceNo
 			+ "\nCode: " + apiCodeMessageStr
 			+ "\nAPI Response: " + apiResponseMessageStr
-			+ "\nErrors: " + apiErrorsMessageStr
+			//+ "\nErrors: " + apiErrorsMessageStr
 			, "API Response", MessageBoxButtons::OK, MessageBoxIcon::Information);
 
 		lblNote->Text = apiResponseMessageStr;
