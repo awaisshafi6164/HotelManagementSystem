@@ -113,10 +113,6 @@ inline std::string SendInvoiceData(const nlohmann::json& invoiceJson) {
 		// Convert JSON object to string
 		std::string jsonString = invoiceJson.dump();
 
-		// Set up cURL options with HTTPS URL
-		//std::string url = "https://ims.pral.com.pk/ims/sandbox/api/Live/PostData";
-		//std::string token = "24d8fab3-f2e9-398f-ae17-b387125ec4a2"; // Sandbox Token
-
 		curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
 		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, jsonString.c_str());
 		curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, jsonString.size());
@@ -501,6 +497,8 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->tbName->Size = System::Drawing::Size(313, 30);
 			this->tbName->TabIndex = 3;
 			this->tbName->Text = L"Muhammad Awais Shafi";
+			this->tbName->Enter += gcnew System::EventHandler(this, &MainForm::tbName_Enter);
+			this->tbName->Leave += gcnew System::EventHandler(this, &MainForm::tbName_Leave);
 			// 
 			// label5
 			// 
@@ -593,18 +591,18 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			// 
 			this->dgvRoomData->AllowUserToAddRows = false;
 			this->dgvRoomData->AllowUserToDeleteRows = false;
-			this->dgvRoomData->AllowUserToResizeColumns = false;
+			this->dgvRoomData->AllowUserToOrderColumns = true;
 			this->dgvRoomData->AllowUserToResizeRows = false;
 			dataGridViewCellStyle1->BackColor = System::Drawing::Color::Silver;
 			this->dgvRoomData->AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
 			this->dgvRoomData->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
+			this->dgvRoomData->AutoSizeRowsMode = System::Windows::Forms::DataGridViewAutoSizeRowsMode::DisplayedCells;
 			this->dgvRoomData->BackgroundColor = System::Drawing::Color::LightSteelBlue;
 			this->dgvRoomData->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->dgvRoomData->ColumnHeadersBorderStyle = System::Windows::Forms::DataGridViewHeaderBorderStyle::Single;
 			dataGridViewCellStyle2->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
 			dataGridViewCellStyle2->BackColor = System::Drawing::Color::DodgerBlue;
-			dataGridViewCellStyle2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular,
-				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			dataGridViewCellStyle2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.5F));
 			dataGridViewCellStyle2->ForeColor = System::Drawing::SystemColors::WindowText;
 			dataGridViewCellStyle2->Padding = System::Windows::Forms::Padding(5);
 			dataGridViewCellStyle2->SelectionBackColor = System::Drawing::SystemColors::Highlight;
@@ -614,9 +612,10 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->dgvRoomData->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			dataGridViewCellStyle3->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
 			dataGridViewCellStyle3->BackColor = System::Drawing::SystemColors::Menu;
-			dataGridViewCellStyle3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
+			dataGridViewCellStyle3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
 			dataGridViewCellStyle3->ForeColor = System::Drawing::SystemColors::ControlText;
+			dataGridViewCellStyle3->Padding = System::Windows::Forms::Padding(5);
 			dataGridViewCellStyle3->SelectionBackColor = System::Drawing::SystemColors::Highlight;
 			dataGridViewCellStyle3->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
 			dataGridViewCellStyle3->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
@@ -652,7 +651,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->btnRefresh->Name = L"btnRefresh";
 			this->btnRefresh->Size = System::Drawing::Size(149, 30);
 			this->btnRefresh->TabIndex = 7;
-			this->btnRefresh->Text = L"Refresh";
+			this->btnRefresh->Text = L"Reset";
 			this->btnRefresh->UseVisualStyleBackColor = false;
 			this->btnRefresh->Click += gcnew System::EventHandler(this, &MainForm::btnRefresh_Click);
 			// 
@@ -903,6 +902,8 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->tbAddress->Size = System::Drawing::Size(777, 27);
 			this->tbAddress->TabIndex = 9;
 			this->tbAddress->Text = L"House 117, Dhoke Khaba, Rawalpindi, Pakistan";
+			this->tbAddress->Enter += gcnew System::EventHandler(this, &MainForm::tbAddress_Enter);
+			this->tbAddress->Leave += gcnew System::EventHandler(this, &MainForm::tbAddress_Leave);
 			// 
 			// label23
 			// 
@@ -994,13 +995,15 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			// 
 			this->tbBuyerPNTN->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->tbBuyerPNTN->Location = System::Drawing::Point(182, 222);
+			this->tbBuyerPNTN->Location = System::Drawing::Point(173, 222);
 			this->tbBuyerPNTN->MaxLength = 9;
 			this->tbBuyerPNTN->Name = L"tbBuyerPNTN";
-			this->tbBuyerPNTN->Size = System::Drawing::Size(250, 30);
+			this->tbBuyerPNTN->Size = System::Drawing::Size(259, 30);
 			this->tbBuyerPNTN->TabIndex = 7;
 			this->tbBuyerPNTN->Text = L"0715030-0";
+			this->tbBuyerPNTN->Enter += gcnew System::EventHandler(this, &MainForm::tbBuyerPNTN_Enter);
 			this->tbBuyerPNTN->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MainForm::tbBuyerPNTN_KeyPress);
+			this->tbBuyerPNTN->Leave += gcnew System::EventHandler(this, &MainForm::tbBuyerPNTN_Leave);
 			// 
 			// label13
 			// 
@@ -1356,15 +1359,15 @@ private: System::Void tbCnic_Leave(System::Object^  sender, System::EventArgs^  
 	}
 }
 private: System::Void btnRefresh_Click(System::Object^ sender, System::EventArgs^ e) {
-	String^ filterFloor = cbFilterFloor->SelectedItem->ToString();
-	LoadRoomData(filterFloor);
+	LoadDataOnce();
+	//String^ filterFloor = cbFilterFloor->SelectedItem->ToString();
+	//LoadRoomData(filterFloor);
 }
 
 private:
 	void LoadRoomData(String^ filterFloor)
 	{
-		lblManagerName->Text = bookingManagerName;
-		cbNationality->SelectedItem = "Pakistani";
+		
 		cbFilterFloor->SelectedItem = filterFloor;
 
 		String^ conString = "Data Source=localhost\\sqlexpress;Initial Catalog=myhotel;Integrated Security=True";
@@ -1423,9 +1426,39 @@ private:
 	}
 	void LoadDataOnce()
 	{
+		dtpDate->Value = DateTime::Now;
+		dtpDateIn->Value = DateTime::Now;
+		dtpDateOut->Value = DateTime::Now;
+		dtpTimeIn->Value = DateTime::Now;
+		dtpTimeOut->Value = DateTime::Now;
+
+		tbName->Text = "Full Name";
+		tbCnic->Text = "xxxxx-xxxxxxx-x";
+		tbContact->Text = "03xx-xxxxxxx";
+		tbEmergencyContact->Text = "03xx-xxxxxxx";
+		tbBuyerPNTN->Text = "xxxxxxx-x";
+		cbNationality->SelectedItem = "Pakistani";
+		tbAddress->Text = "H#123, ST#06, Dhoke Khaba, Rawalpindi";
+		LoadRoomData("All Floor");
+		tbRoomNo->Text = "0";
+		tbNoOfRooms->Text = "0";
+		tbRoomCharges->Text = "0";
+		tbGst->Text = "0";
+		tbDiscount->Text = "0";
+		tbPayable->Text = "0";
+
+		cbPaymentModeCash->Checked = true;
+		cbPaymentModeCard->Checked = false;
+		cbPaymentModeCheque->Checked = false;
+		rbInvoiceTypeNew->Checked = true;
+
+		lblManagerName->Text = bookingManagerName;
+
 		String^ conString = "Data Source=localhost\\sqlexpress;Initial Catalog=myhotel;Integrated Security=True";
 		SqlConnection^ conDataBase = gcnew SqlConnection(conString);
-		SqlCommand^ cmdDataBase = gcnew SqlCommand("SELECT TOP 1 InvoiceNo FROM customer ORDER BY InvoiceNo DESC;", conDataBase);
+
+		// Cast InvoiceNo to INT for correct sorting
+		SqlCommand^ cmdDataBase = gcnew SqlCommand("SELECT TOP 1 CAST(InvoiceNo AS INT) AS InvoiceNo FROM customer ORDER BY CAST(InvoiceNo AS INT) DESC;", conDataBase);
 
 		try
 		{
@@ -1686,25 +1719,16 @@ private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e
 	Invoice custInv;
 	custInv.InvoiceNumber = "";  // or provide a valid default
 	custInv.POSID = posID;  // Use the retrieved POS ID
-
-	//custInv.POSID = 814741;  // Change to appropriate value if required
 	custInv.USIN = msclr::interop::marshal_as<std::string>(invoiceNo->ToString());
 	custInv.DateTime = msclr::interop::marshal_as<std::string>(praFormatDateTime->ToString());
-	custInv.BuyerPNTN = msclr::interop::marshal_as<std::string>(buyerPNTN->ToString());
-	custInv.BuyerCNIC = msclr::interop::marshal_as<std::string>(cnic->ToString());
-	custInv.BuyerName = msclr::interop::marshal_as<std::string>(name->ToString());
-	custInv.BuyerPhoneNumber = msclr::interop::marshal_as<std::string>(contact->ToString());
+	custInv.PaymentMode = paymentMode;
 	custInv.TotalSaleValue = roomCharges;
-	custInv.TotalQuantity = noOfRooms;
+	custInv.TotalQuantity = Convert::ToDouble(noOfRooms);
 	custInv.TotalBillAmount = payable;
 	custInv.TotalTaxCharged = gst;
-	custInv.Discount = discount;
-	custInv.FurtherTax = payable;
-	custInv.PaymentMode = paymentMode;
-	custInv.RefUSIN = "";  // Ensure this matches expected format
 	custInv.InvoiceType = invoiceType;
 	custInv.Items = CreateItems(); // send items to CreateItems list constructor
-	// make a loop to send items to createitems one by one till the number of items complete
+	//make a loop to send items to createitems one by one till the number of items complete
 
 	//convert above invoice to JSON Formate 
 	nlohmann::json jsonObj = {
@@ -1712,23 +1736,17 @@ private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e
 		{ "POSID", custInv.POSID },
 		{ "USIN", custInv.USIN },
 		{ "DateTime", custInv.DateTime },
-		{ "BuyerPNTN", custInv.BuyerPNTN },
-		{ "BuyerCNIC", custInv.BuyerCNIC },
-		{ "BuyerName", custInv.BuyerName },
-		{ "BuyerPhoneNumber", custInv.BuyerPhoneNumber },
-		{ "TotalSaleValue", custInv.TotalSaleValue },
-		{ "TotalQuantity", custInv.TotalQuantity },
 		{ "TotalBillAmount", custInv.TotalBillAmount },
+		{ "TotalQuantity", custInv.TotalQuantity },
+		{ "TotalSaleValue", custInv.TotalSaleValue },
 		{ "TotalTaxCharged", custInv.TotalTaxCharged },
-		{ "Discount", custInv.Discount },
-		{ "FurtherTax", custInv.FurtherTax },
 		{ "PaymentMode", custInv.PaymentMode },
-		{ "RefUSIN", custInv.RefUSIN },
 		{ "InvoiceType", custInv.InvoiceType },
 		{ "Items", nlohmann::json::array() }
 	};
 
 	// Add Items to JSON (createitems)
+	
 	for (const auto& item : custInv.Items) {
 		jsonObj["Items"].push_back({
 			{ "ItemCode", item.ItemCode },
@@ -1739,12 +1757,10 @@ private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e
 			{ "SaleValue", item.SaleValue },
 			{ "TotalAmount", item.TotalAmount },
 			{ "TaxCharged", item.TaxCharged },
-			{ "Discount", item.Discount },
-			{ "FurtherTax", item.FurtherTax },
-			{ "InvoiceType", item.InvoiceType },
-			{ "RefUSIN", item.RefUSIN }
+			{ "InvoiceType", item.InvoiceType }
 			});
 	}
+	
 
 	// Send data to the API and get the response
 	std::string response = SendInvoiceData(jsonObj);
@@ -2366,6 +2382,36 @@ private: System::Void cbFilterFloor_SelectedIndexChanged(System::Object^  sender
 private: System::Void btnViewOldData_Click(System::Object^  sender, System::EventArgs^  e) {
 	HotelManagementSystem::CustomerDataForm customerDataForm;
 	customerDataForm.ShowDialog();
+}
+private: System::Void tbBuyerPNTN_Enter(System::Object^  sender, System::EventArgs^  e) {
+	if (tbBuyerPNTN->Text == "xxxxxxx-x") {
+		tbBuyerPNTN->Text = "";
+	}
+}
+private: System::Void tbBuyerPNTN_Leave(System::Object^  sender, System::EventArgs^  e) {
+	if (tbBuyerPNTN->Text == "") {
+		tbBuyerPNTN->Text = "xxxxxxx-x";
+	}
+}
+private: System::Void tbName_Enter(System::Object^  sender, System::EventArgs^  e) {
+	if (tbName->Text == "Full Name") {
+		tbName->Text = "";
+	}
+}
+private: System::Void tbName_Leave(System::Object^  sender, System::EventArgs^  e) {
+	if (tbName->Text == "") {
+		tbName->Text = "Full Name";
+	}
+}
+private: System::Void tbAddress_Enter(System::Object^  sender, System::EventArgs^  e) {
+	if (tbAddress->Text == "H#123, ST#06, Dhoke Khaba, Rawalpindi") {
+		tbAddress->Text = "";
+	}
+}
+private: System::Void tbAddress_Leave(System::Object^  sender, System::EventArgs^  e) {
+	if (tbAddress->Text == "") {
+		tbAddress->Text = "H#123, ST#06, Dhoke Khaba, Rawalpindi";
+	}
 }
 };
 }

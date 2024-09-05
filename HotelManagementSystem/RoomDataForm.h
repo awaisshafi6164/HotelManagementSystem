@@ -83,6 +83,9 @@ namespace HotelManagementSystem {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle2 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle3 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->dgvAdminRoomData = (gcnew System::Windows::Forms::DataGridView());
 			this->btnAdminRoomUpdate = (gcnew System::Windows::Forms::Button());
 			this->btnAdminRoomDelete = (gcnew System::Windows::Forms::Button());
@@ -100,13 +103,42 @@ namespace HotelManagementSystem {
 			// 
 			// dgvAdminRoomData
 			// 
+			this->dgvAdminRoomData->AllowUserToAddRows = false;
+			this->dgvAdminRoomData->AllowUserToDeleteRows = false;
+			this->dgvAdminRoomData->AllowUserToOrderColumns = true;
+			this->dgvAdminRoomData->AllowUserToResizeRows = false;
+			dataGridViewCellStyle1->BackColor = System::Drawing::Color::Silver;
+			this->dgvAdminRoomData->AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+			this->dgvAdminRoomData->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
+			this->dgvAdminRoomData->AutoSizeRowsMode = System::Windows::Forms::DataGridViewAutoSizeRowsMode::DisplayedCells;
+			this->dgvAdminRoomData->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->dgvAdminRoomData->ColumnHeadersBorderStyle = System::Windows::Forms::DataGridViewHeaderBorderStyle::Single;
+			dataGridViewCellStyle2->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle2->BackColor = System::Drawing::Color::DodgerBlue;
+			dataGridViewCellStyle2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.5F));
+			dataGridViewCellStyle2->ForeColor = System::Drawing::SystemColors::WindowText;
+			dataGridViewCellStyle2->Padding = System::Windows::Forms::Padding(5);
+			dataGridViewCellStyle2->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle2->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle2->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->dgvAdminRoomData->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
 			this->dgvAdminRoomData->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			dataGridViewCellStyle3->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle3->BackColor = System::Drawing::SystemColors::Menu;
+			dataGridViewCellStyle3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F));
+			dataGridViewCellStyle3->ForeColor = System::Drawing::SystemColors::ControlText;
+			dataGridViewCellStyle3->Padding = System::Windows::Forms::Padding(5);
+			dataGridViewCellStyle3->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle3->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle3->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->dgvAdminRoomData->DefaultCellStyle = dataGridViewCellStyle3;
+			this->dgvAdminRoomData->EnableHeadersVisualStyles = false;
 			this->dgvAdminRoomData->GridColor = System::Drawing::SystemColors::ActiveCaptionText;
 			this->dgvAdminRoomData->Location = System::Drawing::Point(12, 12);
 			this->dgvAdminRoomData->Name = L"dgvAdminRoomData";
 			this->dgvAdminRoomData->RowTemplate->Height = 24;
 			this->dgvAdminRoomData->Size = System::Drawing::Size(680, 468);
-			this->dgvAdminRoomData->TabIndex = 0;
+			this->dgvAdminRoomData->TabIndex = 1;
 			// 
 			// btnAdminRoomUpdate
 			// 
@@ -117,7 +149,7 @@ namespace HotelManagementSystem {
 			this->btnAdminRoomUpdate->Location = System::Drawing::Point(698, 417);
 			this->btnAdminRoomUpdate->Name = L"btnAdminRoomUpdate";
 			this->btnAdminRoomUpdate->Size = System::Drawing::Size(148, 63);
-			this->btnAdminRoomUpdate->TabIndex = 1;
+			this->btnAdminRoomUpdate->TabIndex = 7;
 			this->btnAdminRoomUpdate->Text = L"Update";
 			this->btnAdminRoomUpdate->UseVisualStyleBackColor = false;
 			this->btnAdminRoomUpdate->Click += gcnew System::EventHandler(this, &RoomDataForm::btnAdminRoomUpdate_Click);
@@ -131,7 +163,7 @@ namespace HotelManagementSystem {
 			this->btnAdminRoomDelete->Location = System::Drawing::Point(852, 417);
 			this->btnAdminRoomDelete->Name = L"btnAdminRoomDelete";
 			this->btnAdminRoomDelete->Size = System::Drawing::Size(142, 63);
-			this->btnAdminRoomDelete->TabIndex = 1;
+			this->btnAdminRoomDelete->TabIndex = 8;
 			this->btnAdminRoomDelete->Text = L"Delete";
 			this->btnAdminRoomDelete->UseVisualStyleBackColor = false;
 			this->btnAdminRoomDelete->Click += gcnew System::EventHandler(this, &RoomDataForm::btnAdminRoomDelete_Click);
@@ -144,7 +176,7 @@ namespace HotelManagementSystem {
 			this->label1->Location = System::Drawing::Point(712, 48);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(86, 20);
-			this->label1->TabIndex = 2;
+			this->label1->TabIndex = 0;
 			this->label1->Text = L"Room No";
 			// 
 			// label2
@@ -155,7 +187,7 @@ namespace HotelManagementSystem {
 			this->label2->Location = System::Drawing::Point(712, 92);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(49, 20);
-			this->label2->TabIndex = 2;
+			this->label2->TabIndex = 0;
 			this->label2->Text = L"Type";
 			// 
 			// label3
@@ -166,7 +198,7 @@ namespace HotelManagementSystem {
 			this->label3->Location = System::Drawing::Point(712, 142);
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(84, 20);
-			this->label3->TabIndex = 2;
+			this->label3->TabIndex = 0;
 			this->label3->Text = L"Category";
 			// 
 			// label4
@@ -177,7 +209,7 @@ namespace HotelManagementSystem {
 			this->label4->Location = System::Drawing::Point(712, 193);
 			this->label4->Name = L"label4";
 			this->label4->Size = System::Drawing::Size(102, 20);
-			this->label4->TabIndex = 2;
+			this->label4->TabIndex = 0;
 			this->label4->Text = L"Room Rent";
 			// 
 			// tbAdminRoomNo
@@ -187,7 +219,7 @@ namespace HotelManagementSystem {
 			this->tbAdminRoomNo->Location = System::Drawing::Point(833, 41);
 			this->tbAdminRoomNo->Name = L"tbAdminRoomNo";
 			this->tbAdminRoomNo->Size = System::Drawing::Size(161, 27);
-			this->tbAdminRoomNo->TabIndex = 3;
+			this->tbAdminRoomNo->TabIndex = 2;
 			this->tbAdminRoomNo->Text = L"000";
 			// 
 			// cbAdminRoomType
@@ -200,7 +232,7 @@ namespace HotelManagementSystem {
 			this->cbAdminRoomType->Location = System::Drawing::Point(833, 88);
 			this->cbAdminRoomType->Name = L"cbAdminRoomType";
 			this->cbAdminRoomType->Size = System::Drawing::Size(161, 28);
-			this->cbAdminRoomType->TabIndex = 4;
+			this->cbAdminRoomType->TabIndex = 3;
 			// 
 			// cbAdminRoomCategory
 			// 
@@ -221,7 +253,7 @@ namespace HotelManagementSystem {
 			this->tbAdminRoomRent->Location = System::Drawing::Point(833, 186);
 			this->tbAdminRoomRent->Name = L"tbAdminRoomRent";
 			this->tbAdminRoomRent->Size = System::Drawing::Size(161, 27);
-			this->tbAdminRoomRent->TabIndex = 3;
+			this->tbAdminRoomRent->TabIndex = 5;
 			this->tbAdminRoomRent->Text = L"0000";
 			// 
 			// btnAdminRoomAdd
@@ -233,7 +265,7 @@ namespace HotelManagementSystem {
 			this->btnAdminRoomAdd->Location = System::Drawing::Point(716, 219);
 			this->btnAdminRoomAdd->Name = L"btnAdminRoomAdd";
 			this->btnAdminRoomAdd->Size = System::Drawing::Size(278, 37);
-			this->btnAdminRoomAdd->TabIndex = 1;
+			this->btnAdminRoomAdd->TabIndex = 6;
 			this->btnAdminRoomAdd->Text = L"Add";
 			this->btnAdminRoomAdd->UseVisualStyleBackColor = false;
 			this->btnAdminRoomAdd->Click += gcnew System::EventHandler(this, &RoomDataForm::btnAdminRoomAdd_Click);
@@ -256,7 +288,7 @@ namespace HotelManagementSystem {
 			this->Controls->Add(this->btnAdminRoomUpdate);
 			this->Controls->Add(this->dgvAdminRoomData);
 			this->Name = L"RoomDataForm";
-			this->Text = L"RoomDataForm";
+			this->Text = L"Room Data Form";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvAdminRoomData))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();

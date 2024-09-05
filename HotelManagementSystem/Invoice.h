@@ -8,7 +8,7 @@ struct InvoiceItems {
 	std::string ItemCode;
 	std::string ItemName;
 	std::string RefUSIN;
-	int Quantity;
+	double Quantity;
 	double TotalAmount;
 	double SaleValue;
 	double TaxCharged;
@@ -63,7 +63,7 @@ inline std::vector<InvoiceItems> CreateItems() {
 
 	objItem.ItemCode = "0000";
 	objItem.ItemName = "Item Name";
-	objItem.Quantity = 3;
+	objItem.Quantity = 3.0;
 	objItem.TotalAmount = 3000.00;
 	objItem.SaleValue = 3180.00;
 	objItem.TaxCharged = 180.00;
@@ -72,8 +72,7 @@ inline std::vector<InvoiceItems> CreateItems() {
 	objItem.FurtherTax = 20.00;
 	objItem.InvoiceType = 1;
 	objItem.Discount = 500.00;
-	objItem.RefUSIN = "";
-
+	//objItem.RefUSIN = "";
 	lst.push_back(objItem);
 	return lst;
 }

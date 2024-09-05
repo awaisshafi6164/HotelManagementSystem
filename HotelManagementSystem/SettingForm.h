@@ -103,7 +103,7 @@ namespace HotelManagementSystem {
 			this->btnSettingSave->Location = System::Drawing::Point(213, 172);
 			this->btnSettingSave->Name = L"btnSettingSave";
 			this->btnSettingSave->Size = System::Drawing::Size(152, 49);
-			this->btnSettingSave->TabIndex = 2;
+			this->btnSettingSave->TabIndex = 4;
 			this->btnSettingSave->Text = L"SAVE";
 			this->btnSettingSave->UseVisualStyleBackColor = false;
 			this->btnSettingSave->Click += gcnew System::EventHandler(this, &SettingForm::btnSettingSave_Click);
@@ -149,7 +149,7 @@ namespace HotelManagementSystem {
 			this->tbPRAAccessIDToken->Location = System::Drawing::Point(213, 87);
 			this->tbPRAAccessIDToken->Name = L"tbPRAAccessIDToken";
 			this->tbPRAAccessIDToken->Size = System::Drawing::Size(370, 27);
-			this->tbPRAAccessIDToken->TabIndex = 1;
+			this->tbPRAAccessIDToken->TabIndex = 2;
 			// 
 			// label4
 			// 

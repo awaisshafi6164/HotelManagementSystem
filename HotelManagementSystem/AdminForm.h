@@ -119,7 +119,7 @@ namespace HotelManagementSystem {
 			this->btnRoomData->Location = System::Drawing::Point(182, 63);
 			this->btnRoomData->Name = L"btnRoomData";
 			this->btnRoomData->Size = System::Drawing::Size(150, 50);
-			this->btnRoomData->TabIndex = 1;
+			this->btnRoomData->TabIndex = 2;
 			this->btnRoomData->Text = L"Room Data";
 			this->btnRoomData->UseVisualStyleBackColor = false;
 			this->btnRoomData->Click += gcnew System::EventHandler(this, &AdminForm::btnRoomData_Click);
@@ -133,7 +133,7 @@ namespace HotelManagementSystem {
 			this->btnCustomerData->Location = System::Drawing::Point(338, 63);
 			this->btnCustomerData->Name = L"btnCustomerData";
 			this->btnCustomerData->Size = System::Drawing::Size(165, 50);
-			this->btnCustomerData->TabIndex = 1;
+			this->btnCustomerData->TabIndex = 3;
 			this->btnCustomerData->Text = L"Customer Data";
 			this->btnCustomerData->UseVisualStyleBackColor = false;
 			this->btnCustomerData->Click += gcnew System::EventHandler(this, &AdminForm::btnCustomerData_Click);
@@ -145,7 +145,7 @@ namespace HotelManagementSystem {
 			this->button1->Location = System::Drawing::Point(403, 221);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(100, 37);
-			this->button1->TabIndex = 2;
+			this->button1->TabIndex = 4;
 			this->button1->Text = L"Setting";
 			this->button1->UseVisualStyleBackColor = true;
 			this->button1->Click += gcnew System::EventHandler(this, &AdminForm::button1_Click);

@@ -139,6 +139,9 @@ namespace HotelManagementSystem {
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(CustomerDataForm::typeid));
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle2 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle3 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->printDocInvoice = (gcnew System::Drawing::Printing::PrintDocument());
 			this->printPreviewInvoice = (gcnew System::Windows::Forms::PrintPreviewDialog());
 			this->dgvCustomerData = (gcnew System::Windows::Forms::DataGridView());
@@ -164,12 +167,40 @@ namespace HotelManagementSystem {
 			// 
 			this->dgvCustomerData->AllowUserToAddRows = false;
 			this->dgvCustomerData->AllowUserToDeleteRows = false;
+			this->dgvCustomerData->AllowUserToOrderColumns = true;
+			this->dgvCustomerData->AllowUserToResizeRows = false;
+			dataGridViewCellStyle1->BackColor = System::Drawing::Color::Silver;
+			this->dgvCustomerData->AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+			this->dgvCustomerData->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::AllCells;
+			this->dgvCustomerData->AutoSizeRowsMode = System::Windows::Forms::DataGridViewAutoSizeRowsMode::DisplayedCells;
+			this->dgvCustomerData->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->dgvCustomerData->ColumnHeadersBorderStyle = System::Windows::Forms::DataGridViewHeaderBorderStyle::Single;
+			dataGridViewCellStyle2->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle2->BackColor = System::Drawing::Color::DodgerBlue;
+			dataGridViewCellStyle2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.5F));
+			dataGridViewCellStyle2->ForeColor = System::Drawing::SystemColors::WindowText;
+			dataGridViewCellStyle2->Padding = System::Windows::Forms::Padding(5);
+			dataGridViewCellStyle2->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle2->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle2->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->dgvCustomerData->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
 			this->dgvCustomerData->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			dataGridViewCellStyle3->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle3->BackColor = System::Drawing::SystemColors::Menu;
+			dataGridViewCellStyle3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F));
+			dataGridViewCellStyle3->ForeColor = System::Drawing::SystemColors::ControlText;
+			dataGridViewCellStyle3->Padding = System::Windows::Forms::Padding(5);
+			dataGridViewCellStyle3->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle3->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle3->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->dgvCustomerData->DefaultCellStyle = dataGridViewCellStyle3;
+			this->dgvCustomerData->EnableHeadersVisualStyles = false;
+			this->dgvCustomerData->GridColor = System::Drawing::SystemColors::ActiveCaptionText;
 			this->dgvCustomerData->Location = System::Drawing::Point(12, 12);
 			this->dgvCustomerData->Name = L"dgvCustomerData";
 			this->dgvCustomerData->RowTemplate->Height = 24;
 			this->dgvCustomerData->Size = System::Drawing::Size(1006, 284);
-			this->dgvCustomerData->TabIndex = 0;
+			this->dgvCustomerData->TabIndex = 1;
 			// 
 			// btnPrint
 			// 
@@ -178,7 +209,7 @@ namespace HotelManagementSystem {
 			this->btnPrint->Location = System::Drawing::Point(12, 302);
 			this->btnPrint->Name = L"btnPrint";
 			this->btnPrint->Size = System::Drawing::Size(134, 56);
-			this->btnPrint->TabIndex = 1;
+			this->btnPrint->TabIndex = 2;
 			this->btnPrint->Text = L"Print";
 			this->btnPrint->UseVisualStyleBackColor = true;
 			this->btnPrint->Click += gcnew System::EventHandler(this, &CustomerDataForm::btnPrint_Click);

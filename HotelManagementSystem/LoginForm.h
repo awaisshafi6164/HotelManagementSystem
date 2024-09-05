@@ -91,7 +91,7 @@ namespace HotelManagementSystem {
 			this->label2->Location = System::Drawing::Point(36, 85);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(79, 29);
-			this->label2->TabIndex = 1;
+			this->label2->TabIndex = 0;
 			this->label2->Text = L"Email";
 			// 
 			// tbEmail
@@ -123,7 +123,7 @@ namespace HotelManagementSystem {
 			this->label3->Location = System::Drawing::Point(36, 139);
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(128, 29);
-			this->label3->TabIndex = 1;
+			this->label3->TabIndex = 0;
 			this->label3->Text = L"Password";
 			// 
 			// btnOK

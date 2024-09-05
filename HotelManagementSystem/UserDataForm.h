@@ -78,6 +78,9 @@ namespace HotelManagementSystem {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle2 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle3 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->dgvAdminUserData = (gcnew System::Windows::Forms::DataGridView());
 			this->btnAdd = (gcnew System::Windows::Forms::Button());
 			this->btnUpdate = (gcnew System::Windows::Forms::Button());
@@ -96,19 +99,49 @@ namespace HotelManagementSystem {
 			// 
 			// dgvAdminUserData
 			// 
+			this->dgvAdminUserData->AllowUserToAddRows = false;
+			this->dgvAdminUserData->AllowUserToDeleteRows = false;
+			this->dgvAdminUserData->AllowUserToOrderColumns = true;
+			this->dgvAdminUserData->AllowUserToResizeRows = false;
+			dataGridViewCellStyle1->BackColor = System::Drawing::Color::Silver;
+			this->dgvAdminUserData->AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+			this->dgvAdminUserData->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
+			this->dgvAdminUserData->AutoSizeRowsMode = System::Windows::Forms::DataGridViewAutoSizeRowsMode::DisplayedCells;
+			this->dgvAdminUserData->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->dgvAdminUserData->ColumnHeadersBorderStyle = System::Windows::Forms::DataGridViewHeaderBorderStyle::Single;
+			dataGridViewCellStyle2->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle2->BackColor = System::Drawing::Color::DodgerBlue;
+			dataGridViewCellStyle2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.5F));
+			dataGridViewCellStyle2->ForeColor = System::Drawing::SystemColors::WindowText;
+			dataGridViewCellStyle2->Padding = System::Windows::Forms::Padding(5);
+			dataGridViewCellStyle2->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle2->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle2->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->dgvAdminUserData->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
 			this->dgvAdminUserData->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			dataGridViewCellStyle3->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle3->BackColor = System::Drawing::SystemColors::Menu;
+			dataGridViewCellStyle3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F));
+			dataGridViewCellStyle3->ForeColor = System::Drawing::SystemColors::ControlText;
+			dataGridViewCellStyle3->Padding = System::Windows::Forms::Padding(5);
+			dataGridViewCellStyle3->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle3->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle3->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
+			this->dgvAdminUserData->DefaultCellStyle = dataGridViewCellStyle3;
+			this->dgvAdminUserData->EnableHeadersVisualStyles = false;
+			this->dgvAdminUserData->GridColor = System::Drawing::SystemColors::ActiveCaptionText;
 			this->dgvAdminUserData->Location = System::Drawing::Point(12, 12);
 			this->dgvAdminUserData->Name = L"dgvAdminUserData";
 			this->dgvAdminUserData->RowTemplate->Height = 24;
 			this->dgvAdminUserData->Size = System::Drawing::Size(581, 233);
-			this->dgvAdminUserData->TabIndex = 0;
+			this->dgvAdminUserData->TabIndex = 1;
 			// 
 			// btnAdd
 			// 
 			this->btnAdd->Location = System::Drawing::Point(61, 251);
 			this->btnAdd->Name = L"btnAdd";
 			this->btnAdd->Size = System::Drawing::Size(153, 55);
-			this->btnAdd->TabIndex = 1;
+			this->btnAdd->TabIndex = 2;
 			this->btnAdd->Text = L"Add";
 			this->btnAdd->UseVisualStyleBackColor = true;
 			this->btnAdd->Click += gcnew System::EventHandler(this, &UserDataForm::btnAdd_Click);
@@ -118,7 +151,7 @@ namespace HotelManagementSystem {
 			this->btnUpdate->Location = System::Drawing::Point(220, 251);
 			this->btnUpdate->Name = L"btnUpdate";
 			this->btnUpdate->Size = System::Drawing::Size(153, 55);
-			this->btnUpdate->TabIndex = 1;
+			this->btnUpdate->TabIndex = 3;
 			this->btnUpdate->Text = L"Update";
 			this->btnUpdate->UseVisualStyleBackColor = true;
 			this->btnUpdate->Click += gcnew System::EventHandler(this, &UserDataForm::btnUpdate_Click);
@@ -128,7 +161,7 @@ namespace HotelManagementSystem {
 			this->btnDelete->Location = System::Drawing::Point(379, 251);
 			this->btnDelete->Name = L"btnDelete";
 			this->btnDelete->Size = System::Drawing::Size(153, 55);
-			this->btnDelete->TabIndex = 1;
+			this->btnDelete->TabIndex = 4;
 			this->btnDelete->Text = L"Delete";
 			this->btnDelete->UseVisualStyleBackColor = true;
 			this->btnDelete->Click += gcnew System::EventHandler(this, &UserDataForm::btnDelete_Click);
@@ -140,7 +173,7 @@ namespace HotelManagementSystem {
 			this->tbUsername->Location = System::Drawing::Point(216, 323);
 			this->tbUsername->Name = L"tbUsername";
 			this->tbUsername->Size = System::Drawing::Size(270, 27);
-			this->tbUsername->TabIndex = 2;
+			this->tbUsername->TabIndex = 5;
 			// 
 			// label1
 			// 
@@ -150,7 +183,7 @@ namespace HotelManagementSystem {
 			this->label1->Location = System::Drawing::Point(97, 330);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(94, 20);
-			this->label1->TabIndex = 3;
+			this->label1->TabIndex = 0;
 			this->label1->Text = L"Username";
 			// 
 			// label2
@@ -161,7 +194,7 @@ namespace HotelManagementSystem {
 			this->label2->Location = System::Drawing::Point(97, 362);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(56, 20);
-			this->label2->TabIndex = 3;
+			this->label2->TabIndex = 0;
 			this->label2->Text = L"Email";
 			// 
 			// label3
@@ -172,7 +205,7 @@ namespace HotelManagementSystem {
 			this->label3->Location = System::Drawing::Point(97, 394);
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(91, 20);
-			this->label3->TabIndex = 3;
+			this->label3->TabIndex = 0;
 			this->label3->Text = L"Password";
 			// 
 			// label4
@@ -183,7 +216,7 @@ namespace HotelManagementSystem {
 			this->label4->Location = System::Drawing::Point(97, 426);
 			this->label4->Name = L"label4";
 			this->label4->Size = System::Drawing::Size(47, 20);
-			this->label4->TabIndex = 3;
+			this->label4->TabIndex = 0;
 			this->label4->Text = L"Role";
 			// 
 			// tbEmail
@@ -193,7 +226,7 @@ namespace HotelManagementSystem {
 			this->tbEmail->Location = System::Drawing::Point(216, 355);
 			this->tbEmail->Name = L"tbEmail";
 			this->tbEmail->Size = System::Drawing::Size(270, 27);
-			this->tbEmail->TabIndex = 2;
+			this->tbEmail->TabIndex = 6;
 			// 
 			// tbPassword
 			// 
@@ -203,7 +236,7 @@ namespace HotelManagementSystem {
 			this->tbPassword->Name = L"tbPassword";
 			this->tbPassword->PasswordChar = '*';
 			this->tbPassword->Size = System::Drawing::Size(270, 27);
-			this->tbPassword->TabIndex = 2;
+			this->tbPassword->TabIndex = 7;
 			// 
 			// rbAdmin
 			// 
@@ -213,7 +246,7 @@ namespace HotelManagementSystem {
 			this->rbAdmin->Location = System::Drawing::Point(216, 426);
 			this->rbAdmin->Name = L"rbAdmin";
 			this->rbAdmin->Size = System::Drawing::Size(77, 24);
-			this->rbAdmin->TabIndex = 4;
+			this->rbAdmin->TabIndex = 8;
 			this->rbAdmin->Text = L"Admin";
 			this->rbAdmin->UseVisualStyleBackColor = true;
 			// 
@@ -226,7 +259,7 @@ namespace HotelManagementSystem {
 			this->rbBookingManager->Location = System::Drawing::Point(299, 424);
 			this->rbBookingManager->Name = L"rbBookingManager";
 			this->rbBookingManager->Size = System::Drawing::Size(160, 24);
-			this->rbBookingManager->TabIndex = 4;
+			this->rbBookingManager->TabIndex = 9;
 			this->rbBookingManager->TabStop = true;
 			this->rbBookingManager->Text = L"Booking Manager";
 			this->rbBookingManager->UseVisualStyleBackColor = true;
@@ -253,7 +286,7 @@ namespace HotelManagementSystem {
 			this->MaximumSize = System::Drawing::Size(623, 519);
 			this->MinimumSize = System::Drawing::Size(623, 519);
 			this->Name = L"UserDataForm";
-			this->Text = L"UserDataForm";
+			this->Text = L"User Data Form";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvAdminUserData))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
