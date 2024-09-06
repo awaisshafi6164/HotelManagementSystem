@@ -11,6 +11,7 @@
 #include <msclr/marshal_cppstd.h> // For converting std::string to System::String
 
 #include <fstream>
+#include <sys\stat.h>
 using namespace std;
 using namespace System::Data::SqlClient;
 
@@ -281,9 +282,14 @@ namespace HotelManagementSystem {
 			e->Graphics->DrawString("Commettie Chock, Rawalpindi", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular), Brushes::Black, xCentered, y);
 			y += 15;
 
-			textWidth = e->Graphics->MeasureString("051-12345678", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular)).Width;
+			textWidth = e->Graphics->MeasureString("051-5501436-7", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular)).Width;
 			xCentered = (pageWidth - textWidth) / 2; // Centering calculation
-			e->Graphics->DrawString("051-12345678", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular), Brushes::Black, xCentered, y);
+			e->Graphics->DrawString("051-5501436-7", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular), Brushes::Black, xCentered, y);
+			y += 15;
+
+			textWidth = e->Graphics->MeasureString("PNTN: 0715030-0", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular)).Width;
+			xCentered = (pageWidth - textWidth) / 2; // Centering calculation
+			e->Graphics->DrawString("PNTN: 0715030-0", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular), Brushes::Black, xCentered, y);
 			y += 15;
 
 			textWidth = e->Graphics->MeasureString("=======================================", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular)).Width;
@@ -442,6 +448,14 @@ namespace HotelManagementSystem {
 			String^ praNo = praInvoiceNo;
 			std::string qrData = "https://e.pra.punjab.gov.pk/IMSFiscalReport/SearchPOSInvoice_Report.aspx?PRAInvNo=" + msclr::interop::marshal_as<std::string>(praNo->ToString());
 			std::string filePath = "qr_code.png";
+
+			// Check if the file already exists
+			//if (System::IO::File::Exists(gcnew String(filePath.c_str())))
+			//{
+				// Delete the existing file
+			//	System::IO::File::Delete(gcnew String(filePath.c_str()));
+			//}
+
 			// Save QR code image
 			SaveQRCodeImageCustomerData(qrData, filePath);
 			// Load and display QR code image (for C++/CLI, convert the file to Bitmap)
@@ -456,10 +470,10 @@ namespace HotelManagementSystem {
 			int qrY = e->PageBounds.Height - qrHeight - 70; // Adjust 60 to set space between QR and "Thank you"
 															// Draw the QR code image
 			e->Graphics->DrawImage(qrImage, qrX, qrY, qrWidth, qrHeight);
-
-			textWidth = e->Graphics->MeasureString(praInvoiceNo, gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular)).Width;
+		
+			textWidth = e->Graphics->MeasureString(praNo, gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular)).Width;
 			xCentered = (pageWidth - textWidth) / 2; // Centering calculation
-			e->Graphics->DrawString(praInvoiceNo, gcnew System::Drawing::Font("Arial", 8, FontStyle::Italic), Brushes::Black, xCentered, pageHeight - 50);
+			e->Graphics->DrawString(praNo, gcnew System::Drawing::Font("Arial", 8, FontStyle::Italic), Brushes::Black, xCentered, pageHeight - 50);
 
 
 			textWidth = e->Graphics->MeasureString("Thank you for staying with us!", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular)).Width;
@@ -468,7 +482,10 @@ namespace HotelManagementSystem {
 		}
 
 private: System::Void btnPrint_Click(System::Object^  sender, System::EventArgs^  e) {
-		if (dgvCustomerData->SelectedRows->Count > 0)
+	//std::string filePath = "qr_code.png";
+	// Delete the QR code image file after drawing
+	//System::IO::File::Delete(gcnew String(filePath.c_str()));
+	if (dgvCustomerData->SelectedRows->Count > 0)
 		{
 			printPreviewInvoice->Document = printDocInvoice;
 			printDocInvoice->DefaultPageSettings->PaperSize = gcnew System::Drawing::Printing::PaperSize("Custom", 285, 700);
