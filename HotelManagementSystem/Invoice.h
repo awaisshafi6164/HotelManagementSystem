@@ -23,7 +23,7 @@ struct Invoice {
 	std::string InvoiceNumber;
 	int POSID;
 	std::string USIN;
-	std::string DateTime; // Use std::time_t for DateTime
+	std::string DateTime;
 	std::string BuyerPNTN;
 	std::string BuyerCNIC;
 	std::string BuyerName;

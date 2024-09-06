@@ -1564,7 +1564,6 @@ private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e
 		|| tbName->Text == ""
 		|| tbContact->Text == ""
 		|| tbCnic->Text == ""
-		|| tbCnic->Text == "xxxxx-xxxxxxx-x"
 		|| tbEmergencyContact->Text == ""
 		|| cbNationality->Text == ""
 		|| tbAddress->Text == ""
@@ -1574,12 +1573,11 @@ private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e
 		|| dtpTimeOut->Text == ""
 		|| tbNoOfRooms->Text == ""
 		|| tbRoomNo->Text == ""
-		|| tbRoomCharges->Text == ""
 		|| tbGst->Text == ""
 		|| tbPayable->Text == "")
 	{
 		MessageBox::Show("Kindly fill all the fields.", "ERROR", MessageBoxButtons::OK, MessageBoxIcon::Error);
-		//return;
+		return;
 	}
 
 	if (tbRoomCharges->Text == "" || tbRoomCharges->Text == "0") {
@@ -1811,7 +1809,7 @@ private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e
 	String^ apiResponseMessageStr = gcnew String(apiResponseMessage.c_str());
 	if (apiCodeMessage == "100")
 	{
-		lblNote->Text = praInvoiceNo;
+		lblNote->Text = "PRA Invoice No\n"+praInvoiceNo;
 		MessageBox::Show("PRA Invoice Number: " + praInvoiceNo, "Success", MessageBoxButtons::OK, MessageBoxIcon::Asterisk);
 	}
 	else {
@@ -2181,7 +2179,8 @@ private: System::Void printDocInvoice_PrintPage(System::Object^ sender, System::
 	String^ emergencyContact = tbEmergencyContact->Text->ToString(); // varchar(20) == String
 																	 //String^ date = dtpDate->Text->ToString(); //tbEmergencyContact->Text->ToString(); // date
 	DateTime date = dtpDate->Value;
-	String^ praFormatDateTime = date.ToString("yyyy-MM-dd HH:mm:ss.fff");
+	//String^ praFormatDateTime = date.ToString("yyyy-MM-dd HH:mm:ss.fff");
+	String^ praFormatDateTime = date.ToString("yyyy-MM-dd hh:mm tt");
 	DateTime dateIn = dtpDateIn->Value;
 	String^ praFormatDateIn = dateIn.ToString("yyyy-MM-dd");
 	DateTime dateOut = dtpDateOut->Value;

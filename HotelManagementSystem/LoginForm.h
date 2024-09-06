@@ -203,6 +203,7 @@ namespace HotelManagementSystem {
 
 		try {
 			String^ connString = "Data Source=localhost\\sqlexpress;Initial Catalog=myhotel;Integrated Security=True";
+
 			SqlConnection sqlConn(connString);
 			sqlConn.Open();
 

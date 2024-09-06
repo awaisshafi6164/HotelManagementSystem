@@ -257,8 +257,13 @@ namespace HotelManagementSystem {
 				conDataBase->Close();
 			}
 		}
-		void GenerateAndPrintInvoice(String^ invoiceNo, String^ praInvoiceNo, String^ date, String^ name, String^ cnic, String^ buyerPNTN, String^ contactNo, String^ emergencyContact, String^ address, String^ nationality, String^ dateIn, String^ dateOut, String^ timeIn, String^ timeOut, String^ roomNo, String^ noOfRoomsStr, String^ roomChargesStr, String^ gstStr, String^ discountStr, String^ payableStr, String^ paymentMode, String^ invoiceType, String^ managerName, System::Drawing::Printing::PrintPageEventArgs^  e)
+		void GenerateAndPrintInvoice(String^ invoiceNo, String^ praInvoiceNo, DateTime date, String^ name, String^ cnic, String^ buyerPNTN, String^ contactNo, String^ emergencyContact, String^ address, String^ nationality, DateTime dateIn, DateTime dateOut, String^ timeIn, String^ timeOut, String^ roomNo, String^ noOfRoomsStr, String^ roomChargesStr, String^ gstStr, String^ discountStr, String^ payableStr, String^ paymentMode, String^ invoiceType, String^ managerName, System::Drawing::Printing::PrintPageEventArgs^  e)
 		{
+
+			String^ praFormatDateTime = date.ToString("yyyy-MM-dd hh:mm tt");
+			String^ praFormatDateIn = dateIn.ToString("yyyy-MM-dd");
+			String^ praFormatDateOut = dateOut.ToString("yyyy-MM-dd");
+
 			// Define layout bounds
 			float x = 20.0;
 			float y = 20.0;
@@ -296,7 +301,7 @@ namespace HotelManagementSystem {
 			y += 20;
 
 			e->Graphics->DrawString("Date: ", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, x, y);
-			e->Graphics->DrawString(date, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, x + 35, y);
+			e->Graphics->DrawString(praFormatDateTime, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, x + 35, y);
 			y += 15;
 
 			textWidth = e->Graphics->MeasureString("=======================================", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular)).Width;
@@ -357,15 +362,15 @@ namespace HotelManagementSystem {
 			y += 15;
 
 			e->Graphics->DrawString("Check-In: ", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, x, y);
-			textWidth = e->Graphics->MeasureString(dateIn + "  " + timeIn, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular)).Width;
+			textWidth = e->Graphics->MeasureString(praFormatDateIn + "  " + timeIn, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular)).Width;
 			float xEnd = (pageWidth - textWidth - 10); // Ending calculation
-			e->Graphics->DrawString(dateIn + "  " + timeIn, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, xEnd, y);
+			e->Graphics->DrawString(praFormatDateIn + "  " + timeIn, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, xEnd, y);
 			y += 20;
 
 			e->Graphics->DrawString("Check-Out: ", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, x, y);
-			textWidth = e->Graphics->MeasureString(dateOut + "  " + timeOut, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular)).Width;
+			textWidth = e->Graphics->MeasureString(praFormatDateOut + "  " + timeOut, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular)).Width;
 			xEnd = (pageWidth - textWidth - 10); // Ending calculation
-			e->Graphics->DrawString(dateOut + "  " + timeOut, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, xEnd, y);
+			e->Graphics->DrawString(praFormatDateOut + "  " + timeOut, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, xEnd, y);
 			y += 20;
 
 			e->Graphics->DrawString("No Of Rooms: ", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, x, y);
@@ -483,7 +488,8 @@ private: System::Void printDocInvoice_PrintPage(System::Object^  sender, System:
 		String^ id = Convert::ToString(selectedRow->Cells["Id"]->Value);
 		String^ invoiceNo = Convert::ToString(selectedRow->Cells["InvoiceNo"]->Value);
 		String^ praInvoiceNo = Convert::ToString(selectedRow->Cells["PRAInvoiceNo"]->Value);
-		String^ date = Convert::ToString(selectedRow->Cells["Date"]->Value);
+		//String^ date = Convert::ToString(selectedRow->Cells["Date"]->Value);
+		DateTime date = Convert::ToDateTime(selectedRow->Cells["Date"]->Value);
 		String^ name = Convert::ToString(selectedRow->Cells["Name"]->Value);
 		String^ cnic = Convert::ToString(selectedRow->Cells["CNIC"]->Value);
 		String^ buyerPNTN = Convert::ToString(selectedRow->Cells["BuyerPNTN"]->Value);
@@ -491,8 +497,10 @@ private: System::Void printDocInvoice_PrintPage(System::Object^  sender, System:
 		String^ emergencyContact = Convert::ToString(selectedRow->Cells["EmergencyContact"]->Value);
 		String^ address = Convert::ToString(selectedRow->Cells["Address"]->Value);
 		String^ nationality = Convert::ToString(selectedRow->Cells["Nationality"]->Value);
-		String^ dateIn = Convert::ToString(selectedRow->Cells["DateIn"]->Value);
-		String^ dateOut = Convert::ToString(selectedRow->Cells["DateOut"]->Value);
+		//String^ dateIn = Convert::ToString(selectedRow->Cells["DateIn"]->Value);
+		DateTime dateIn = Convert::ToDateTime(selectedRow->Cells["DateIn"]->Value);
+		//String^ dateOut = Convert::ToString(selectedRow->Cells["DateOut"]->Value);
+		DateTime dateOut = Convert::ToDateTime(selectedRow->Cells["DateOut"]->Value);
 		String^ timeIn = Convert::ToString(selectedRow->Cells["TimeIn"]->Value);
 		String^ timeOut = Convert::ToString(selectedRow->Cells["TimeOut"]->Value);
 		String^ roomNo = Convert::ToString(selectedRow->Cells["RoomNo"]->Value);
