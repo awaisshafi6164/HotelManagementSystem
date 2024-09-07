@@ -292,6 +292,11 @@ namespace HotelManagementSystem {
 			e->Graphics->DrawString("PNTN: 0715030-0", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular), Brushes::Black, xCentered, y);
 			y += 15;
 
+			textWidth = e->Graphics->MeasureString("FOM: "+managerName, gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular)).Width;
+			xCentered = (pageWidth - textWidth) / 2; // Centering calculation
+			e->Graphics->DrawString("FOM: " + managerName, gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular), Brushes::Black, xCentered, y);
+			y += 15;
+
 			textWidth = e->Graphics->MeasureString("=======================================", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular)).Width;
 			xCentered = (pageWidth - textWidth) / 2; // Centering calculation
 			e->Graphics->DrawString("=======================================", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular), Brushes::Black, xCentered, y);
@@ -307,7 +312,7 @@ namespace HotelManagementSystem {
 			y += 20;
 
 			e->Graphics->DrawString("Date: ", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, x, y);
-			e->Graphics->DrawString(praFormatDateTime, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, x + 35, y);
+			e->Graphics->DrawString(praFormatDateTime, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, x + 45, y);
 			y += 15;
 
 			textWidth = e->Graphics->MeasureString("=======================================", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular)).Width;
@@ -324,10 +329,6 @@ namespace HotelManagementSystem {
 			e->Graphics->DrawString("Customer Details", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, xCentered, y);
 			y += 15;
 
-			textWidth = e->Graphics->MeasureString("=======================================", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular)).Width;
-			xCentered = (pageWidth - textWidth) / 2; // Centering calculation
-			e->Graphics->DrawString("=======================================", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular), Brushes::Black, xCentered, y);
-			y += 15;
 
 			e->Graphics->DrawString("Name: ", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, x, y);
 			e->Graphics->DrawString(name, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, x + 45, y);
@@ -362,10 +363,6 @@ namespace HotelManagementSystem {
 			e->Graphics->DrawString("Staying Information", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, xCentered, y);
 			y += 15;
 
-			textWidth = e->Graphics->MeasureString("=======================================", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular)).Width;
-			xCentered = (pageWidth - textWidth) / 2; // Centering calculation
-			e->Graphics->DrawString("=======================================", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular), Brushes::Black, xCentered, y);
-			y += 15;
 
 			e->Graphics->DrawString("Check-In: ", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, x, y);
 			textWidth = e->Graphics->MeasureString(praFormatDateIn + "  " + timeIn, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular)).Width;
@@ -405,10 +402,6 @@ namespace HotelManagementSystem {
 			e->Graphics->DrawString("Billing Information", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, xCentered, y);
 			y += 15;
 
-			textWidth = e->Graphics->MeasureString("=======================================", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular)).Width;
-			xCentered = (pageWidth - textWidth) / 2; // Centering calculation
-			e->Graphics->DrawString("=======================================", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular), Brushes::Black, xCentered, y);
-			y += 15;
 
 			e->Graphics->DrawString("Room Charges: ", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, x, y);
 			textWidth = e->Graphics->MeasureString(roomChargesStr, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular)).Width;
@@ -443,33 +436,40 @@ namespace HotelManagementSystem {
 			// Footer
 			float pageHeight = e->PageBounds.Height;
 
-
 			// Example QR code data
 			String^ praNo = praInvoiceNo;
-			std::string qrData = "https://e.pra.punjab.gov.pk/IMSFiscalReport/SearchPOSInvoice_Report.aspx?PRAInvNo=" + msclr::interop::marshal_as<std::string>(praNo->ToString());
+			std::string qrData = "https://e.pra.punjab.gov.pk/IMSFiscalReport/SearchPOSInvoice_Report.aspx?PRAInvNo=" +
+				msclr::interop::marshal_as<std::string>(praNo->ToString());
 			std::string filePath = "qr_code.png";
-
-			// Check if the file already exists
-			//if (System::IO::File::Exists(gcnew String(filePath.c_str())))
-			//{
-				// Delete the existing file
-			//	System::IO::File::Delete(gcnew String(filePath.c_str()));
-			//}
 
 			// Save QR code image
 			SaveQRCodeImageCustomerData(qrData, filePath);
+
 			// Load and display QR code image (for C++/CLI, convert the file to Bitmap)
-			Bitmap^ qrImage = gcnew Bitmap(gcnew String(filePath.c_str()));
-			// Example QR code image
-			qrImage = gcnew Bitmap(gcnew String("qr_code.png"));
-			// Desired size for the QR code image
-			int qrWidth = 120; // Width in pixels
-			int qrHeight = 120; // Height in pixels
-								// Calculate position to center the QR code
-			int qrX = (pageWidth - qrWidth) / 2;
-			int qrY = e->PageBounds.Height - qrHeight - 70; // Adjust 60 to set space between QR and "Thank you"
-															// Draw the QR code image
-			e->Graphics->DrawImage(qrImage, qrX, qrY, qrWidth, qrHeight);
+			Bitmap^ qrImage = nullptr;
+			try
+			{
+				qrImage = gcnew Bitmap(gcnew String(filePath.c_str()));
+
+				// Desired size for the QR code image
+				int qrWidth = 120; // Width in pixels
+				int qrHeight = 120; // Height in pixels
+
+									// Calculate position to center the QR code
+				int qrX = (pageWidth - qrWidth) / 2;
+				int qrY = e->PageBounds.Height - qrHeight - 70; // Adjust 70 to set space between QR and "Thank you"
+
+																// Draw the QR code image
+				e->Graphics->DrawImage(qrImage, qrX, qrY, qrWidth, qrHeight);
+			}
+			finally
+			{
+				// Dispose of the image after use to release the file
+				if (qrImage != nullptr)
+				{
+					delete qrImage;
+				}
+			}
 		
 			textWidth = e->Graphics->MeasureString(praNo, gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular)).Width;
 			xCentered = (pageWidth - textWidth) / 2; // Centering calculation
@@ -481,23 +481,39 @@ namespace HotelManagementSystem {
 			e->Graphics->DrawString("Thank you for staying with us!", gcnew System::Drawing::Font("Arial", 8, FontStyle::Italic), Brushes::Black, xCentered, pageHeight - 20);
 		}
 
-private: System::Void btnPrint_Click(System::Object^  sender, System::EventArgs^  e) {
-	//std::string filePath = "qr_code.png";
-	// Delete the QR code image file after drawing
-	//System::IO::File::Delete(gcnew String(filePath.c_str()));
+private: System::Void btnPrint_Click(System::Object^ sender, System::EventArgs^ e) {
+	// Define the file path for the QR code image
+	std::string filePath = "qr_code.png";
+
+	// Check if a row is selected in the DataGridView
 	if (dgvCustomerData->SelectedRows->Count > 0)
+	{
+		// Show the print preview dialog
+		printPreviewInvoice->Document = printDocInvoice;
+		printDocInvoice->DefaultPageSettings->PaperSize = gcnew System::Drawing::Printing::PaperSize("Custom", 285, 700);
+
+		// Show the print preview and wait for it to close
+		System::Windows::Forms::DialogResult result = printPreviewInvoice->ShowDialog();
+
+		// After the print preview is closed, attempt to delete the QR code image file
+		if (result == System::Windows::Forms::DialogResult::OK || result == System::Windows::Forms::DialogResult::Cancel)
 		{
-			printPreviewInvoice->Document = printDocInvoice;
-			printDocInvoice->DefaultPageSettings->PaperSize = gcnew System::Drawing::Printing::PaperSize("Custom", 285, 700);
-			printPreviewInvoice->ShowDialog();
+			try {
+				System::IO::File::Delete(gcnew String(filePath.c_str()));
+				// MessageBox::Show("QR code image deleted successfully.");
+			}
+			catch (System::IO::IOException^ ex) {
+				// MessageBox::Show("Error deleting QR code image: " + ex->Message);
+			}
 		}
-		else
-		{
-			MessageBox::Show("Please select a row to print.");
-			return;
-		}
-		
 	}
+	else
+	{
+		MessageBox::Show("Please select a row to print.");
+		return;
+	}
+}
+
 private: System::Void printDocInvoice_PrintPage(System::Object^  sender, System::Drawing::Printing::PrintPageEventArgs^  e) {
 	if (dgvCustomerData->SelectedRows->Count > 0)
 	{
