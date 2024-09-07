@@ -19,8 +19,7 @@ int main()
 
 	if (user != nullptr) {
 
-		MessageBox::Show("Successfully Authentication of " + user->name,
-			"LoginForm.cpp", MessageBoxButtons::OK);
+		// MessageBox::Show("Successfully Authentication of " + user->name, "LoginForm.cpp", MessageBoxButtons::OK);
 
 		// If authentication is successful, open MainForm
 		HotelManagementSystem::MainForm mainForm(user->name);
@@ -28,8 +27,7 @@ int main()
 	}
 	else if (adminUser != nullptr)
 	{
-		MessageBox::Show("Successfully Authentication of " + adminUser->name,
-			"LoginForm.cpp", MessageBoxButtons::OK);
+		//MessageBox::Show("Successfully Authentication of " + adminUser->name, "LoginForm.cpp", MessageBoxButtons::OK);
 		
 		// If authentication is successful, open AdminForm
 		HotelManagementSystem::AdminForm adminForm;

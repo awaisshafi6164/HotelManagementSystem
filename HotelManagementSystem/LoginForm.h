@@ -134,7 +134,7 @@ namespace HotelManagementSystem {
 			this->btnOK->Name = L"btnOK";
 			this->btnOK->Size = System::Drawing::Size(125, 40);
 			this->btnOK->TabIndex = 3;
-			this->btnOK->Text = L"OK";
+			this->btnOK->Text = L"Ok";
 			this->btnOK->UseVisualStyleBackColor = true;
 			this->btnOK->Click += gcnew System::EventHandler(this, &LoginForm::btnOK_Click);
 			// 
@@ -152,7 +152,7 @@ namespace HotelManagementSystem {
 			// 
 			// btnAdminLogin
 			// 
-			this->btnAdminLogin->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->btnAdminLogin->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnAdminLogin->Location = System::Drawing::Point(225, 243);
 			this->btnAdminLogin->Name = L"btnAdminLogin";
@@ -180,6 +180,7 @@ namespace HotelManagementSystem {
 			this->MaximumSize = System::Drawing::Size(600, 343);
 			this->MinimumSize = System::Drawing::Size(600, 343);
 			this->Name = L"LoginForm";
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Login Form";
 			this->ResumeLayout(false);
 			this->PerformLayout();
@@ -236,12 +237,14 @@ namespace HotelManagementSystem {
 	}
 	
 	public: User ^ adminUser = nullptr;
+
+
 	private: System::Void btnAdminLogin_Click(System::Object^  sender, System::EventArgs^  e) {
 		String^ email = this->tbEmail->Text;
 		String^ password = this->tbPassword->Text;
 
 		if (email->Length == 0 || password->Length == 0) {
-			MessageBox::Show("Please enter email and password both",
+			MessageBox::Show("Please enter email and password",
 				"Input required", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 			return;
 		}
@@ -269,11 +272,11 @@ namespace HotelManagementSystem {
 
 				if (adminUser->admin == 0)
 				{
-					MessageBox::Show("Only Admin can access admin portal. \nLogin using admin account",
+					MessageBox::Show("Only Admin can access the portal. \nLogin using admin account",
 						"Admin Login Required", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 					return;
 				}
-
+				
 				this->Close();
 			}
 			else {

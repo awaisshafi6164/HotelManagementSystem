@@ -98,11 +98,10 @@ namespace HotelManagementSystem {
 			// 
 			// btnUserData
 			// 
-			this->btnUserData->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(128)), static_cast<System::Int32>(static_cast<System::Byte>(255)),
-				static_cast<System::Int32>(static_cast<System::Byte>(128)));
+			this->btnUserData->BackColor = System::Drawing::Color::DarkTurquoise;
 			this->btnUserData->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->btnUserData->Location = System::Drawing::Point(26, 63);
+			this->btnUserData->Location = System::Drawing::Point(26, 99);
 			this->btnUserData->Name = L"btnUserData";
 			this->btnUserData->Size = System::Drawing::Size(150, 50);
 			this->btnUserData->TabIndex = 1;
@@ -112,11 +111,10 @@ namespace HotelManagementSystem {
 			// 
 			// btnRoomData
 			// 
-			this->btnRoomData->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(128)), static_cast<System::Int32>(static_cast<System::Byte>(255)),
-				static_cast<System::Int32>(static_cast<System::Byte>(128)));
+			this->btnRoomData->BackColor = System::Drawing::Color::DarkTurquoise;
 			this->btnRoomData->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->btnRoomData->Location = System::Drawing::Point(182, 63);
+			this->btnRoomData->Location = System::Drawing::Point(182, 99);
 			this->btnRoomData->Name = L"btnRoomData";
 			this->btnRoomData->Size = System::Drawing::Size(150, 50);
 			this->btnRoomData->TabIndex = 2;
@@ -126,11 +124,10 @@ namespace HotelManagementSystem {
 			// 
 			// btnCustomerData
 			// 
-			this->btnCustomerData->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(128)), static_cast<System::Int32>(static_cast<System::Byte>(255)),
-				static_cast<System::Int32>(static_cast<System::Byte>(128)));
+			this->btnCustomerData->BackColor = System::Drawing::Color::DarkTurquoise;
 			this->btnCustomerData->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->btnCustomerData->Location = System::Drawing::Point(338, 63);
+			this->btnCustomerData->Location = System::Drawing::Point(338, 99);
 			this->btnCustomerData->Name = L"btnCustomerData";
 			this->btnCustomerData->Size = System::Drawing::Size(165, 50);
 			this->btnCustomerData->TabIndex = 3;
@@ -140,6 +137,7 @@ namespace HotelManagementSystem {
 			// 
 			// button1
 			// 
+			this->button1->BackColor = System::Drawing::Color::DarkTurquoise;
 			this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
 			this->button1->Location = System::Drawing::Point(403, 221);
@@ -147,7 +145,7 @@ namespace HotelManagementSystem {
 			this->button1->Size = System::Drawing::Size(100, 37);
 			this->button1->TabIndex = 4;
 			this->button1->Text = L"Setting";
-			this->button1->UseVisualStyleBackColor = true;
+			this->button1->UseVisualStyleBackColor = false;
 			this->button1->Click += gcnew System::EventHandler(this, &AdminForm::button1_Click);
 			// 
 			// AdminForm
@@ -161,6 +159,7 @@ namespace HotelManagementSystem {
 			this->Controls->Add(this->btnUserData);
 			this->Controls->Add(this->label1);
 			this->Name = L"AdminForm";
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Admin Form";
 			this->ResumeLayout(false);
 

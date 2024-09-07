@@ -172,6 +172,9 @@ namespace HotelManagementSystem {
 			this->dgvCustomerData->AllowUserToResizeRows = false;
 			dataGridViewCellStyle1->BackColor = System::Drawing::Color::Silver;
 			this->dgvCustomerData->AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+			this->dgvCustomerData->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->dgvCustomerData->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::AllCells;
 			this->dgvCustomerData->AutoSizeRowsMode = System::Windows::Forms::DataGridViewAutoSizeRowsMode::DisplayedCells;
 			this->dgvCustomerData->BorderStyle = System::Windows::Forms::BorderStyle::None;
@@ -190,24 +193,23 @@ namespace HotelManagementSystem {
 			dataGridViewCellStyle3->BackColor = System::Drawing::SystemColors::Menu;
 			dataGridViewCellStyle3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F));
 			dataGridViewCellStyle3->ForeColor = System::Drawing::SystemColors::ControlText;
-			dataGridViewCellStyle3->Padding = System::Windows::Forms::Padding(5);
 			dataGridViewCellStyle3->SelectionBackColor = System::Drawing::SystemColors::Highlight;
 			dataGridViewCellStyle3->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
 			dataGridViewCellStyle3->WrapMode = System::Windows::Forms::DataGridViewTriState::False;
 			this->dgvCustomerData->DefaultCellStyle = dataGridViewCellStyle3;
 			this->dgvCustomerData->EnableHeadersVisualStyles = false;
 			this->dgvCustomerData->GridColor = System::Drawing::SystemColors::ActiveCaptionText;
-			this->dgvCustomerData->Location = System::Drawing::Point(12, 12);
+			this->dgvCustomerData->Location = System::Drawing::Point(12, 74);
 			this->dgvCustomerData->Name = L"dgvCustomerData";
 			this->dgvCustomerData->RowTemplate->Height = 24;
-			this->dgvCustomerData->Size = System::Drawing::Size(1006, 284);
+			this->dgvCustomerData->Size = System::Drawing::Size(1006, 401);
 			this->dgvCustomerData->TabIndex = 1;
 			// 
 			// btnPrint
 			// 
 			this->btnPrint->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->btnPrint->Location = System::Drawing::Point(12, 302);
+			this->btnPrint->Location = System::Drawing::Point(12, 12);
 			this->btnPrint->Name = L"btnPrint";
 			this->btnPrint->Size = System::Drawing::Size(134, 56);
 			this->btnPrint->TabIndex = 2;
@@ -219,10 +221,11 @@ namespace HotelManagementSystem {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1030, 389);
+			this->ClientSize = System::Drawing::Size(1030, 487);
 			this->Controls->Add(this->btnPrint);
 			this->Controls->Add(this->dgvCustomerData);
 			this->Name = L"CustomerDataForm";
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"CustomerDataForm";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvCustomerData))->EndInit();
 			this->ResumeLayout(false);

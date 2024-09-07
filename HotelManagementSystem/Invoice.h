@@ -63,15 +63,15 @@ inline std::vector<InvoiceItems> CreateItems() {
 
 	objItem.ItemCode = "0000";
 	objItem.ItemName = "Item Name";
-	objItem.Quantity = 3.0;
-	objItem.TotalAmount = 3000.00;
-	objItem.SaleValue = 3180.00;
-	objItem.TaxCharged = 180.00;
-	objItem.TaxRate = 6;
+	objItem.Quantity = 0.0;
+	objItem.TotalAmount = 0.0;
+	objItem.SaleValue = 0.0;
+	objItem.TaxCharged = 0.0;
+	objItem.TaxRate = 0;
 	objItem.PCTCode = "00000000";
-	objItem.FurtherTax = 20.00;
-	objItem.InvoiceType = 1;
-	objItem.Discount = 500.00;
+	objItem.FurtherTax = 0.0;
+	objItem.InvoiceType = 0;
+	objItem.Discount = 0.0;
 	//objItem.RefUSIN = "";
 	lst.push_back(objItem);
 	return lst;

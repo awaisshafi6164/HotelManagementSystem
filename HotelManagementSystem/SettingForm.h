@@ -96,8 +96,7 @@ namespace HotelManagementSystem {
 			// 
 			// btnSettingSave
 			// 
-			this->btnSettingSave->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(128)), static_cast<System::Int32>(static_cast<System::Byte>(255)),
-				static_cast<System::Int32>(static_cast<System::Byte>(128)));
+			this->btnSettingSave->BackColor = System::Drawing::Color::DarkTurquoise;
 			this->btnSettingSave->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnSettingSave->Location = System::Drawing::Point(213, 172);
@@ -179,6 +178,7 @@ namespace HotelManagementSystem {
 			this->MaximumSize = System::Drawing::Size(613, 320);
 			this->MinimumSize = System::Drawing::Size(613, 320);
 			this->Name = L"SettingForm";
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"SettingForm";
 			this->ResumeLayout(false);
 			this->PerformLayout();
