@@ -385,11 +385,64 @@ namespace HotelManagementSystem {
 			e->Graphics->DrawString("" + noOfRoomsStr, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, xEnd, y);
 			y += 20;
 
+			/*
 			e->Graphics->DrawString("Rooms: ", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, x, y);
 			textWidth = e->Graphics->MeasureString(roomNo, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular)).Width;
 			xEnd = (pageWidth - textWidth - 20); // Ending calculation
 			e->Graphics->DrawString(roomNo, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, xEnd, y);
 			y += 15;
+			*/
+
+			// Draw the "Rooms:" label
+			e->Graphics->DrawString("Rooms: ", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, x, y);
+
+			// Measure the width of the "Rooms: " label
+			float labelWidth = e->Graphics->MeasureString("Rooms: ", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold)).Width;
+
+			// Calculate the available space for the roomNo text on the same line
+			float availableWidth = pageWidth - x - labelWidth - 20; // 20 is for padding
+
+																	// Set the starting x position for the roomNo text (after the "Rooms:" label)
+			float roomTextStartX = x + labelWidth;
+
+			// Measure the width of the roomNo text
+			textWidth = e->Graphics->MeasureString(roomNo, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular)).Width;
+
+			if (textWidth <= availableWidth) {
+				// If the text fits on the same line, print it after the "Rooms:" label
+				e->Graphics->DrawString(roomNo, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, roomTextStartX, y);
+				y += 15; // Move down to the next line if necessary
+			}
+			else {
+				// If the text doesn't fit on the same line, wrap it to the next line(s)
+				int currentIndex = 0;
+				String^ remainingText = roomNo;
+
+				// Loop to print each part of the text that fits within the available width
+				while (remainingText->Length > 0) {
+					// Find how many characters fit within the available width
+					int fittingChars = remainingText->Length * (availableWidth / textWidth);
+
+					// Get the substring that fits on this line
+					String^ lineText = remainingText->Substring(0, Math::Min(fittingChars, remainingText->Length));
+
+					// Measure the width of the line text
+					textWidth = e->Graphics->MeasureString(lineText, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular)).Width;
+
+					// Print the text on the same or new line
+					e->Graphics->DrawString(lineText, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, roomTextStartX, y);
+
+					// Move y down for the next line
+					y += 15;
+
+					// Remove the printed part from remainingText
+					remainingText = remainingText->Substring(Math::Min(fittingChars, remainingText->Length));
+
+					// Reset roomTextStartX for subsequent lines (to align with the left margin)
+					roomTextStartX = x;
+					availableWidth = pageWidth - x - 20; // New width for wrapped lines
+				}
+			}
 
 			textWidth = e->Graphics->MeasureString("=======================================", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular)).Width;
 			xCentered = (pageWidth - textWidth) / 2; // Centering calculation
@@ -460,7 +513,7 @@ namespace HotelManagementSystem {
 
 									// Calculate position to center the QR code
 				int qrX = (pageWidth - qrWidth) / 2;
-				int qrY = e->PageBounds.Height - qrHeight - 70; // Adjust 70 to set space between QR and "Thank you"
+				int qrY = e->PageBounds.Height - qrHeight - 90; // Adjust 70 to set space between QR and "Thank you"
 
 																// Draw the QR code image
 				e->Graphics->DrawImage(qrImage, qrX, qrY, qrWidth, qrHeight);
@@ -476,12 +529,17 @@ namespace HotelManagementSystem {
 		
 			textWidth = e->Graphics->MeasureString(praNo, gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular)).Width;
 			xCentered = (pageWidth - textWidth) / 2; // Centering calculation
-			e->Graphics->DrawString(praNo, gcnew System::Drawing::Font("Arial", 8, FontStyle::Italic), Brushes::Black, xCentered, pageHeight - 50);
-
+			e->Graphics->DrawString(praNo, gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular), Brushes::Black, xCentered, pageHeight - 80);
 
 			textWidth = e->Graphics->MeasureString("Thank you for staying with us!", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular)).Width;
 			xCentered = (pageWidth - textWidth) / 2; // Centering calculation
-			e->Graphics->DrawString("Thank you for staying with us!", gcnew System::Drawing::Font("Arial", 8, FontStyle::Italic), Brushes::Black, xCentered, pageHeight - 20);
+			e->Graphics->DrawString("Thank you for staying with us!", gcnew System::Drawing::Font("Arial", 8, FontStyle::Italic), Brushes::Black, xCentered, pageHeight - 40);
+
+			// KAAF Devs - 0340-8898238
+			textWidth = e->Graphics->MeasureString("Software by: KAAF Devs__0340-8898238", gcnew System::Drawing::Font("Arial", 6, FontStyle::Regular)).Width;
+			xCentered = (pageWidth - textWidth) / 2; // Centering calculation
+			e->Graphics->DrawString("Software by: KAAF Devs__0340-8898238", gcnew System::Drawing::Font("Arial", 6, FontStyle::Italic), Brushes::Black, xCentered, pageHeight - 20);
+
 		}
 
 private: System::Void btnPrint_Click(System::Object^ sender, System::EventArgs^ e) {

@@ -290,5 +290,6 @@ namespace HotelManagementSystem {
 				"Database Connection Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 		}
 	}
+
 };
 }

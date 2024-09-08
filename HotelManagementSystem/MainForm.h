@@ -144,8 +144,6 @@ inline std::string SendInvoiceData(const nlohmann::json& invoiceJson) {
 	return response;
 }
 
-
-
 inline std::string FetchQRCode(const std::string& qrData) {
 	CURL* curl;
 	CURLcode res;
@@ -221,6 +219,7 @@ namespace HotelManagementSystem {
 	private: System::Windows::Forms::Panel^  panel6;
 	private: System::Windows::Forms::Label^  label11;
 	private: System::Windows::Forms::Button^  btnLogout;
+	private: System::Windows::Forms::RichTextBox^  rtbRoomNo;
 
 	public:
 		String^ bookingManagerName;
@@ -252,116 +251,64 @@ namespace HotelManagementSystem {
 	private: System::Windows::Forms::Label^  label3;
 	private: System::Windows::Forms::Label^  label4;
 	private: System::Windows::Forms::TextBox^  tbName;
-
 	private: System::Windows::Forms::Label^  label5;
 	private: System::Windows::Forms::TextBox^  tbCnic;
-
 	private: System::Windows::Forms::Label^  label6;
-
-
 	private: System::Windows::Forms::Label^  label7;
-
-
 	private: System::Windows::Forms::Label^  label8;
-
-
-
-
-
-
 	private: System::Windows::Forms::DateTimePicker^  dtpTimeIn;
 	private: System::Windows::Forms::DateTimePicker^  dtpTimeOut;
 	private: System::Windows::Forms::DataGridView^  dgvRoomData;
 	private: System::Windows::Forms::Label^  label12;
 	private: System::Windows::Forms::Button^  btnRefresh;
-
-
 	private: System::Windows::Forms::TextBox^  tbNoOfRooms;
 	private: System::Windows::Forms::TextBox^  tbRoomCharges;
-
-
 	private: System::Windows::Forms::Label^  label14;
 	private: System::Windows::Forms::TextBox^  tbGst;
-
 	private: System::Windows::Forms::Label^  label15;
 	private: System::Windows::Forms::TextBox^  tbPayable;
-
-
 	private: System::Windows::Forms::Label^  label16;
-
 	private: System::Windows::Forms::Button^  btnSave;
 	private: System::Windows::Forms::Button^  btnPrint;
 	private: System::Windows::Forms::Button^  btnCalculateTotal;
-
 	private: System::Windows::Forms::Label^  label18;
 	private: System::Windows::Forms::TextBox^  tbInvoiceNo;
-
 	private: System::Windows::Forms::Label^  label19;
 	private: System::Windows::Forms::TextBox^  tbContact;
-
 	private: System::Windows::Forms::Label^  label20;
 	private: System::Windows::Forms::TextBox^  tbEmergencyContact;
-
 	private: System::Windows::Forms::Label^  label21;
 	private: System::Windows::Forms::ComboBox^  cbNationality;
-
 	private: System::Windows::Forms::Label^  label22;
 	private: System::Windows::Forms::TextBox^  tbAddress;
-
-
-
-
 	private: System::Windows::Forms::DateTimePicker^  dtpDateIn;
-
 	private: System::Windows::Forms::Label^  label24;
 	private: System::Windows::Forms::DateTimePicker^  dtpDateOut;
-
 	private: System::Windows::Forms::Label^  label25;
-
-
 	private: System::Windows::Forms::Label^  label9;
 	private: System::Windows::Forms::TextBox^  tbBuyerPNTN;
 	private: System::Windows::Forms::Label^  label13;
 	private: System::Windows::Forms::Label^  label10;
 	private: System::Windows::Forms::Label^  lblManagerName;
 
-	private: System::Windows::Forms::TextBox^  tbRoomNo;
-
 	private: System::Windows::Forms::Label^  label17;
 	private: System::Windows::Forms::Label^  label26;
 private: System::Windows::Forms::TextBox^  tbDiscount;
-
 	private: System::Windows::Forms::Label^  label27;
 private: System::Windows::Forms::CheckBox^  cbPaymentModeCash;
 private: System::Windows::Forms::CheckBox^  cbPaymentModeCard;
 private: System::Windows::Forms::CheckBox^  cbPaymentModeCheque;
-
-
-
 	private: System::Windows::Forms::Label^  label28;
 private: System::Windows::Forms::RadioButton^  rbInvoiceTypeNew;
 private: System::Windows::Forms::RadioButton^  rbInvoiceTypeDebit;
 private: System::Windows::Forms::RadioButton^  rbInvoiceTypeCredit;
-
-
-
 private: System::Windows::Forms::Label^  label29;
 private: System::Windows::Forms::Label^  label30;
 private: System::Windows::Forms::Label^  lblNote;
 private: System::Drawing::Printing::PrintDocument^  printDocInvoice;
 private: System::Windows::Forms::PrintPreviewDialog^  printPreviewInvoice;
-
 private: System::Windows::Forms::ComboBox^  cbFilterFloor;
 private: System::Windows::Forms::Button^  btnViewOldData;
-
-
-
-
-
-
-
-
-
 	private: System::ComponentModel::IContainer^  components;
 
 	protected:
@@ -379,9 +326,9 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 		/// </summary>
 		void InitializeComponent()
 		{
-			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle16 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle17 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
-			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle18 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle2 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^  dataGridViewCellStyle3 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->label2 = (gcnew System::Windows::Forms::Label());
@@ -427,7 +374,6 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label13 = (gcnew System::Windows::Forms::Label());
 			this->label10 = (gcnew System::Windows::Forms::Label());
 			this->lblManagerName = (gcnew System::Windows::Forms::Label());
-			this->tbRoomNo = (gcnew System::Windows::Forms::TextBox());
 			this->label17 = (gcnew System::Windows::Forms::Label());
 			this->label26 = (gcnew System::Windows::Forms::Label());
 			this->tbDiscount = (gcnew System::Windows::Forms::TextBox());
@@ -453,6 +399,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label11 = (gcnew System::Windows::Forms::Label());
 			this->panel3 = (gcnew System::Windows::Forms::Panel());
 			this->panel4 = (gcnew System::Windows::Forms::Panel());
+			this->rtbRoomNo = (gcnew System::Windows::Forms::RichTextBox());
 			this->panel5 = (gcnew System::Windows::Forms::Panel());
 			this->panel6 = (gcnew System::Windows::Forms::Panel());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvRoomData))->BeginInit();
@@ -610,32 +557,34 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->dgvRoomData->AllowUserToDeleteRows = false;
 			this->dgvRoomData->AllowUserToOrderColumns = true;
 			this->dgvRoomData->AllowUserToResizeRows = false;
-			dataGridViewCellStyle16->BackColor = System::Drawing::Color::Silver;
-			this->dgvRoomData->AlternatingRowsDefaultCellStyle = dataGridViewCellStyle16;
+			dataGridViewCellStyle1->BackColor = System::Drawing::Color::Silver;
+			this->dgvRoomData->AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+			this->dgvRoomData->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left));
 			this->dgvRoomData->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
 			this->dgvRoomData->AutoSizeRowsMode = System::Windows::Forms::DataGridViewAutoSizeRowsMode::DisplayedCells;
 			this->dgvRoomData->BackgroundColor = System::Drawing::Color::LightSteelBlue;
 			this->dgvRoomData->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->dgvRoomData->ColumnHeadersBorderStyle = System::Windows::Forms::DataGridViewHeaderBorderStyle::Single;
-			dataGridViewCellStyle17->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
-			dataGridViewCellStyle17->BackColor = System::Drawing::Color::DodgerBlue;
-			dataGridViewCellStyle17->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.5F));
-			dataGridViewCellStyle17->ForeColor = System::Drawing::SystemColors::WindowText;
-			dataGridViewCellStyle17->Padding = System::Windows::Forms::Padding(5);
-			dataGridViewCellStyle17->SelectionBackColor = System::Drawing::SystemColors::Highlight;
-			dataGridViewCellStyle17->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle17->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
-			this->dgvRoomData->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
+			dataGridViewCellStyle2->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle2->BackColor = System::Drawing::Color::DodgerBlue;
+			dataGridViewCellStyle2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.5F));
+			dataGridViewCellStyle2->ForeColor = System::Drawing::SystemColors::WindowText;
+			dataGridViewCellStyle2->Padding = System::Windows::Forms::Padding(5);
+			dataGridViewCellStyle2->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle2->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle2->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->dgvRoomData->ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
 			this->dgvRoomData->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			dataGridViewCellStyle18->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
-			dataGridViewCellStyle18->BackColor = System::Drawing::SystemColors::Menu;
-			dataGridViewCellStyle18->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular,
+			dataGridViewCellStyle3->Alignment = System::Windows::Forms::DataGridViewContentAlignment::MiddleLeft;
+			dataGridViewCellStyle3->BackColor = System::Drawing::SystemColors::Menu;
+			dataGridViewCellStyle3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			dataGridViewCellStyle18->ForeColor = System::Drawing::SystemColors::ControlText;
-			dataGridViewCellStyle18->SelectionBackColor = System::Drawing::SystemColors::Highlight;
-			dataGridViewCellStyle18->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
-			dataGridViewCellStyle18->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
-			this->dgvRoomData->DefaultCellStyle = dataGridViewCellStyle18;
+			dataGridViewCellStyle3->ForeColor = System::Drawing::SystemColors::ControlText;
+			dataGridViewCellStyle3->SelectionBackColor = System::Drawing::SystemColors::Highlight;
+			dataGridViewCellStyle3->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
+			dataGridViewCellStyle3->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->dgvRoomData->DefaultCellStyle = dataGridViewCellStyle3;
 			this->dgvRoomData->EnableHeadersVisualStyles = false;
 			this->dgvRoomData->GridColor = System::Drawing::SystemColors::ActiveCaptionText;
 			this->dgvRoomData->Location = System::Drawing::Point(24, 43);
@@ -688,7 +637,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->tbRoomCharges->Enabled = false;
 			this->tbRoomCharges->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->tbRoomCharges->Location = System::Drawing::Point(178, 79);
+			this->tbRoomCharges->Location = System::Drawing::Point(178, 122);
 			this->tbRoomCharges->Name = L"tbRoomCharges";
 			this->tbRoomCharges->Size = System::Drawing::Size(238, 30);
 			this->tbRoomCharges->TabIndex = 1;
@@ -699,7 +648,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label14->AutoSize = true;
 			this->label14->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label14->Location = System::Drawing::Point(6, 82);
+			this->label14->Location = System::Drawing::Point(6, 125);
 			this->label14->Name = L"label14";
 			this->label14->Size = System::Drawing::Size(150, 25);
 			this->label14->TabIndex = 0;
@@ -710,7 +659,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->tbGst->Enabled = false;
 			this->tbGst->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->tbGst->Location = System::Drawing::Point(178, 115);
+			this->tbGst->Location = System::Drawing::Point(178, 158);
 			this->tbGst->Name = L"tbGst";
 			this->tbGst->Size = System::Drawing::Size(238, 30);
 			this->tbGst->TabIndex = 1;
@@ -721,7 +670,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label15->AutoSize = true;
 			this->label15->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label15->Location = System::Drawing::Point(6, 118);
+			this->label15->Location = System::Drawing::Point(6, 161);
 			this->label15->Name = L"label15";
 			this->label15->Size = System::Drawing::Size(121, 25);
 			this->label15->TabIndex = 0;
@@ -732,7 +681,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->tbPayable->Enabled = false;
 			this->tbPayable->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->tbPayable->Location = System::Drawing::Point(178, 187);
+			this->tbPayable->Location = System::Drawing::Point(178, 230);
 			this->tbPayable->Name = L"tbPayable";
 			this->tbPayable->Size = System::Drawing::Size(238, 30);
 			this->tbPayable->TabIndex = 1;
@@ -743,7 +692,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label16->AutoSize = true;
 			this->label16->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label16->Location = System::Drawing::Point(10, 190);
+			this->label16->Location = System::Drawing::Point(10, 233);
 			this->label16->Name = L"label16";
 			this->label16->Size = System::Drawing::Size(90, 25);
 			this->label16->TabIndex = 0;
@@ -754,7 +703,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->btnSave->BackColor = System::Drawing::Color::DarkTurquoise;
 			this->btnSave->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->btnSave->Location = System::Drawing::Point(919, 352);
+			this->btnSave->Location = System::Drawing::Point(919, 390);
 			this->btnSave->Name = L"btnSave";
 			this->btnSave->Size = System::Drawing::Size(191, 51);
 			this->btnSave->TabIndex = 17;
@@ -767,7 +716,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->btnPrint->BackColor = System::Drawing::Color::DarkTurquoise;
 			this->btnPrint->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->btnPrint->Location = System::Drawing::Point(1135, 352);
+			this->btnPrint->Location = System::Drawing::Point(1135, 390);
 			this->btnPrint->Name = L"btnPrint";
 			this->btnPrint->Size = System::Drawing::Size(191, 51);
 			this->btnPrint->TabIndex = 18;
@@ -1006,17 +955,6 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->lblManagerName->Text = L"Muhammad";
 			this->lblManagerName->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			// 
-			// tbRoomNo
-			// 
-			this->tbRoomNo->Enabled = false;
-			this->tbRoomNo->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->tbRoomNo->Location = System::Drawing::Point(178, 43);
-			this->tbRoomNo->Name = L"tbRoomNo";
-			this->tbRoomNo->Size = System::Drawing::Size(238, 30);
-			this->tbRoomNo->TabIndex = 1;
-			this->tbRoomNo->Text = L"0";
-			// 
 			// label17
 			// 
 			this->label17->AutoSize = true;
@@ -1024,16 +962,16 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 				static_cast<System::Byte>(0)));
 			this->label17->Location = System::Drawing::Point(5, 46);
 			this->label17->Name = L"label17";
-			this->label17->Size = System::Drawing::Size(108, 25);
+			this->label17->Size = System::Drawing::Size(90, 25);
 			this->label17->TabIndex = 0;
-			this->label17->Text = L"Rooms no";
+			this->label17->Text = L"Rooms#";
 			// 
 			// label26
 			// 
 			this->label26->AutoSize = true;
 			this->label26->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label26->Location = System::Drawing::Point(9, 154);
+			this->label26->Location = System::Drawing::Point(9, 197);
 			this->label26->Name = L"label26";
 			this->label26->Size = System::Drawing::Size(96, 25);
 			this->label26->TabIndex = 0;
@@ -1043,7 +981,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			// 
 			this->tbDiscount->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->tbDiscount->Location = System::Drawing::Point(178, 151);
+			this->tbDiscount->Location = System::Drawing::Point(178, 194);
 			this->tbDiscount->Name = L"tbDiscount";
 			this->tbDiscount->Size = System::Drawing::Size(238, 30);
 			this->tbDiscount->TabIndex = 1;
@@ -1055,7 +993,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label27->AutoSize = true;
 			this->label27->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label27->Location = System::Drawing::Point(10, 226);
+			this->label27->Location = System::Drawing::Point(10, 269);
 			this->label27->Name = L"label27";
 			this->label27->Size = System::Drawing::Size(155, 25);
 			this->label27->TabIndex = 0;
@@ -1068,7 +1006,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->cbPaymentModeCash->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->cbPaymentModeCash->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->cbPaymentModeCash->Location = System::Drawing::Point(178, 226);
+			this->cbPaymentModeCash->Location = System::Drawing::Point(178, 269);
 			this->cbPaymentModeCash->Name = L"cbPaymentModeCash";
 			this->cbPaymentModeCash->Size = System::Drawing::Size(70, 24);
 			this->cbPaymentModeCash->TabIndex = 15;
@@ -1080,7 +1018,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->cbPaymentModeCard->AutoSize = true;
 			this->cbPaymentModeCard->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->cbPaymentModeCard->Location = System::Drawing::Point(255, 226);
+			this->cbPaymentModeCard->Location = System::Drawing::Point(255, 269);
 			this->cbPaymentModeCard->Name = L"cbPaymentModeCard";
 			this->cbPaymentModeCard->Size = System::Drawing::Size(67, 24);
 			this->cbPaymentModeCard->TabIndex = 15;
@@ -1092,7 +1030,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->cbPaymentModeCheque->AutoSize = true;
 			this->cbPaymentModeCheque->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->cbPaymentModeCheque->Location = System::Drawing::Point(329, 226);
+			this->cbPaymentModeCheque->Location = System::Drawing::Point(329, 269);
 			this->cbPaymentModeCheque->Name = L"cbPaymentModeCheque";
 			this->cbPaymentModeCheque->Size = System::Drawing::Size(88, 24);
 			this->cbPaymentModeCheque->TabIndex = 15;
@@ -1104,7 +1042,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label28->AutoSize = true;
 			this->label28->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label28->Location = System::Drawing::Point(10, 254);
+			this->label28->Location = System::Drawing::Point(10, 297);
 			this->label28->Name = L"label28";
 			this->label28->Size = System::Drawing::Size(128, 25);
 			this->label28->TabIndex = 0;
@@ -1116,7 +1054,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->rbInvoiceTypeNew->Checked = true;
 			this->rbInvoiceTypeNew->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->rbInvoiceTypeNew->Location = System::Drawing::Point(178, 254);
+			this->rbInvoiceTypeNew->Location = System::Drawing::Point(178, 297);
 			this->rbInvoiceTypeNew->Name = L"rbInvoiceTypeNew";
 			this->rbInvoiceTypeNew->Size = System::Drawing::Size(63, 24);
 			this->rbInvoiceTypeNew->TabIndex = 16;
@@ -1129,7 +1067,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->rbInvoiceTypeDebit->AutoSize = true;
 			this->rbInvoiceTypeDebit->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->rbInvoiceTypeDebit->Location = System::Drawing::Point(255, 254);
+			this->rbInvoiceTypeDebit->Location = System::Drawing::Point(255, 297);
 			this->rbInvoiceTypeDebit->Name = L"rbInvoiceTypeDebit";
 			this->rbInvoiceTypeDebit->Size = System::Drawing::Size(70, 24);
 			this->rbInvoiceTypeDebit->TabIndex = 16;
@@ -1141,7 +1079,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->rbInvoiceTypeCredit->AutoSize = true;
 			this->rbInvoiceTypeCredit->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->rbInvoiceTypeCredit->Location = System::Drawing::Point(329, 254);
+			this->rbInvoiceTypeCredit->Location = System::Drawing::Point(329, 297);
 			this->rbInvoiceTypeCredit->Name = L"rbInvoiceTypeCredit";
 			this->rbInvoiceTypeCredit->Size = System::Drawing::Size(75, 24);
 			this->rbInvoiceTypeCredit->TabIndex = 16;
@@ -1153,7 +1091,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label29->AutoSize = true;
 			this->label29->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label29->Location = System::Drawing::Point(1040, 645);
+			this->label29->Location = System::Drawing::Point(1064, 645);
 			this->label29->Name = L"label29";
 			this->label29->Size = System::Drawing::Size(246, 20);
 			this->label29->TabIndex = 0;
@@ -1164,7 +1102,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label30->AutoSize = true;
 			this->label30->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label30->Location = System::Drawing::Point(1179, 674);
+			this->label30->Location = System::Drawing::Point(1196, 674);
 			this->label30->Name = L"label30";
 			this->label30->Size = System::Drawing::Size(114, 20);
 			this->label30->TabIndex = 12;
@@ -1175,9 +1113,9 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->lblNote->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->lblNote->ForeColor = System::Drawing::Color::DarkSlateGray;
-			this->lblNote->Location = System::Drawing::Point(9, 6);
+			this->lblNote->Location = System::Drawing::Point(9, 13);
 			this->lblNote->Name = L"lblNote";
-			this->lblNote->Size = System::Drawing::Size(400, 203);
+			this->lblNote->Size = System::Drawing::Size(407, 169);
 			this->lblNote->TabIndex = 12;
 			this->lblNote->TextAlign = System::Drawing::ContentAlignment::TopCenter;
 			// 
@@ -1249,10 +1187,12 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			// btnLogout
 			// 
 			this->btnLogout->BackColor = System::Drawing::Color::DarkRed;
+			this->btnLogout->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
 			this->btnLogout->ForeColor = System::Drawing::Color::White;
-			this->btnLogout->Location = System::Drawing::Point(353, 4);
+			this->btnLogout->Location = System::Drawing::Point(353, 0);
 			this->btnLogout->Name = L"btnLogout";
-			this->btnLogout->Size = System::Drawing::Size(87, 32);
+			this->btnLogout->Size = System::Drawing::Size(87, 45);
 			this->btnLogout->TabIndex = 1;
 			this->btnLogout->Text = L"Log-out";
 			this->btnLogout->UseVisualStyleBackColor = false;
@@ -1321,6 +1261,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			// panel4
 			// 
 			this->panel4->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->panel4->Controls->Add(this->rtbRoomNo);
 			this->panel4->Controls->Add(this->rbInvoiceTypeCredit);
 			this->panel4->Controls->Add(this->rbInvoiceTypeDebit);
 			this->panel4->Controls->Add(this->rbInvoiceTypeNew);
@@ -1338,15 +1279,29 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->panel4->Controls->Add(this->tbDiscount);
 			this->panel4->Controls->Add(this->tbGst);
 			this->panel4->Controls->Add(this->tbRoomCharges);
-			this->panel4->Controls->Add(this->tbRoomNo);
 			this->panel4->Controls->Add(this->label13);
 			this->panel4->Location = System::Drawing::Point(908, 51);
 			this->panel4->Name = L"panel4";
-			this->panel4->Size = System::Drawing::Size(427, 295);
+			this->panel4->Size = System::Drawing::Size(427, 333);
 			this->panel4->TabIndex = 23;
+			// 
+			// rtbRoomNo
+			// 
+			this->rtbRoomNo->BackColor = System::Drawing::SystemColors::Window;
+			this->rtbRoomNo->DetectUrls = false;
+			this->rtbRoomNo->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->rtbRoomNo->Location = System::Drawing::Point(178, 35);
+			this->rtbRoomNo->Name = L"rtbRoomNo";
+			this->rtbRoomNo->ReadOnly = true;
+			this->rtbRoomNo->Size = System::Drawing::Size(238, 70);
+			this->rtbRoomNo->TabIndex = 17;
+			this->rtbRoomNo->Text = L"001";
 			// 
 			// panel5
 			// 
+			this->panel5->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left));
 			this->panel5->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->panel5->Controls->Add(this->cbFilterFloor);
 			this->panel5->Controls->Add(this->btnCalculateTotal);
@@ -1355,7 +1310,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->panel5->Controls->Add(this->label6);
 			this->panel5->Controls->Add(this->tbNoOfRooms);
 			this->panel5->Controls->Add(this->label12);
-			this->panel5->Location = System::Drawing::Point(12, 353);
+			this->panel5->Location = System::Drawing::Point(12, 352);
 			this->panel5->Name = L"panel5";
 			this->panel5->Size = System::Drawing::Size(884, 351);
 			this->panel5->TabIndex = 24;
@@ -1364,9 +1319,9 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			// 
 			this->panel6->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->panel6->Controls->Add(this->lblNote);
-			this->panel6->Location = System::Drawing::Point(909, 409);
+			this->panel6->Location = System::Drawing::Point(909, 447);
 			this->panel6->Name = L"panel6";
-			this->panel6->Size = System::Drawing::Size(426, 226);
+			this->panel6->Size = System::Drawing::Size(426, 195);
 			this->panel6->TabIndex = 25;
 			// 
 			// MainForm
@@ -1385,8 +1340,6 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->Controls->Add(this->label29);
 			this->Controls->Add(this->btnPrint);
 			this->Controls->Add(this->btnSave);
-			this->MaximizeBox = false;
-			this->MaximumSize = System::Drawing::Size(1356, 752);
 			this->MinimumSize = System::Drawing::Size(1356, 752);
 			this->Name = L"MainForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
@@ -1495,7 +1448,7 @@ private:
 		cbNationality->SelectedItem = "Pakistani";
 		tbAddress->Text = "";
 		LoadRoomData("All Floor");
-		tbRoomNo->Text = "0";
+		rtbRoomNo->Text = "0";
 		tbNoOfRooms->Text = "0";
 		tbRoomCharges->Text = "0";
 		tbGst->Text = "0";
@@ -1554,7 +1507,6 @@ private:
 		}
 	}
 
-
 private: System::Void btnCalculateTotal_Click(System::Object^  sender, System::EventArgs^  e) {
 	//on click btnCalculateTotal function code here
 	
@@ -1592,7 +1544,7 @@ private: System::Void btnCalculateTotal_Click(System::Object^  sender, System::E
 
 	// Display the results in the respective text fields
 	tbNoOfRooms->Text = noOfRooms.ToString();
-	tbRoomNo->Text = roomNo;
+	rtbRoomNo->Text = roomNo;
 	//tbRoomCharges->Text = roomCharges.ToString("F2");  // F2 formats to 2 decimal places
 	tbRoomCharges->Text = roomCharges.ToString(); 
 	tbGst->Text = gst.ToString();
@@ -1600,7 +1552,7 @@ private: System::Void btnCalculateTotal_Click(System::Object^  sender, System::E
 
 	if (noOfRooms == 0)
 	{
-		tbRoomNo->Text = "0";
+		rtbRoomNo->Text = "0";
 		btnSave->Enabled = false;
 		btnPrint->Enabled = false;
 
@@ -1611,15 +1563,6 @@ private: System::Void btnCalculateTotal_Click(System::Object^  sender, System::E
 		btnSave->Enabled = true;
 	}
 
-}
-private: System::Void btnCancel_Click(System::Object^  sender, System::EventArgs^  e) {
-	LoadRoomData("All Floor");
-	tbRoomNo->Text = "0";
-	tbNoOfRooms->Text = "0";
-	tbRoomCharges->Text = "0";
-	tbGst->Text = "0";
-	tbPayable->Text = "0";
-	tbDiscount->Text = "0";
 }
 private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e) {
 
@@ -1637,7 +1580,7 @@ private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e
 		|| dtpTimeIn->Text == ""
 		|| dtpTimeOut->Text == ""
 		|| tbNoOfRooms->Text == ""
-		|| tbRoomNo->Text == ""
+		|| rtbRoomNo->Text == ""
 		|| tbGst->Text == ""
 		|| tbPayable->Text == "")
 	{
@@ -1935,7 +1878,7 @@ private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e
 		
 		*/
 
-		String^ roomNo = tbRoomNo->Text->ToString();
+		String^ roomNo = rtbRoomNo->Text->ToString();
 
 		// Bind the parameters with data from text boxes
 		command->Parameters->AddWithValue("@InvoiceNo", invoiceNo);//Unique Key Constraint
@@ -2247,7 +2190,7 @@ private: System::Void printDocInvoice_PrintPage(System::Object^ sender, System::
 	String^ praFormatDateTime = praFormatDateIn + " " + praFormatTimeIn;
 
 	String^ nationality = cbNationality->Text->ToString();
-	String^ roomNo = tbRoomNo->Text->ToString();
+	String^ roomNo = rtbRoomNo->Text->ToString();
 	double noOfRooms = Convert::ToDouble(tbNoOfRooms->Text);
 	double roomCharges = Convert::ToDouble(tbRoomCharges->Text);
 	double gst = Convert::ToDouble(tbGst->Text);
@@ -2369,11 +2312,66 @@ private: System::Void printDocInvoice_PrintPage(System::Object^ sender, System::
 	e->Graphics->DrawString(""+noOfRooms, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, xEnd, y);
 	y += 20;
 
+	/*
 	e->Graphics->DrawString("Rooms: ", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, x, y);
 	textWidth = e->Graphics->MeasureString(roomNo, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular)).Width;
 	xEnd = (pageWidth - textWidth - 20); // Ending calculation
 	e->Graphics->DrawString(roomNo, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, xEnd, y);
 	y += 15;
+	*/
+
+	// Draw the "Rooms:" label
+	e->Graphics->DrawString("Rooms: ", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, x, y);
+
+	// Measure the width of the "Rooms: " label
+	float labelWidth = e->Graphics->MeasureString("Rooms: ", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold)).Width;
+
+	// Calculate the available space for the roomNo text on the same line
+	float availableWidth = pageWidth - x - labelWidth - 20; // 20 is for padding
+
+															// Set the starting x position for the roomNo text (after the "Rooms:" label)
+	float roomTextStartX = x + labelWidth;
+
+	// Measure the width of the roomNo text
+	textWidth = e->Graphics->MeasureString(roomNo, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular)).Width;
+
+	if (textWidth <= availableWidth) {
+		// If the text fits on the same line, print it after the "Rooms:" label
+		e->Graphics->DrawString(roomNo, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, roomTextStartX, y);
+		y += 15; // Move down to the next line if necessary
+	}
+	else {
+		// If the text doesn't fit on the same line, wrap it to the next line(s)
+		int currentIndex = 0;
+		String^ remainingText = roomNo;
+
+		// Loop to print each part of the text that fits within the available width
+		while (remainingText->Length > 0) {
+			// Find how many characters fit within the available width
+			int fittingChars = remainingText->Length * (availableWidth / textWidth);
+
+			// Get the substring that fits on this line
+			String^ lineText = remainingText->Substring(0, Math::Min(fittingChars, remainingText->Length));
+
+			// Measure the width of the line text
+			textWidth = e->Graphics->MeasureString(lineText, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular)).Width;
+
+			// Print the text on the same or new line
+			e->Graphics->DrawString(lineText, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, roomTextStartX, y);
+
+			// Move y down for the next line
+			y += 15;
+
+			// Remove the printed part from remainingText
+			remainingText = remainingText->Substring(Math::Min(fittingChars, remainingText->Length));
+
+			// Reset roomTextStartX for subsequent lines (to align with the left margin)
+			roomTextStartX = x;
+			availableWidth = pageWidth - x - 20; // New width for wrapped lines
+		}
+	}
+
+
 
 	textWidth = e->Graphics->MeasureString("=======================================", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular)).Width;
 	xCentered = (pageWidth - textWidth) / 2; // Centering calculation
@@ -2440,7 +2438,7 @@ private: System::Void printDocInvoice_PrintPage(System::Object^ sender, System::
 
 									// Calculate position to center the QR code
 				int qrX = (pageWidth - qrWidth) / 2;
-				int qrY = e->PageBounds.Height - qrHeight - 70; // Adjust 70 to set space between QR and "Thank you"
+				int qrY = e->PageBounds.Height - qrHeight - 90; // Adjust 70 to set space between QR and "Thank you"
 
 				if (praInvoiceNo != "")
 				{
@@ -2465,15 +2463,19 @@ private: System::Void printDocInvoice_PrintPage(System::Object^ sender, System::
 
 		textWidth = e->Graphics->MeasureString(praInvoiceNo, gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular)).Width;
 		xCentered = (pageWidth - textWidth) / 2; // Centering calculation
-		e->Graphics->DrawString(praInvoiceNo, gcnew System::Drawing::Font("Arial", 8, FontStyle::Italic), Brushes::Black, xCentered, pageHeight - 50);
+		e->Graphics->DrawString(praInvoiceNo, gcnew System::Drawing::Font("Arial", 8, FontStyle::Italic), Brushes::Black, xCentered, pageHeight - 80);
 
 	}
 	
 	
 	textWidth = e->Graphics->MeasureString("Thank you for staying with us!", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular)).Width;
 	xCentered = (pageWidth - textWidth) / 2; // Centering calculation
-	e->Graphics->DrawString("Thank you for staying with us!", gcnew System::Drawing::Font("Arial", 8, FontStyle::Italic), Brushes::Black, xCentered, pageHeight - 20);
+	e->Graphics->DrawString("Thank you for staying with us!", gcnew System::Drawing::Font("Arial", 8, FontStyle::Italic), Brushes::Black, xCentered, pageHeight - 40);
 
+	// KAAF Devs - 0340-8898238
+	textWidth = e->Graphics->MeasureString("Software by: KAAF Devs__0340-8898238", gcnew System::Drawing::Font("Arial", 6, FontStyle::Regular)).Width;
+	xCentered = (pageWidth - textWidth) / 2; // Centering calculation
+	e->Graphics->DrawString("Software by: KAAF Devs__0340-8898238", gcnew System::Drawing::Font("Arial", 6, FontStyle::Italic), Brushes::Black, xCentered, pageHeight - 20);
 }
 private: System::Void btnPrint_Click(System::Object^  sender, System::EventArgs^  e) {
 	
