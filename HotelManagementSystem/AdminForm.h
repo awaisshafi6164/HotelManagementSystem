@@ -14,6 +14,8 @@
 #include "CustomerDataForm.h"
 #include "SettingForm.h"
 using namespace std;
+
+
 namespace HotelManagementSystem {
 
 	using namespace System;
@@ -23,6 +25,7 @@ namespace HotelManagementSystem {
 	using namespace System::Data;
 	using namespace System::Drawing;
 	using namespace System::Data::SqlClient;
+
 
 	/// <summary>
 	/// Summary for AdminForm
@@ -55,6 +58,7 @@ namespace HotelManagementSystem {
 	private: System::Windows::Forms::Button^  btnRoomData;
 	private: System::Windows::Forms::Button^  btnCustomerData;
 	private: System::Windows::Forms::Button^  button1;
+
 
 	protected:
 
@@ -138,8 +142,8 @@ namespace HotelManagementSystem {
 			// button1
 			// 
 			this->button1->BackColor = System::Drawing::Color::DarkTurquoise;
-			this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
-				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
 			this->button1->Location = System::Drawing::Point(403, 221);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(100, 37);
@@ -178,8 +182,20 @@ private: System::Void btnRoomData_Click(System::Object^  sender, System::EventAr
 }
 
 private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
-	HotelManagementSystem::SettingForm settingForm;
-	settingForm.ShowDialog();
+	
+	// Show the message box with OK and Cancel buttons
+	System::Windows::Forms::DialogResult result = MessageBox::Show("Only For KAAF Developers. Don't change anything.","Warning",MessageBoxButtons::OKCancel,MessageBoxIcon::Information);
+
+	// Check the result and show a message based on the button clicked
+	if (result == System::Windows::Forms::DialogResult::OK) {
+		HotelManagementSystem::SettingForm settingForm;
+		settingForm.ShowDialog();
+	}
+	else if (result == System::Windows::Forms::DialogResult::Cancel) {
+		//MessageBox::Show("You clicked Cancel.", "Result", MessageBoxButtons::OK, MessageBoxIcon::Information);
+	}
+
+	
 }
 private: System::Void btnCustomerData_Click(System::Object^  sender, System::EventArgs^  e) {
 	HotelManagementSystem::CustomerDataForm customerDataForm;
