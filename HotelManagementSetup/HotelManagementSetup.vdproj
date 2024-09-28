@@ -105,6 +105,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
             }
         }
     }
@@ -272,11 +280,11 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Hotel Management Setup"
         "ProductCode" = "8:{142107D1-D034-47B1-BAFA-E4F50B2E4B21}"
-        "PackageCode" = "8:{94625449-9206-4C7C-A7CF-3AFE19AD913C}"
+        "PackageCode" = "8:{4D5E7B79-46FC-4FE1-A086-304573A4969D}"
         "UpgradeCode" = "8:{7E054703-2FAB-4793-BBF0-38F83C514608}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
+        "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
         "ProductVersion" = "8:1.0.0"

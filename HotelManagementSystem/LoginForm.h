@@ -102,7 +102,7 @@ namespace HotelManagementSystem {
 			this->tbEmail->Name = L"tbEmail";
 			this->tbEmail->Size = System::Drawing::Size(400, 30);
 			this->tbEmail->TabIndex = 1;
-			this->tbEmail->Text = L"brostech.pk@gmail.com";
+			this->tbEmail->Text = L"shah@gmail.com";
 			// 
 			// tbPassword
 			// 
@@ -113,7 +113,7 @@ namespace HotelManagementSystem {
 			this->tbPassword->PasswordChar = '*';
 			this->tbPassword->Size = System::Drawing::Size(400, 30);
 			this->tbPassword->TabIndex = 2;
-			this->tbPassword->Text = L"hello123";
+			this->tbPassword->Text = L"shah123";
 			// 
 			// label3
 			// 

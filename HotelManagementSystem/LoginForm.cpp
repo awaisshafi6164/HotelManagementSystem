@@ -12,7 +12,6 @@ int main()
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
 	HotelManagementSystem::LoginForm loginForm;
-
 	loginForm.ShowDialog();
 	User^ user = loginForm.user;
 	User^ adminUser = loginForm.adminUser;
@@ -24,6 +23,7 @@ int main()
 		// If authentication is successful, open MainForm
 		HotelManagementSystem::MainForm mainForm(user->name);
 		mainForm.ShowDialog();
+
 	}
 	else if (adminUser != nullptr)
 	{
@@ -35,8 +35,7 @@ int main()
 		
 	}
 	else {
-		MessageBox::Show("Authentication Canceled",
-			"LoginForm.cpp", MessageBoxButtons::OK);
+		//MessageBox::Show("Authentication Canceled",	"LoginForm.cpp", MessageBoxButtons::OK);
 	}
 	return 0;
 }

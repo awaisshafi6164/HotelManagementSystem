@@ -58,6 +58,8 @@ namespace HotelManagementSystem {
 	private: System::Windows::Forms::Button^  btnRoomData;
 	private: System::Windows::Forms::Button^  btnCustomerData;
 	private: System::Windows::Forms::Button^  button1;
+	private: System::Windows::Forms::TextBox^  tbAdminPassword;
+
 
 
 	protected:
@@ -84,6 +86,7 @@ namespace HotelManagementSystem {
 			this->btnRoomData = (gcnew System::Windows::Forms::Button());
 			this->btnCustomerData = (gcnew System::Windows::Forms::Button());
 			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->tbAdminPassword = (gcnew System::Windows::Forms::TextBox());
 			this->SuspendLayout();
 			// 
 			// label1
@@ -105,7 +108,7 @@ namespace HotelManagementSystem {
 			this->btnUserData->BackColor = System::Drawing::Color::DarkTurquoise;
 			this->btnUserData->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->btnUserData->Location = System::Drawing::Point(26, 99);
+			this->btnUserData->Location = System::Drawing::Point(26, 43);
 			this->btnUserData->Name = L"btnUserData";
 			this->btnUserData->Size = System::Drawing::Size(150, 50);
 			this->btnUserData->TabIndex = 1;
@@ -118,7 +121,7 @@ namespace HotelManagementSystem {
 			this->btnRoomData->BackColor = System::Drawing::Color::DarkTurquoise;
 			this->btnRoomData->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->btnRoomData->Location = System::Drawing::Point(182, 99);
+			this->btnRoomData->Location = System::Drawing::Point(182, 43);
 			this->btnRoomData->Name = L"btnRoomData";
 			this->btnRoomData->Size = System::Drawing::Size(150, 50);
 			this->btnRoomData->TabIndex = 2;
@@ -131,7 +134,7 @@ namespace HotelManagementSystem {
 			this->btnCustomerData->BackColor = System::Drawing::Color::DarkTurquoise;
 			this->btnCustomerData->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->btnCustomerData->Location = System::Drawing::Point(338, 99);
+			this->btnCustomerData->Location = System::Drawing::Point(338, 43);
 			this->btnCustomerData->Name = L"btnCustomerData";
 			this->btnCustomerData->Size = System::Drawing::Size(165, 50);
 			this->btnCustomerData->TabIndex = 3;
@@ -152,11 +155,21 @@ namespace HotelManagementSystem {
 			this->button1->UseVisualStyleBackColor = false;
 			this->button1->Click += gcnew System::EventHandler(this, &AdminForm::button1_Click);
 			// 
+			// tbAdminPassword
+			// 
+			this->tbAdminPassword->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10));
+			this->tbAdminPassword->Location = System::Drawing::Point(36, 226);
+			this->tbAdminPassword->Name = L"tbAdminPassword";
+			this->tbAdminPassword->PasswordChar = '*';
+			this->tbAdminPassword->Size = System::Drawing::Size(296, 26);
+			this->tbAdminPassword->TabIndex = 5;
+			// 
 			// AdminForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(515, 270);
+			this->Controls->Add(this->tbAdminPassword);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->btnRoomData);
 			this->Controls->Add(this->btnCustomerData);
@@ -165,12 +178,15 @@ namespace HotelManagementSystem {
 			this->Name = L"AdminForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Admin Form";
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &AdminForm::AdminForm_FormClosing);
 			this->ResumeLayout(false);
+			this->PerformLayout();
 
 		}
 #pragma endregion
 
 	private:
+		bool isRestarting = false;
 
 	private: System::Void btnUserData_Click(System::Object^  sender, System::EventArgs^  e) {
 		HotelManagementSystem::UserDataForm userDataForm;
@@ -182,24 +198,24 @@ private: System::Void btnRoomData_Click(System::Object^  sender, System::EventAr
 }
 
 private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
-	
-	// Show the message box with OK and Cancel buttons
-	System::Windows::Forms::DialogResult result = MessageBox::Show("Only For KAAF Developers. Don't change anything.","Warning",MessageBoxButtons::OKCancel,MessageBoxIcon::Information);
-
-	// Check the result and show a message based on the button clicked
-	if (result == System::Windows::Forms::DialogResult::OK) {
+	String^ pass = tbAdminPassword->Text->ToString();
+	if (pass == "q6dr080g")
+	{
+		tbAdminPassword->Text = "";
 		HotelManagementSystem::SettingForm settingForm;
 		settingForm.ShowDialog();
 	}
-	else if (result == System::Windows::Forms::DialogResult::Cancel) {
-		//MessageBox::Show("You clicked Cancel.", "Result", MessageBoxButtons::OK, MessageBoxIcon::Information);
-	}
-
 	
 }
 private: System::Void btnCustomerData_Click(System::Object^  sender, System::EventArgs^  e) {
 	HotelManagementSystem::CustomerDataForm customerDataForm;
 	customerDataForm.ShowDialog();
+}
+private: System::Void AdminForm_FormClosing(System::Object^  sender, System::Windows::Forms::FormClosingEventArgs^  e) {
+	if (!isRestarting) {
+		isRestarting = true;
+		Application::Restart();
+	}
 }
 };
 }

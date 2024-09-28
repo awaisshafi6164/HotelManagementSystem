@@ -221,6 +221,30 @@ namespace HotelManagementSystem {
 	private: System::Windows::Forms::Button^  btnLogout;
 	private: System::Windows::Forms::RichTextBox^  rtbRoomNo;
 	private: System::Windows::Forms::Label^  label5;
+	private: System::Windows::Forms::Label^  label23;
+	private: System::Windows::Forms::Label^  label15;
+	private: System::Windows::Forms::TextBox^  tbServices;
+	private: System::Windows::Forms::PictureBox^  pictureBox1;
+	private: System::Windows::Forms::PictureBox^  pictureBox2;
+	private: System::Windows::Forms::PictureBox^  pictureBox3;
+
+
+
+
+	private: System::Windows::Forms::Panel^  panel8;
+	private: System::Windows::Forms::PictureBox^  pictureBox7;
+	private: System::Windows::Forms::Label^  label30;
+	private: System::Windows::Forms::Label^  label29;
+	private: System::Windows::Forms::Panel^  panel7;
+	private: System::Windows::Forms::Label^  label32;
+	private: System::Windows::Forms::Label^  label33;
+	private: System::Windows::Forms::Label^  lblTotalSaleValue;
+	private: System::Windows::Forms::Label^  label34;
+	private: System::Windows::Forms::DateTimePicker^  dtpToDate;
+	private: System::Windows::Forms::DateTimePicker^  dtpFromDate;
+	private: System::Windows::Forms::Button^  btnShowTotalSale;
+	private: System::Windows::Forms::PictureBox^  pictureBox4;
+
 
 	public:
 		String^ bookingManagerName;
@@ -272,7 +296,7 @@ namespace HotelManagementSystem {
 	private: System::Windows::Forms::TextBox^  tbPayable;
 	private: System::Windows::Forms::Label^  label16;
 	private: System::Windows::Forms::Button^  btnSave;
-	private: System::Windows::Forms::Button^  btnPrint;
+
 	private: System::Windows::Forms::Button^  btnCalculateTotal;
 	private: System::Windows::Forms::Label^  label18;
 	private: System::Windows::Forms::TextBox^  tbInvoiceNo;
@@ -305,8 +329,8 @@ private: System::Windows::Forms::CheckBox^  cbPaymentModeCheque;
 private: System::Windows::Forms::RadioButton^  rbInvoiceTypeNew;
 private: System::Windows::Forms::RadioButton^  rbInvoiceTypeDebit;
 private: System::Windows::Forms::RadioButton^  rbInvoiceTypeCredit;
-private: System::Windows::Forms::Label^  label29;
-private: System::Windows::Forms::Label^  label30;
+
+
 private: System::Windows::Forms::Label^  lblNote;
 private: System::Drawing::Printing::PrintDocument^  printDocInvoice;
 private: System::Windows::Forms::PrintPreviewDialog^  printPreviewInvoice;
@@ -356,7 +380,6 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->tbPayable = (gcnew System::Windows::Forms::TextBox());
 			this->label16 = (gcnew System::Windows::Forms::Label());
 			this->btnSave = (gcnew System::Windows::Forms::Button());
-			this->btnPrint = (gcnew System::Windows::Forms::Button());
 			this->btnCalculateTotal = (gcnew System::Windows::Forms::Button());
 			this->label18 = (gcnew System::Windows::Forms::Label());
 			this->tbInvoiceNo = (gcnew System::Windows::Forms::TextBox());
@@ -388,8 +411,6 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->rbInvoiceTypeNew = (gcnew System::Windows::Forms::RadioButton());
 			this->rbInvoiceTypeDebit = (gcnew System::Windows::Forms::RadioButton());
 			this->rbInvoiceTypeCredit = (gcnew System::Windows::Forms::RadioButton());
-			this->label29 = (gcnew System::Windows::Forms::Label());
-			this->label30 = (gcnew System::Windows::Forms::Label());
 			this->lblNote = (gcnew System::Windows::Forms::Label());
 			this->printDocInvoice = (gcnew System::Drawing::Printing::PrintDocument());
 			this->printPreviewInvoice = (gcnew System::Windows::Forms::PrintPreviewDialog());
@@ -404,8 +425,27 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->panel3 = (gcnew System::Windows::Forms::Panel());
 			this->panel4 = (gcnew System::Windows::Forms::Panel());
 			this->rtbRoomNo = (gcnew System::Windows::Forms::RichTextBox());
+			this->label23 = (gcnew System::Windows::Forms::Label());
+			this->label15 = (gcnew System::Windows::Forms::Label());
+			this->tbServices = (gcnew System::Windows::Forms::TextBox());
 			this->panel5 = (gcnew System::Windows::Forms::Panel());
 			this->panel6 = (gcnew System::Windows::Forms::Panel());
+			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
+			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
+			this->pictureBox3 = (gcnew System::Windows::Forms::PictureBox());
+			this->panel8 = (gcnew System::Windows::Forms::Panel());
+			this->pictureBox4 = (gcnew System::Windows::Forms::PictureBox());
+			this->label30 = (gcnew System::Windows::Forms::Label());
+			this->label29 = (gcnew System::Windows::Forms::Label());
+			this->pictureBox7 = (gcnew System::Windows::Forms::PictureBox());
+			this->panel7 = (gcnew System::Windows::Forms::Panel());
+			this->label32 = (gcnew System::Windows::Forms::Label());
+			this->label33 = (gcnew System::Windows::Forms::Label());
+			this->lblTotalSaleValue = (gcnew System::Windows::Forms::Label());
+			this->label34 = (gcnew System::Windows::Forms::Label());
+			this->dtpToDate = (gcnew System::Windows::Forms::DateTimePicker());
+			this->dtpFromDate = (gcnew System::Windows::Forms::DateTimePicker());
+			this->btnShowTotalSale = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvRoomData))->BeginInit();
 			this->panel1->SuspendLayout();
 			this->panel2->SuspendLayout();
@@ -413,6 +453,13 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->panel4->SuspendLayout();
 			this->panel5->SuspendLayout();
 			this->panel6->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox3))->BeginInit();
+			this->panel8->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox4))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox7))->BeginInit();
+			this->panel7->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// label1
@@ -596,7 +643,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->dgvRoomData->RowHeadersVisible = false;
 			this->dgvRoomData->RowTemplate->Height = 24;
 			this->dgvRoomData->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::FullRowSelect;
-			this->dgvRoomData->Size = System::Drawing::Size(696, 369);
+			this->dgvRoomData->Size = System::Drawing::Size(696, 600);
 			this->dgvRoomData->TabIndex = 7;
 			// 
 			// label12
@@ -641,7 +688,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->tbRoomCharges->Enabled = false;
 			this->tbRoomCharges->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->tbRoomCharges->Location = System::Drawing::Point(178, 206);
+			this->tbRoomCharges->Location = System::Drawing::Point(178, 170);
 			this->tbRoomCharges->Name = L"tbRoomCharges";
 			this->tbRoomCharges->Size = System::Drawing::Size(238, 30);
 			this->tbRoomCharges->TabIndex = 1;
@@ -652,7 +699,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label14->AutoSize = true;
 			this->label14->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label14->Location = System::Drawing::Point(6, 209);
+			this->label14->Location = System::Drawing::Point(6, 173);
 			this->label14->Name = L"label14";
 			this->label14->Size = System::Drawing::Size(150, 25);
 			this->label14->TabIndex = 0;
@@ -663,7 +710,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->tbGst->Enabled = false;
 			this->tbGst->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->tbGst->Location = System::Drawing::Point(178, 242);
+			this->tbGst->Location = System::Drawing::Point(178, 206);
 			this->tbGst->Name = L"tbGst";
 			this->tbGst->Size = System::Drawing::Size(238, 30);
 			this->tbGst->TabIndex = 1;
@@ -674,7 +721,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->lblGst->AutoSize = true;
 			this->lblGst->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lblGst->Location = System::Drawing::Point(6, 245);
+			this->lblGst->Location = System::Drawing::Point(6, 209);
 			this->lblGst->Name = L"lblGst";
 			this->lblGst->Size = System::Drawing::Size(121, 25);
 			this->lblGst->TabIndex = 0;
@@ -707,26 +754,13 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->btnSave->BackColor = System::Drawing::Color::DarkTurquoise;
 			this->btnSave->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->btnSave->Location = System::Drawing::Point(919, 474);
+			this->btnSave->Location = System::Drawing::Point(973, 474);
 			this->btnSave->Name = L"btnSave";
-			this->btnSave->Size = System::Drawing::Size(191, 51);
+			this->btnSave->Size = System::Drawing::Size(315, 51);
 			this->btnSave->TabIndex = 17;
-			this->btnSave->Text = L"Save";
+			this->btnSave->Text = L"Save n Print";
 			this->btnSave->UseVisualStyleBackColor = false;
 			this->btnSave->Click += gcnew System::EventHandler(this, &MainForm::btnSave_Click);
-			// 
-			// btnPrint
-			// 
-			this->btnPrint->BackColor = System::Drawing::Color::DarkTurquoise;
-			this->btnPrint->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->btnPrint->Location = System::Drawing::Point(1135, 474);
-			this->btnPrint->Name = L"btnPrint";
-			this->btnPrint->Size = System::Drawing::Size(191, 51);
-			this->btnPrint->TabIndex = 18;
-			this->btnPrint->Text = L"Print";
-			this->btnPrint->UseVisualStyleBackColor = false;
-			this->btnPrint->Click += gcnew System::EventHandler(this, &MainForm::btnPrint_Click);
 			// 
 			// btnCalculateTotal
 			// 
@@ -754,6 +788,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			// 
 			// tbInvoiceNo
 			// 
+			this->tbInvoiceNo->Enabled = false;
 			this->tbInvoiceNo->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->tbInvoiceNo->Location = System::Drawing::Point(138, 44);
@@ -991,7 +1026,6 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->tbDiscount->Name = L"tbDiscount";
 			this->tbDiscount->Size = System::Drawing::Size(238, 30);
 			this->tbDiscount->TabIndex = 1;
-			this->tbDiscount->Text = L"0";
 			this->tbDiscount->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &MainForm::tbDiscount_KeyUp);
 			// 
 			// label27
@@ -1095,28 +1129,6 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->rbInvoiceTypeCredit->Text = L"Credit";
 			this->rbInvoiceTypeCredit->UseVisualStyleBackColor = true;
 			// 
-			// label29
-			// 
-			this->label29->AutoSize = true;
-			this->label29->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label29->Location = System::Drawing::Point(1064, 735);
-			this->label29->Name = L"label29";
-			this->label29->Size = System::Drawing::Size(240, 20);
-			this->label29->TabIndex = 0;
-			this->label29->Text = L"Software by: KAAF Developers";
-			// 
-			// label30
-			// 
-			this->label30->AutoSize = true;
-			this->label30->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label30->Location = System::Drawing::Point(1196, 764);
-			this->label30->Name = L"label30";
-			this->label30->Size = System::Drawing::Size(114, 20);
-			this->label30->TabIndex = 12;
-			this->label30->Text = L"0339-4098238";
-			// 
 			// lblNote
 			// 
 			this->lblNote->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
@@ -1192,7 +1204,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->panel1->Controls->Add(this->lblManagerName);
 			this->panel1->Location = System::Drawing::Point(893, 0);
 			this->panel1->Name = L"panel1";
-			this->panel1->Size = System::Drawing::Size(443, 45);
+			this->panel1->Size = System::Drawing::Size(869, 45);
 			this->panel1->TabIndex = 20;
 			// 
 			// btnLogout
@@ -1202,12 +1214,13 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->btnLogout->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnLogout->ForeColor = System::Drawing::Color::White;
-			this->btnLogout->Location = System::Drawing::Point(353, 0);
+			this->btnLogout->Location = System::Drawing::Point(779, 0);
 			this->btnLogout->Name = L"btnLogout";
 			this->btnLogout->Size = System::Drawing::Size(87, 45);
 			this->btnLogout->TabIndex = 1;
 			this->btnLogout->Text = L"Log-out";
 			this->btnLogout->UseVisualStyleBackColor = false;
+			this->btnLogout->Visible = false;
 			this->btnLogout->Click += gcnew System::EventHandler(this, &MainForm::btnLogout_Click);
 			// 
 			// label5
@@ -1217,7 +1230,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->label5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label5->ForeColor = System::Drawing::Color::Black;
-			this->label5->Location = System::Drawing::Point(218, 16);
+			this->label5->Location = System::Drawing::Point(636, 16);
 			this->label5->Name = L"label5";
 			this->label5->Size = System::Drawing::Size(120, 20);
 			this->label5->TabIndex = 0;
@@ -1296,10 +1309,13 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->panel4->Controls->Add(this->label28);
 			this->panel4->Controls->Add(this->label27);
 			this->panel4->Controls->Add(this->label16);
+			this->panel4->Controls->Add(this->label23);
+			this->panel4->Controls->Add(this->label15);
 			this->panel4->Controls->Add(this->label26);
 			this->panel4->Controls->Add(this->lblGst);
 			this->panel4->Controls->Add(this->label14);
 			this->panel4->Controls->Add(this->label17);
+			this->panel4->Controls->Add(this->tbServices);
 			this->panel4->Controls->Add(this->tbPayable);
 			this->panel4->Controls->Add(this->tbDiscount);
 			this->panel4->Controls->Add(this->tbGst);
@@ -1319,9 +1335,42 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->rtbRoomNo->Margin = System::Windows::Forms::Padding(5);
 			this->rtbRoomNo->Name = L"rtbRoomNo";
 			this->rtbRoomNo->ReadOnly = true;
-			this->rtbRoomNo->Size = System::Drawing::Size(315, 165);
+			this->rtbRoomNo->Size = System::Drawing::Size(315, 124);
 			this->rtbRoomNo->TabIndex = 17;
 			this->rtbRoomNo->Text = L"001";
+			// 
+			// label23
+			// 
+			this->label23->AutoSize = true;
+			this->label23->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8, System::Drawing::FontStyle::Bold));
+			this->label23->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)),
+				static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			this->label23->Location = System::Drawing::Point(12, 260);
+			this->label23->Name = L"label23";
+			this->label23->Size = System::Drawing::Size(161, 17);
+			this->label23->TabIndex = 0;
+			this->label23->Text = L"(Food, laundary, etc)";
+			// 
+			// label15
+			// 
+			this->label15->AutoSize = true;
+			this->label15->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label15->Location = System::Drawing::Point(9, 239);
+			this->label15->Name = L"label15";
+			this->label15->Size = System::Drawing::Size(96, 25);
+			this->label15->TabIndex = 0;
+			this->label15->Text = L"Srevices";
+			// 
+			// tbServices
+			// 
+			this->tbServices->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->tbServices->Location = System::Drawing::Point(178, 242);
+			this->tbServices->Name = L"tbServices";
+			this->tbServices->Size = System::Drawing::Size(238, 30);
+			this->tbServices->TabIndex = 1;
+			this->tbServices->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &MainForm::tbServices_KeyUp);
 			// 
 			// panel5
 			// 
@@ -1337,7 +1386,7 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->panel5->Controls->Add(this->label12);
 			this->panel5->Location = System::Drawing::Point(12, 352);
 			this->panel5->Name = L"panel5";
-			this->panel5->Size = System::Drawing::Size(884, 440);
+			this->panel5->Size = System::Drawing::Size(884, 671);
 			this->panel5->TabIndex = 24;
 			// 
 			// panel6
@@ -1349,27 +1398,229 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->panel6->Size = System::Drawing::Size(426, 195);
 			this->panel6->TabIndex = 25;
 			// 
+			// pictureBox1
+			// 
+			this->pictureBox1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
+			this->pictureBox1->Location = System::Drawing::Point(13, 81);
+			this->pictureBox1->Name = L"pictureBox1";
+			this->pictureBox1->Size = System::Drawing::Size(316, 237);
+			this->pictureBox1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			this->pictureBox1->TabIndex = 26;
+			this->pictureBox1->TabStop = false;
+			// 
+			// pictureBox2
+			// 
+			this->pictureBox2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->pictureBox2->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox2.Image")));
+			this->pictureBox2->Location = System::Drawing::Point(95, 187);
+			this->pictureBox2->Name = L"pictureBox2";
+			this->pictureBox2->Size = System::Drawing::Size(316, 237);
+			this->pictureBox2->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			this->pictureBox2->TabIndex = 26;
+			this->pictureBox2->TabStop = false;
+			// 
+			// pictureBox3
+			// 
+			this->pictureBox3->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->pictureBox3->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox3.Image")));
+			this->pictureBox3->Location = System::Drawing::Point(13, 394);
+			this->pictureBox3->Name = L"pictureBox3";
+			this->pictureBox3->Size = System::Drawing::Size(316, 237);
+			this->pictureBox3->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			this->pictureBox3->TabIndex = 26;
+			this->pictureBox3->TabStop = false;
+			// 
+			// panel8
+			// 
+			this->panel8->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->panel8->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(192)), static_cast<System::Int32>(static_cast<System::Byte>(255)),
+				static_cast<System::Int32>(static_cast<System::Byte>(255)));
+			this->panel8->Controls->Add(this->pictureBox4);
+			this->panel8->Controls->Add(this->label30);
+			this->panel8->Controls->Add(this->label29);
+			this->panel8->Controls->Add(this->pictureBox7);
+			this->panel8->Controls->Add(this->pictureBox3);
+			this->panel8->Controls->Add(this->pictureBox2);
+			this->panel8->Controls->Add(this->pictureBox1);
+			this->panel8->Location = System::Drawing::Point(1341, 51);
+			this->panel8->Name = L"panel8";
+			this->panel8->Size = System::Drawing::Size(421, 972);
+			this->panel8->TabIndex = 28;
+			// 
+			// pictureBox4
+			// 
+			this->pictureBox4->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->pictureBox4->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox4.Image")));
+			this->pictureBox4->Location = System::Drawing::Point(13, 828);
+			this->pictureBox4->Name = L"pictureBox4";
+			this->pictureBox4->Size = System::Drawing::Size(316, 237);
+			this->pictureBox4->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			this->pictureBox4->TabIndex = 29;
+			this->pictureBox4->TabStop = false;
+			// 
+			// label30
+			// 
+			this->label30->AutoSize = true;
+			this->label30->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label30->Location = System::Drawing::Point(9, 30);
+			this->label30->Name = L"label30";
+			this->label30->Size = System::Drawing::Size(114, 20);
+			this->label30->TabIndex = 28;
+			this->label30->Text = L"0339-4098238";
+			// 
+			// label29
+			// 
+			this->label29->AutoSize = true;
+			this->label29->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label29->Location = System::Drawing::Point(9, 7);
+			this->label29->Name = L"label29";
+			this->label29->Size = System::Drawing::Size(240, 20);
+			this->label29->TabIndex = 27;
+			this->label29->Text = L"Software by: KAAF Developers";
+			// 
+			// pictureBox7
+			// 
+			this->pictureBox7->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->pictureBox7->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox7.Image")));
+			this->pictureBox7->Location = System::Drawing::Point(95, 607);
+			this->pictureBox7->Name = L"pictureBox7";
+			this->pictureBox7->Size = System::Drawing::Size(316, 237);
+			this->pictureBox7->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
+			this->pictureBox7->TabIndex = 26;
+			this->pictureBox7->TabStop = false;
+			// 
+			// panel7
+			// 
+			this->panel7->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left));
+			this->panel7->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->panel7->Controls->Add(this->label32);
+			this->panel7->Controls->Add(this->label33);
+			this->panel7->Controls->Add(this->lblTotalSaleValue);
+			this->panel7->Controls->Add(this->label34);
+			this->panel7->Controls->Add(this->dtpToDate);
+			this->panel7->Controls->Add(this->dtpFromDate);
+			this->panel7->Controls->Add(this->btnShowTotalSale);
+			this->panel7->Location = System::Drawing::Point(909, 732);
+			this->panel7->Name = L"panel7";
+			this->panel7->Size = System::Drawing::Size(426, 229);
+			this->panel7->TabIndex = 29;
+			// 
+			// label32
+			// 
+			this->label32->AutoSize = true;
+			this->label32->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label32->Location = System::Drawing::Point(181, 9);
+			this->label32->Name = L"label32";
+			this->label32->Size = System::Drawing::Size(38, 25);
+			this->label32->TabIndex = 0;
+			this->label32->Text = L"To";
+			// 
+			// label33
+			// 
+			this->label33->AutoSize = true;
+			this->label33->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label33->Location = System::Drawing::Point(-5, 48);
+			this->label33->Name = L"label33";
+			this->label33->Size = System::Drawing::Size(118, 25);
+			this->label33->TabIndex = 0;
+			this->label33->Text = L"Total Sale:";
+			// 
+			// lblTotalSaleValue
+			// 
+			this->lblTotalSaleValue->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->lblTotalSaleValue->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10));
+			this->lblTotalSaleValue->Location = System::Drawing::Point(142, 48);
+			this->lblTotalSaleValue->Name = L"lblTotalSaleValue";
+			this->lblTotalSaleValue->Size = System::Drawing::Size(204, 25);
+			this->lblTotalSaleValue->TabIndex = 0;
+			this->lblTotalSaleValue->Text = L"000";
+			this->lblTotalSaleValue->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
+			// 
+			// label34
+			// 
+			this->label34->AutoSize = true;
+			this->label34->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label34->Location = System::Drawing::Point(-3, 9);
+			this->label34->Name = L"label34";
+			this->label34->Size = System::Drawing::Size(61, 25);
+			this->label34->TabIndex = 0;
+			this->label34->Text = L"From";
+			// 
+			// dtpToDate
+			// 
+			this->dtpToDate->CalendarFont = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->dtpToDate->CustomFormat = L"dd/MM/yyyy";
+			this->dtpToDate->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
+			this->dtpToDate->Format = System::Windows::Forms::DateTimePickerFormat::Custom;
+			this->dtpToDate->Location = System::Drawing::Point(225, 9);
+			this->dtpToDate->Name = L"dtpToDate";
+			this->dtpToDate->Size = System::Drawing::Size(113, 24);
+			this->dtpToDate->TabIndex = 10;
+			this->dtpToDate->Value = System::DateTime(2024, 9, 11, 0, 0, 0, 0);
+			// 
+			// dtpFromDate
+			// 
+			this->dtpFromDate->CalendarFont = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 7.8F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->dtpFromDate->CustomFormat = L"dd/MM/yyyy";
+			this->dtpFromDate->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9));
+			this->dtpFromDate->Format = System::Windows::Forms::DateTimePickerFormat::Custom;
+			this->dtpFromDate->Location = System::Drawing::Point(64, 9);
+			this->dtpFromDate->Name = L"dtpFromDate";
+			this->dtpFromDate->Size = System::Drawing::Size(115, 24);
+			this->dtpFromDate->TabIndex = 10;
+			this->dtpFromDate->Value = System::DateTime(2024, 9, 11, 0, 0, 0, 0);
+			// 
+			// btnShowTotalSale
+			// 
+			this->btnShowTotalSale->BackColor = System::Drawing::Color::DarkTurquoise;
+			this->btnShowTotalSale->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->btnShowTotalSale->Location = System::Drawing::Point(142, 76);
+			this->btnShowTotalSale->Name = L"btnShowTotalSale";
+			this->btnShowTotalSale->Size = System::Drawing::Size(204, 37);
+			this->btnShowTotalSale->TabIndex = 7;
+			this->btnShowTotalSale->Text = L"Show";
+			this->btnShowTotalSale->UseVisualStyleBackColor = false;
+			this->btnShowTotalSale->Click += gcnew System::EventHandler(this, &MainForm::btnShowTotalSale_Click);
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::LightSteelBlue;
-			this->ClientSize = System::Drawing::Size(1338, 794);
+			this->ClientSize = System::Drawing::Size(1764, 1025);
+			this->Controls->Add(this->panel7);
+			this->Controls->Add(this->panel8);
 			this->Controls->Add(this->panel6);
 			this->Controls->Add(this->panel5);
 			this->Controls->Add(this->panel4);
 			this->Controls->Add(this->panel3);
 			this->Controls->Add(this->panel2);
 			this->Controls->Add(this->panel1);
-			this->Controls->Add(this->label30);
-			this->Controls->Add(this->label29);
-			this->Controls->Add(this->btnPrint);
 			this->Controls->Add(this->btnSave);
-			this->MinimumSize = System::Drawing::Size(1356, 752);
+			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
+			this->MinimumSize = System::Drawing::Size(1280, 1018);
 			this->Name = L"MainForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Hotel Blue Sky";
 			this->WindowState = System::Windows::Forms::FormWindowState::Maximized;
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &MainForm::MainForm_FormClosing);
 			this->Load += gcnew System::EventHandler(this, &MainForm::MainForm_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvRoomData))->EndInit();
 			this->panel1->ResumeLayout(false);
@@ -1383,8 +1634,16 @@ private: System::Windows::Forms::Button^  btnViewOldData;
 			this->panel5->ResumeLayout(false);
 			this->panel5->PerformLayout();
 			this->panel6->ResumeLayout(false);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox3))->EndInit();
+			this->panel8->ResumeLayout(false);
+			this->panel8->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox4))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox7))->EndInit();
+			this->panel7->ResumeLayout(false);
+			this->panel7->PerformLayout();
 			this->ResumeLayout(false);
-			this->PerformLayout();
 
 		}
 #pragma endregion
@@ -1458,12 +1717,16 @@ private:
 	void LoadDataOnce()
 	{
 		btnSave->Enabled = false;
-		btnPrint->Enabled = false;
+		//btnPrint->Enabled = false;
 
 		//dtpDate->Value = DateTime::Now;
 		dtpDateIn->Value = DateTime::Now.AddDays(-1);
 
 		//dtpDateIn->Value = DateTime::Now;
+		dtpFromDate->Value = DateTime::Now;
+		dtpToDate->Value = DateTime::Now;
+
+
 		dtpDateOut->Value = DateTime::Now;
 		dtpTimeIn->Value = DateTime::Now;
 		dtpTimeOut->Value = DateTime::Now;
@@ -1481,7 +1744,8 @@ private:
 		tbNoOfRooms->Text = "0";
 		tbRoomCharges->Text = "0";
 		tbGst->Text = "0";
-		tbDiscount->Text = "0";
+		tbDiscount->Text = "";
+		tbServices->Text = "";
 		tbPayable->Text = "0";
 
 		cbPaymentModeCash->Checked = true;
@@ -1535,6 +1799,31 @@ private:
 			}
 		}
 	}
+	void printBtnClicked()
+	{
+		// Define the file path for the QR code image
+		std::string filePath = "qr_code.png";
+
+		printPreviewInvoice->Document = printDocInvoice;
+		printDocInvoice->DefaultPageSettings->PaperSize = gcnew System::Drawing::Printing::PaperSize("Custom", 285, 700);
+		
+		printDocInvoice->Print();
+		// Show the print preview and wait for it to close
+		System::Windows::Forms::DialogResult result = printPreviewInvoice->ShowDialog();
+
+		// After the print preview is closed, attempt to delete the QR code image file
+		if (result == System::Windows::Forms::DialogResult::OK || result == System::Windows::Forms::DialogResult::Cancel)
+		{
+			try {
+				System::IO::File::Delete(gcnew String(filePath.c_str()));
+				// MessageBox::Show("QR code image deleted successfully.");
+			}
+			catch (System::IO::IOException^ ex) {
+				// MessageBox::Show("Error deleting QR code image: " + ex->Message);
+			}
+		}
+	}
+	bool isRestarting = false;
 
 private: System::Void btnCalculateTotal_Click(System::Object^  sender, System::EventArgs^  e) {
 	//on click btnCalculateTotal function code here
@@ -1544,6 +1833,25 @@ private: System::Void btnCalculateTotal_Click(System::Object^  sender, System::E
 	double roomCharges = 0;
 	double gst = 0;
 	double payable = 0;
+
+	double serviceCharges = 0;
+	double discount = 0;
+	if (tbServices->Text == "")
+	{
+		serviceCharges = 0;
+	}
+	else
+	{
+		serviceCharges = Convert::ToDouble(tbServices->Text);
+	}
+	if (tbDiscount->Text == "")
+	{
+		discount = 0;
+	}
+	else
+	{
+		discount = Convert::ToDouble(tbDiscount->Text);
+	}
 
 	for (int i = 0; i < dgvRoomData->Rows->Count; i++)
 	{
@@ -1565,11 +1873,23 @@ private: System::Void btnCalculateTotal_Click(System::Object^  sender, System::E
 		}
 	}
 
+
+	if (cbPaymentModeCard->Checked == true && cbPaymentModeCash->Checked == false && cbPaymentModeCheque->Checked == false)
+	{
+		gst = roomCharges * 0.05;
+		lblGst->Text = "GST@ 5%";
+	}
+	else
+	{
+		gst = roomCharges * 0.16;
+		lblGst->Text = "GST@16%";
+	}
+
 	// Apply GST
-	gst = roomCharges * 0.16;
+	//gst = roomCharges * 0.16;
 
 	// Calculate Grand Total
-	payable = roomCharges + gst;
+	payable = roomCharges + gst + serviceCharges - discount;
 
 	// Display the results in the respective text fields
 	tbNoOfRooms->Text = noOfRooms.ToString();
@@ -1583,7 +1903,7 @@ private: System::Void btnCalculateTotal_Click(System::Object^  sender, System::E
 	{
 		rtbRoomNo->Text = "0";
 		btnSave->Enabled = false;
-		btnPrint->Enabled = false;
+		//btnPrint->Enabled = false;
 
 		MessageBox::Show("Select Room and then press calculate");
 	} 
@@ -1658,7 +1978,25 @@ private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e
 	double noOfRooms = Convert::ToDouble(tbNoOfRooms->Text);
 	double roomCharges = Convert::ToDouble(tbRoomCharges->Text);
 	double gst = Convert::ToDouble(tbGst->Text);
-	double discount = Convert::ToDouble(tbDiscount->Text);
+	double discount = 0;
+	if (tbDiscount->Text == "")
+	{
+		discount = 0;
+	}
+	else
+	{
+		discount = Convert::ToDouble(tbDiscount->Text);
+	}
+	double serviceCharges = 0;
+	if (tbServices->Text == "")
+	{
+		serviceCharges = 0;
+	}
+	else
+	{
+		serviceCharges = Convert::ToDouble(tbServices->Text);
+	}
+	//double discount = Convert::ToDouble(tbDiscount->Text);
 	double payable = Convert::ToDouble(tbPayable->Text);
 
 	// Initialize the value to 0
@@ -1880,7 +2218,7 @@ private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e
 
 	String^ connString = "Data Source=localhost\\sqlexpress;Initial Catalog=myhotel;Integrated Security=True";
 	// Create the SQL query string
-	String^ query = "INSERT INTO customer (InvoiceNo, PRAInvoiceNo, Date, Name, CNIC, BuyerPNTN, ContactNo, EmergencyContact, Address, Nationality, DateIn, DateOut, TimeIn, TimeOut, RoomNo, NoOfRooms, RoomCharges, GST, Discount, Payable, PaymentMode, InvoiceType, ManagerName) VALUES (@InvoiceNo, @PRAInvoiceNo, @Date, @Name, @CNIC, @BuyerPNTN, @ContactNo, @EmergencyContact, @Address, @Nationality, @DateIn, @DateOut, @TimeIn, @TimeOut, @RoomNo, @NoOfRooms, @RoomCharges, @GST, @Discount, @Payable, @PaymentMode, @InvoiceType, @ManagerName);";
+	String^ query = "INSERT INTO customer (InvoiceNo, PRAInvoiceNo, Date, Name, CNIC, BuyerPNTN, ContactNo, EmergencyContact, Address, Nationality, DateIn, DateOut, TimeIn, TimeOut, RoomNo, NoOfRooms, RoomCharges, GST, Discount, ServiceCharges, Payable, PaymentMode, InvoiceType, ManagerName) VALUES (@InvoiceNo, @PRAInvoiceNo, @Date, @Name, @CNIC, @BuyerPNTN, @ContactNo, @EmergencyContact, @Address, @Nationality, @DateIn, @DateOut, @TimeIn, @TimeOut, @RoomNo, @NoOfRooms, @RoomCharges, @GST, @Discount, @ServiceCharges, @Payable, @PaymentMode, @InvoiceType, @ManagerName);";
 
 	// Assuming you have a connection string
 	SqlConnection^ connection = gcnew SqlConnection(connString);
@@ -1934,6 +2272,7 @@ private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e
 		command->Parameters->AddWithValue("@RoomCharges", roomCharges);
 		command->Parameters->AddWithValue("@GST", gst);
 		command->Parameters->AddWithValue("@Discount", discount);
+		command->Parameters->AddWithValue("@ServiceCharges", serviceCharges);
 		command->Parameters->AddWithValue("@Payable", payable);
 		command->Parameters->AddWithValue("@PaymentMode", paymentMode);
 		command->Parameters->AddWithValue("@InvoiceType", invoiceType);
@@ -1944,8 +2283,11 @@ private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e
 
 		// MessageBox::Show("Data saved successfully!", "Save", MessageBoxButtons::OK, MessageBoxIcon::Information);
 
-		btnPrint->Enabled = true;
+		//btnPrint->Enabled = true;
 		btnSave->Enabled = false;
+
+		printBtnClicked();
+		LoadDataOnce();
 	}
 	catch (Exception^ ex) {
 		MessageBox::Show("An error occurred: " + ex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
@@ -2045,7 +2387,6 @@ private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e
 
 	*/
 
-
 }
 private: System::Void tbCnic_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
 	if (!Char::IsDigit(e->KeyChar) && e->KeyChar != (char)Keys::Back) {
@@ -2073,20 +2414,29 @@ private: System::Void tbEmergencyContact_KeyPress(System::Object^  sender, Syste
 }
 private: System::Void tbDiscount_KeyUp(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e) {
 	double roomCharges = Convert::ToDouble(tbRoomCharges->Text);
+	
+	String^ serviceString = Convert::ToString(tbServices->Text);
+	double services = serviceString != "" ? Convert::ToDouble(tbServices->Text) : 0;
+	if (tbServices->Text == "")
+	{
+		//tbServices->Text = "0";
+		services = 0;
+	}
+	
 	double gst;
 	double payable = Convert::ToDouble(tbPayable->Text);
 
 	if (tbDiscount->Text == "0" || tbDiscount->Text == "")
 	{
 		gst = roomCharges * 0.16;
-		payable = roomCharges + gst;
+		payable = roomCharges + gst + services;
 		tbPayable->Text = payable.ToString();
 		return;
 	}
 	double discount = Convert::ToDouble(tbDiscount->Text);
 
 	gst = roomCharges * 0.16;
-	payable = roomCharges + gst;
+	payable = roomCharges + gst + services;
 	payable = payable - discount;
 
 	tbPayable->Text = payable.ToString();
@@ -2124,7 +2474,24 @@ private: System::Void printDocInvoice_PrintPage(System::Object^ sender, System::
 	double noOfRooms = Convert::ToDouble(tbNoOfRooms->Text);
 	double roomCharges = Convert::ToDouble(tbRoomCharges->Text);
 	double gst = Convert::ToDouble(tbGst->Text);
-	double discount = Convert::ToDouble(tbDiscount->Text);
+	double discount = 0;
+	if (tbDiscount->Text == "")
+	{
+		discount = 0;
+	}
+	else
+	{
+		discount = Convert::ToDouble(tbDiscount->Text);
+	}
+	double serviceCharges = 0;
+	if (tbServices->Text == "")
+	{
+		serviceCharges = 0;
+	}
+	else
+	{
+		serviceCharges = Convert::ToDouble(tbServices->Text);
+	}
 	double payable = Convert::ToDouble(tbPayable->Text);
 
 	// Define layout bounds
@@ -2315,6 +2682,12 @@ private: System::Void printDocInvoice_PrintPage(System::Object^ sender, System::
 	e->Graphics->DrawString(gst.ToString("F0"), gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, xEnd, y);
 	y += 20;
 	
+	e->Graphics->DrawString("Service Charges: ", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, x, y);
+	textWidth = e->Graphics->MeasureString(serviceCharges.ToString("F0"), gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular)).Width;
+	xEnd = (pageWidth - textWidth - 20); // Ending calculation
+	e->Graphics->DrawString(serviceCharges.ToString("F0"), gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, xEnd, y);
+	y += 20;
+
 	e->Graphics->DrawString("Discount: ", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, x, y);
 	textWidth = e->Graphics->MeasureString(discount.ToString("F0"), gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular)).Width;
 	xEnd = (pageWidth - textWidth - 20); // Ending calculation
@@ -2402,28 +2775,7 @@ private: System::Void printDocInvoice_PrintPage(System::Object^ sender, System::
 	e->Graphics->DrawString("Software by: KAAF Developers - 0339-4098238", gcnew System::Drawing::Font("Arial", 8, FontStyle::Regular), Brushes::Black, xCentered, y);
 	y += 20;
 }
-private: System::Void btnPrint_Click(System::Object^  sender, System::EventArgs^  e) {
-	
-	// Define the file path for the QR code image
-	std::string filePath = "qr_code.png";
-	
-	printPreviewInvoice->Document = printDocInvoice;
-	printDocInvoice->DefaultPageSettings->PaperSize = gcnew System::Drawing::Printing::PaperSize("Custom", 285, 700);
-	// Show the print preview and wait for it to close
-	System::Windows::Forms::DialogResult result = printPreviewInvoice->ShowDialog();
 
-	// After the print preview is closed, attempt to delete the QR code image file
-	if (result == System::Windows::Forms::DialogResult::OK || result == System::Windows::Forms::DialogResult::Cancel)
-	{
-		try {
-			System::IO::File::Delete(gcnew String(filePath.c_str()));
-			// MessageBox::Show("QR code image deleted successfully.");
-		}
-		catch (System::IO::IOException^ ex) {
-			// MessageBox::Show("Error deleting QR code image: " + ex->Message);
-		}
-	}
-}
 private: System::Void cbFilterFloor_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
 	String^ filterFloor = cbFilterFloor->SelectedItem->ToString();
 	LoadRoomData(filterFloor);
@@ -2433,15 +2785,15 @@ private: System::Void btnViewOldData_Click(System::Object^  sender, System::Even
 	customerDataForm.ShowDialog();
 }
 private: System::Void btnLogout_Click(System::Object^ sender, System::EventArgs^ e) {
-	// Show a confirmation dialog to the user
+	/*
 	System::Windows::Forms::DialogResult result = MessageBox::Show("Do you want to log out?", "Confirm Logout",
 		MessageBoxButtons::YesNo, MessageBoxIcon::Question);
 
-	// Check the user's response
 	if (result == System::Windows::Forms::DialogResult::Yes) {
-		this->Close(); // Close the form if user clicks "Yes"
+		this->Close();
+		Application::Restart();
 	}
-	// Do nothing if user clicks "No"
+	*/
 }
 
 private: System::Void MainForm_Load(System::Object^  sender, System::EventArgs^  e) {
@@ -2459,26 +2811,60 @@ private: System::Void cbNationality_SelectedValueChanged(System::Object^  sender
 private: System::Void cbPaymentModeCard_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
 	double roomCharges = Convert::ToDouble(tbRoomCharges->Text);
 	double gst = 0;
-	double discount = Convert::ToDouble(tbDiscount->Text);
 	double payable = 0;
+
+	double serviceCharges = 0;
+	double discount = 0;
+	if (tbServices->Text == "")
+	{
+		serviceCharges = 0;
+	}
+	else
+	{
+		serviceCharges = Convert::ToDouble(tbServices->Text);
+	}
+	if (tbDiscount->Text == "")
+	{
+		discount = 0;
+	}
+	else
+	{
+		discount = Convert::ToDouble(tbDiscount->Text);
+	}
 
 	if (cbPaymentModeCard->Checked == true && cbPaymentModeCash->Checked == false && cbPaymentModeCheque->Checked == false)
 	{
 		lblGst->Text = "GST@ 5%";
 
-
 		gst = roomCharges * 0.05;
 		tbGst->Text = gst.ToString();
 
-		payable = roomCharges + gst + discount;
+		payable = roomCharges + gst +serviceCharges - discount;
 		tbPayable->Text = payable.ToString();
 	}
 }
 private: System::Void cbPaymentModeCash_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
 	double roomCharges = Convert::ToDouble(tbRoomCharges->Text);
 	double gst = 0;
-	double discount = Convert::ToDouble(tbDiscount->Text);
 	double payable = 0;
+	double serviceCharges = 0;
+	double discount = 0;
+	if (tbServices->Text == "")
+	{
+		serviceCharges = 0;
+	}
+	else
+	{
+		serviceCharges = Convert::ToDouble(tbServices->Text);
+	}
+	if (tbDiscount->Text == "")
+	{
+		discount = 0;
+	}
+	else
+	{
+		discount = Convert::ToDouble(tbDiscount->Text);
+	}
 
 	if (cbPaymentModeCash->Checked == true)
 	{
@@ -2488,7 +2874,7 @@ private: System::Void cbPaymentModeCash_CheckedChanged(System::Object^  sender, 
 		gst = roomCharges * 0.16;
 		tbGst->Text = gst.ToString();
 
-		payable = roomCharges + gst + discount;
+		payable = roomCharges + gst + serviceCharges - discount;
 		tbPayable->Text = payable.ToString();
 	}
 	else if (cbPaymentModeCard->Checked == true && cbPaymentModeCash->Checked == false && cbPaymentModeCheque->Checked == false)
@@ -2499,15 +2885,32 @@ private: System::Void cbPaymentModeCash_CheckedChanged(System::Object^  sender, 
 		gst = roomCharges * 0.05;
 		tbGst->Text = gst.ToString();
 
-		payable = roomCharges + gst + discount;
+		payable = roomCharges + gst + serviceCharges - discount;
 		tbPayable->Text = payable.ToString();
 	}
 }
 private: System::Void cbPaymentModeCheque_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
 	double roomCharges = Convert::ToDouble(tbRoomCharges->Text);
 	double gst = 0;
-	double discount = Convert::ToDouble(tbDiscount->Text);
 	double payable = 0;
+	double serviceCharges = 0;
+	double discount = 0;
+	if (tbServices->Text == "")
+	{
+		serviceCharges = 0;
+	}
+	else
+	{
+		serviceCharges = Convert::ToDouble(tbServices->Text);
+	}
+	if (tbDiscount->Text == "")
+	{
+		discount = 0;
+	}
+	else
+	{
+		discount = Convert::ToDouble(tbDiscount->Text);
+	}
 
 	if (cbPaymentModeCheque->Checked == true)
 	{
@@ -2517,7 +2920,7 @@ private: System::Void cbPaymentModeCheque_CheckedChanged(System::Object^  sender
 		gst = roomCharges * 0.16;
 		tbGst->Text = gst.ToString();
 
-		payable = roomCharges + gst + discount;
+		payable = roomCharges + gst + serviceCharges - discount;
 		tbPayable->Text = payable.ToString();
 	}
 	else if (cbPaymentModeCard->Checked == true && cbPaymentModeCash->Checked == false && cbPaymentModeCheque->Checked == false)
@@ -2528,8 +2931,103 @@ private: System::Void cbPaymentModeCheque_CheckedChanged(System::Object^  sender
 		gst = roomCharges * 0.05;
 		tbGst->Text = gst.ToString();
 
-		payable = roomCharges + gst + discount;
+		payable = roomCharges + gst + serviceCharges - discount;
 		tbPayable->Text = payable.ToString();
+	}
+}
+private: System::Void tbServices_KeyUp(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e) {
+	double roomCharges = Convert::ToDouble(tbRoomCharges->Text);
+	String^ discountString = Convert::ToString(tbDiscount->Text);
+	double discount = discountString != "" ? Convert::ToDouble(tbDiscount->Text) : 0;
+	if (tbDiscount->Text == "")
+	{
+		//tbDiscount->Text = "0";
+		discount = 0;
+	}
+	
+	double gst;
+	double payable = Convert::ToDouble(tbPayable->Text);
+
+	if (tbServices->Text == "0" || tbServices->Text == "")
+	{
+		gst = roomCharges * 0.16;
+		payable = roomCharges + gst - discount;
+		tbPayable->Text = payable.ToString();
+		return;
+	}
+	double services = Convert::ToDouble(tbServices->Text);
+
+	gst = roomCharges * 0.16;
+	payable = roomCharges + gst - discount;
+	payable = payable + services;
+
+	tbPayable->Text = payable.ToString();
+}
+private: System::Void btnShowTotalSale_Click(System::Object^  sender, System::EventArgs^  e) {
+	// Get the selected dates from the DateTimePicker controls
+	DateTime dateFrom = dtpFromDate->Value;
+	String^ praFormatDateFrom = dateFrom.ToString("yyyy-MM-dd"); // Format as SQL Server friendly date format (yyyy-MM-dd)
+	DateTime dateTo = dtpToDate->Value;
+	String^ praFormatDateTo = dateTo.ToString("yyyy-MM-dd"); // Same for the 'To' date
+
+															 // Initialize totalPayable
+	double totalPayable = 0.0;
+
+	// SQL query to fetch the sum of 'Payable' between the selected dates, only using the date part of 'Date' column
+	String^ query = "SELECT SUM(Payable) FROM customer WHERE CAST([Date] AS DATE) >= @DateFrom AND CAST([Date] AS DATE) <= @DateTo";
+
+	String^ conString = "Data Source=localhost\\sqlexpress;Initial Catalog=myhotel;Integrated Security=True";
+
+	// SQL connection object
+	SqlConnection^ sqlConn = gcnew SqlConnection(conString);
+
+	// SQL command object
+	SqlCommand^ cmd = gcnew SqlCommand(query, sqlConn);
+
+	// Add parameters for DateFrom and DateTo to avoid SQL injection
+	cmd->Parameters->AddWithValue("@DateFrom", praFormatDateFrom);
+	cmd->Parameters->AddWithValue("@DateTo", praFormatDateTo);
+
+	try {
+		// Open the SQL connection
+		sqlConn->Open();
+
+		// Execute the query and get the total payable amount
+		Object^ result = cmd->ExecuteScalar();
+		if (result != DBNull::Value && result != nullptr) {
+			totalPayable = Convert::ToDouble(result);
+		}
+
+		// Close the connection
+		sqlConn->Close();
+	}
+	catch (Exception^ ex) {
+		MessageBox::Show("Error fetching total sale: " + ex->Message);
+	}
+
+	// Display the total payable in the label
+	lblTotalSaleValue->Text = totalPayable.ToString("F2");  // Display total with 2 decimal places
+}
+private: System::Void MainForm_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+	if (!isRestarting) {
+		// Prompt the user for confirmation when they attempt to close the form
+		System::Windows::Forms::DialogResult result = MessageBox::Show(
+			"Do you want to log out?",
+			"Confirm Logout",
+			MessageBoxButtons::YesNo,
+			MessageBoxIcon::Question
+		);
+
+		// Check the user's response
+		if (result == System::Windows::Forms::DialogResult::Yes) {
+			// Set the flag to prevent multiple triggers
+			isRestarting = true;
+			Application::Restart();
+		}
+		else {
+			// Cancel the closing of the form
+			e->Cancel = true;
+		}
 	}
 }
 };

@@ -227,6 +227,7 @@ namespace HotelManagementSystem {
 			this->Name = L"CustomerDataForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"CustomerDataForm";
+			this->Load += gcnew System::EventHandler(this, &CustomerDataForm::CustomerDataForm_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dgvCustomerData))->EndInit();
 			this->ResumeLayout(false);
 
@@ -237,7 +238,7 @@ namespace HotelManagementSystem {
 		{
 			String^ conString = "Data Source=localhost\\sqlexpress;Initial Catalog=myhotel;Integrated Security=True";
 			SqlConnection^ conDataBase = gcnew SqlConnection(conString);
-			SqlCommand^ cmdDataBase = gcnew SqlCommand("SELECT Id, InvoiceNo, PRAInvoiceNo, Date, Name, CNIC, BuyerPNTN, ContactNo, EmergencyContact, Address, Nationality, DateIn, DateOut, TimeIn, TimeOut, RoomNo, NoOfRooms, RoomCharges, GST, Discount, Payable, PaymentMode, InvoiceType, ManagerName FROM customer;", conDataBase);
+			SqlCommand^ cmdDataBase = gcnew SqlCommand("SELECT Id, InvoiceNo, PRAInvoiceNo, Date, Name, CNIC, BuyerPNTN, ContactNo, EmergencyContact, Address, Nationality, DateIn, DateOut, TimeIn, TimeOut, RoomNo, NoOfRooms, RoomCharges, GST, Discount, ServiceCharges, Payable, PaymentMode, InvoiceType, ManagerName FROM customer;", conDataBase);
 
 			try {
 				SqlDataAdapter^ sda = gcnew SqlDataAdapter();
@@ -261,7 +262,7 @@ namespace HotelManagementSystem {
 				conDataBase->Close();
 			}
 		}
-		void GenerateAndPrintInvoice(String^ invoiceNo, String^ praInvoiceNo, DateTime date, String^ name, String^ cnic, String^ buyerPNTN, String^ contactNo, String^ emergencyContact, String^ address, String^ nationality, DateTime dateIn, DateTime dateOut, String^ timeIn, String^ timeOut, String^ roomNo, String^ noOfRoomsStr, String^ roomChargesStr, String^ gstStr, String^ discountStr, String^ payableStr, String^ paymentMode, String^ invoiceType, String^ managerName, System::Drawing::Printing::PrintPageEventArgs^  e)
+		void GenerateAndPrintInvoice(String^ invoiceNo, String^ praInvoiceNo, DateTime date, String^ name, String^ cnic, String^ buyerPNTN, String^ contactNo, String^ emergencyContact, String^ address, String^ nationality, DateTime dateIn, DateTime dateOut, String^ timeIn, String^ timeOut, String^ roomNo, String^ noOfRoomsStr, String^ roomChargesStr, String^ gstStr, String^ discountStr, String^ serviceChargesStr, String^ payableStr, String^ paymentMode, String^ invoiceType, String^ managerName, System::Drawing::Printing::PrintPageEventArgs^  e)
 		{
 
 			String^ praFormatDateTime = date.ToString("yyyy-MM-dd hh:mm tt");
@@ -471,6 +472,12 @@ namespace HotelManagementSystem {
 			e->Graphics->DrawString(gstStr, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, xEnd, y);
 			y += 20;
 
+			e->Graphics->DrawString("ServiceCharges: ", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, x, y);
+			textWidth = e->Graphics->MeasureString(serviceChargesStr, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular)).Width;
+			xEnd = (pageWidth - textWidth - 20); // Ending calculation
+			e->Graphics->DrawString(serviceChargesStr, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular), Brushes::Black, xEnd, y);
+			y += 20;
+
 			e->Graphics->DrawString("Discount: ", gcnew System::Drawing::Font("Arial", 10, FontStyle::Bold), Brushes::Black, x, y);
 			textWidth = e->Graphics->MeasureString(discountStr, gcnew System::Drawing::Font("Arial", 10, FontStyle::Regular)).Width;
 			xEnd = (pageWidth - textWidth - 20); // Ending calculation
@@ -602,13 +609,16 @@ private: System::Void printDocInvoice_PrintPage(System::Object^  sender, System:
 		String^ roomChargesStr = Convert::ToString(selectedRow->Cells["RoomCharges"]->Value);
 		String^ gstStr = Convert::ToString(selectedRow->Cells["GST"]->Value);
 		String^ discountStr = Convert::ToString(selectedRow->Cells["Discount"]->Value);
+		String^ serviceChargesStr = Convert::ToString(selectedRow->Cells["ServiceCharges"]->Value);
 		String^ payableStr = Convert::ToString(selectedRow->Cells["Payable"]->Value);
 		String^ paymentMode = Convert::ToString(selectedRow->Cells["PaymentMode"]->Value);
 		String^ invoiceType = Convert::ToString(selectedRow->Cells["InvoiceType"]->Value);
 		String^ managerName = Convert::ToString(selectedRow->Cells["ManagerName"]->Value);
 		// Use the fetched data (for example, pass it to a method that generates and prints the invoice)
-		GenerateAndPrintInvoice(invoiceNo, praInvoiceNo, date, name, cnic, buyerPNTN, contactNo, emergencyContact, address, nationality, dateIn, dateOut, timeIn, timeOut, roomNo, noOfRoomsStr, roomChargesStr, gstStr, discountStr, payableStr, paymentMode, invoiceType, managerName, e);
+		GenerateAndPrintInvoice(invoiceNo, praInvoiceNo, date, name, cnic, buyerPNTN, contactNo, emergencyContact, address, nationality, dateIn, dateOut, timeIn, timeOut, roomNo, noOfRoomsStr, roomChargesStr, gstStr, discountStr, serviceChargesStr, payableStr, paymentMode, invoiceType, managerName, e);
 	}
+}
+private: System::Void CustomerDataForm_Load(System::Object^  sender, System::EventArgs^  e) {
 }
 };
 }
