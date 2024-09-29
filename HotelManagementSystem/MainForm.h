@@ -24,6 +24,8 @@ using namespace System::Windows::Forms;
 using namespace System::Data;
 using namespace System::Drawing;
 using namespace System::IO;
+using namespace System::Collections::Generic;
+
 
 // WriteCallback function to capture the response data
 inline size_t WriteCallback(void* contents, size_t size, size_t nmemb, std::string* response) {
@@ -69,7 +71,6 @@ inline std::string SendInvoiceDataLive(const nlohmann::json& invoiceJson) {
 
 	return response;
 }
-
 
 inline std::string SendInvoiceData(const nlohmann::json& invoiceJson) {
 	// Fetch data from the database
@@ -1862,13 +1863,10 @@ private: System::Void btnCalculateTotal_Click(System::Object^  sender, System::E
 		
 		if (isSelected)
 		{
-			// Fetch number of rooms and rent from the respective cells
 			String^ rooms = Convert::ToString(row->Cells["Room"]->Value);
 			double rent = Convert::ToDouble(row->Cells["Rent"]->Value);
 			roomNo = roomNo + rooms + ", ";
-			//noOfRooms += rooms;
 			noOfRooms++;
-			//roomCharges += (rooms * rent);
 			roomCharges += rent;
 		}
 	}
@@ -2118,12 +2116,116 @@ private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e
 		conDataBase->Close();
 	}
 
-		// Use the retrieved POS ID
+
+	// Declare lists to store rooms, types, and rent values
+	List<String^>^ roomsList = gcnew List<String^>();
+	List<String^>^ typeList = gcnew List<String^>();
+	List<double>^ rentList = gcnew List<double>();
+	List<double>^ gstList = gcnew List<double>();
+
+	for (int i = 0; i < dgvRoomData->Rows->Count; i++)
+	{
+		DataGridViewRow^ row = dgvRoomData->Rows[i];
+
+		//check if checkboxes in the row is selected
+		bool isSelected = Convert::ToBoolean(row->Cells["chkSelect"]->Value);
+
+		if (isSelected)
+		{
+			String^ rooms = Convert::ToString(row->Cells["Room"]->Value);
+			String^ type = Convert::ToString(row->Cells["Type"]->Value);
+			double rent = Convert::ToDouble(row->Cells["Rent"]->Value);
+			
+			double gst = 0;
+			if (cbPaymentModeCard->Checked == true && cbPaymentModeCash->Checked == false && cbPaymentModeCheque->Checked == false)
+			{
+				gst = rent * 0.05;
+			}
+			else
+			{
+				gst = rent * 0.16;
+			}
+
+			// Add values to their respective lists
+			roomsList->Add(rooms);
+			typeList->Add(type);
+			rentList->Add(rent);
+			gstList->Add(gst);
+		}
+	}
+
+
 	int posID = praPOSID;
 
-	///////////
-	// Send the above data to the PRA API for the PRA invoice number 
-	//////////
+	// Initialize Invoice instance
+	Invoice custInv;
+	custInv.InvoiceNumber = "";  // or provide a valid default
+	custInv.POSID = posID;  // Use the retrieved POS ID
+	custInv.USIN = msclr::interop::marshal_as<std::string>(invoiceNo->ToString());
+	custInv.DateTime = msclr::interop::marshal_as<std::string>(praFormatDateIn->ToString() + " " + praFormatTimeIn->ToString());
+	custInv.PaymentMode = paymentMode;
+	custInv.TotalSaleValue = roomCharges;
+	custInv.TotalQuantity = Convert::ToDouble(noOfRooms);
+	custInv.TotalBillAmount = payable;
+	custInv.TotalTaxCharged = gst;
+	custInv.InvoiceType = invoiceType;
+
+	// Add items one by one to the invoice
+	for (int i = 0; i <  noOfRooms; ++i) {
+
+		String^ roomName = roomsList[i];
+		String^ roomType = typeList[i];
+		Double roomRent = rentList[i];
+		Double roomGst = gstList[i];
+
+		InvoiceItems objItem;
+		objItem.ItemCode = msclr::interop::marshal_as<std::string>(roomName); // Selected room Room will be item name
+		objItem.ItemName = msclr::interop::marshal_as<std::string>(roomName); // Selected room Room will be item name
+		objItem.Quantity = 1.0;
+		objItem.TotalAmount = roomRent + roomGst;  // selected room Rent + gst value
+		objItem.SaleValue = roomRent;  // selected room Rent
+		objItem.TaxCharged = roomGst;  // selected room gst 16% or 5%
+		objItem.TaxRate = 0;  // Replace with real data
+		objItem.PCTCode = "00000000";
+		objItem.FurtherTax = 0.0;
+		objItem.InvoiceType = invoiceType;
+		objItem.Discount = 0.0;
+
+		// Add this item to the Invoice Items list
+		AddItemToInvoice(custInv.Items, objItem);
+	}
+
+	// Convert Invoice object to JSON format
+	nlohmann::json jsonObj = {
+		{ "InvoiceNumber", custInv.InvoiceNumber },
+	{ "POSID", custInv.POSID },
+	{ "USIN", custInv.USIN },
+	{ "DateTime", custInv.DateTime },
+	{ "TotalBillAmount", custInv.TotalBillAmount },
+	{ "TotalQuantity", custInv.TotalQuantity },
+	{ "TotalSaleValue", custInv.TotalSaleValue },
+	{ "TotalTaxCharged", custInv.TotalTaxCharged },
+	{ "PaymentMode", custInv.PaymentMode },
+	{ "InvoiceType", custInv.InvoiceType },
+	{ "Items", nlohmann::json::array() }
+	};
+
+	// Add Items to JSON
+	for (const auto& item : custInv.Items) {
+		jsonObj["Items"].push_back({
+			{ "ItemCode", item.ItemCode },
+			{ "ItemName", item.ItemName },
+			{ "Quantity", item.Quantity },
+			{ "PCTCode", item.PCTCode },
+			{ "TaxRate", item.TaxRate },
+			{ "SaleValue", item.SaleValue },
+			{ "TotalAmount", item.TotalAmount },
+			{ "TaxCharged", item.TaxCharged },
+			{ "InvoiceType", item.InvoiceType }
+			});
+	}
+
+	/*
 	Invoice custInv;
 	custInv.InvoiceNumber = "";  // or provide a valid default
 	custInv.POSID = posID;  // Use the retrieved POS ID
@@ -2169,16 +2271,22 @@ private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e
 			{ "InvoiceType", item.InvoiceType }
 			});
 	}
-	
+	*/
+
+
 	std::string response;
 	if (env == "production")
 	{
-		response = SendInvoiceDataLive(jsonObj);
+		//response = SendInvoiceDataLive(jsonObj);
+		response = SendInvoiceData(jsonObj);
 	}
 	else if (env == "sandbox")
 	{
 		response = SendInvoiceData(jsonObj);
 	}
+	
+	//response = SendInvoiceData(jsonObj);
+
 	// Send data to the API and get the response
 	//std::string response = SendInvoiceData(jsonObj);
 
