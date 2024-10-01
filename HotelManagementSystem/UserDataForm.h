@@ -349,7 +349,7 @@ private: System::Void btnUpdate_Click(System::Object^  sender, System::EventArgs
 		try {
 			conDataBase->Open();
 			cmdDataBase->ExecuteNonQuery();
-			MessageBox::Show("Record updated successfully!");
+			//MessageBox::Show("Record updated successfully!");
 			LoadRoomData(); // Refresh data
 		}
 		catch (Exception^ ex) {
@@ -378,7 +378,7 @@ private: System::Void btnDelete_Click(System::Object^  sender, System::EventArgs
 		try {
 			conDataBase->Open();
 			cmdDataBase->ExecuteNonQuery();
-			MessageBox::Show("Record deleted successfully!");
+			//MessageBox::Show("Record deleted successfully!");
 			LoadRoomData(); // Refresh data
 		}
 		catch (Exception^ ex) {
@@ -426,7 +426,7 @@ private: System::Void btnAdd_Click(System::Object^  sender, System::EventArgs^  
 	try {
 		conDataBase->Open();
 		cmdDataBase->ExecuteNonQuery();
-		MessageBox::Show("Record added successfully!");
+		//MessageBox::Show("Record added successfully!");
 		LoadRoomData(); // Refresh data
 	}
 	catch (Exception^ ex) {

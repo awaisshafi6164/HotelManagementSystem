@@ -356,7 +356,7 @@ private: System::Void btnAdminRoomAdd_Click(System::Object^  sender, System::Eve
 	try {
 		conDataBase->Open();
 		cmdDataBase->ExecuteNonQuery();
-		MessageBox::Show("Record added successfully!");
+		//MessageBox::Show("Record added successfully!");
 		LoadRoomData(); // Refresh data
 	}
 	catch (Exception^ ex) {
@@ -399,7 +399,7 @@ private: System::Void btnAdminRoomUpdate_Click(System::Object^ sender, System::E
 		try {
 			conDataBase->Open();
 			cmdDataBase->ExecuteNonQuery();
-			MessageBox::Show("Record updated successfully!");
+			//MessageBox::Show("Record updated successfully!");
 			LoadRoomData(); // Refresh data
 		}
 		catch (Exception^ ex) {
@@ -428,7 +428,7 @@ private: System::Void btnAdminRoomDelete_Click(System::Object^  sender, System::
 		try {
 			conDataBase->Open();
 			cmdDataBase->ExecuteNonQuery();
-			MessageBox::Show("Record deleted successfully!");
+			//MessageBox::Show("Record deleted successfully!");
 			LoadRoomData(); // Refresh data
 		}
 		catch (Exception^ ex) {
